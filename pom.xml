@@ -4,8 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<name>Digipost signering-API</name>
-	<description>API for å benytte Digipost sin signeringstjeneste.</description>
+	<name>Digipost Signering API</name>
+	<description>Tjenestebeskrivelse for Digipost sin signeringstjeneste.</description>
 
     <groupId>no.digipost.signering</groupId>
 	<artifactId>signering-api</artifactId>
@@ -13,8 +13,26 @@
 
 
 	<build>
+        <resources>
+            <resource>
+                <directory>src/main/xsd</directory>
+            </resource>
+        </resources>
 		<pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>1.0</version>
+                    <configuration>
+                        <validationSets>
+                            <validationSet>
+                                <dir>src/main/xsd</dir>
+                                <validating>true</validating>
+                            </validationSet>
+                        </validationSets>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
@@ -32,6 +50,17 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
