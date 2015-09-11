@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<name>Digipost signering-API</name>
+	<description>API for å benytte Digipost sin signeringstjeneste.</description>
+
+    <groupId>no.digipost.signering</groupId>
+	<artifactId>signering-api</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+
+	<build>
+		<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>2.11</version>
+					<configuration>
+						<header>src/main/license-header.txt</header>
+						<strictCheck>true</strictCheck>
+						<excludes>
+							<exclude>LICENSE*</exclude>
+							<exclude>NOTICE</exclude>
+                            <exclude>pom.xml</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>check-license-header</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:git@github.com:digipost/signering-api.git</connection>
+		<developerConnection>scm:git:git@github.com:digipost/signering-api.git</developerConnection>
+		<url>https://github.com/digipost/signering-api/</url>
+		<tag>HEAD</tag>
+	</scm>
+
+
+
+
+    <parent>
+        <groupId>no.digipost</groupId>
+        <artifactId>digipost-open-super-pom</artifactId>
+        <version>1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <prerequisites>
+        <maven>2.2.1</maven>
+    </prerequisites>
+
+</project>
