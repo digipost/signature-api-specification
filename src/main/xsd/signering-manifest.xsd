@@ -22,18 +22,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
-    <xs:element name="manifest" type="manifest" />
-
-    <xs:complexType name="manifest">
-        <xs:annotation>
-            <xs:documentation>Inneholder metadata relatert til et signeringsoppdrag</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="signatar" minOccurs="1" maxOccurs="1" type="xs:string" />
-            <xs:element name="emne" minOccurs="1" maxOccurs="1" type="xs:string" />
-            <xs:element name="mime-type" minOccurs="1" maxOccurs="1" type="xs:string" />
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="manifest">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>Inneholder metadata relatert til et signeringsoppdrag</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="signatar" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="emne" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="mime-type" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="filnavn" minOccurs="1" maxOccurs="1" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
 
 </xs:schema>
