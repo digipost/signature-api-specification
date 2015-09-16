@@ -25,6 +25,9 @@
                     <artifactId>xml-maven-plugin</artifactId>
                     <version>1.0</version>
                     <configuration>
+                        <catalogs>
+                            <catalog>validation/catalog.xml</catalog>
+                        </catalogs>
                         <validationSets>
                             <validationSet>
                                 <dir>src/main/xsd</dir>
@@ -44,6 +47,7 @@
 							<exclude>LICENSE*</exclude>
 							<exclude>NOTICE</exclude>
                             <exclude>pom.xml</exclude>
+                            <exclude>validation/*.*</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
