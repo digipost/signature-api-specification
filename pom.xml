@@ -33,7 +33,7 @@
                                 <dir>src/main/xsd</dir>
                                 <validating>true</validating>
                                 <excludes>
-                                    <exclude>thirdparty/*.xsd</exclude>
+                                    <exclude>thirdparty/*.*</exclude>
                                 </excludes>
                             </validationSet>
                         </validationSets>
@@ -51,7 +51,7 @@
 							<exclude>NOTICE</exclude>
                             <exclude>pom.xml</exclude>
                             <exclude>validation/*.*</exclude>
-                            <exclude>src/main/xsd/thirdparty/*.xsd</exclude>
+                            <exclude>src/main/xsd/thirdparty/*.*</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
@@ -103,6 +103,7 @@
         <groupId>no.digipost</groupId>
         <artifactId>digipost-open-super-pom</artifactId>
         <version>1</version>
+        <relativePath />
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
