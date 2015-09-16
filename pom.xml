@@ -32,6 +32,9 @@
                             <validationSet>
                                 <dir>src/main/xsd</dir>
                                 <validating>true</validating>
+                                <excludes>
+                                    <exclude>thirdparty/*.xsd</exclude>
+                                </excludes>
                             </validationSet>
                         </validationSets>
                     </configuration>
@@ -48,6 +51,7 @@
 							<exclude>NOTICE</exclude>
                             <exclude>pom.xml</exclude>
                             <exclude>validation/*.*</exclude>
+                            <exclude>src/main/xsd/thirdparty/*.xsd</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
