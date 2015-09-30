@@ -32,6 +32,7 @@
                 <xs:element name="emne" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="mime-type" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="filnavn" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="fullføringsUrl" minOccurs="1" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
