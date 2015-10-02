@@ -4,11 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<name>Digipost Signering API-spesifikasjon</name>
-	<description>Tjenestebeskrivelse for Digipost sin signeringstjeneste.</description>
+	<name>Digipost Signature API-specification</name>
+	<description>Service description of Digipost's signature service.</description>
 
-    <groupId>no.digipost.signering</groupId>
-	<artifactId>signering-api-spesifikasjon</artifactId>
+    <groupId>no.digipost.signature</groupId>
+	<artifactId>signature-api-specification</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 
@@ -90,9 +90,9 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:git@github.com:digipost/signering-api-spesifikasjon.git</connection>
-		<developerConnection>scm:git:git@github.com:digipost/signering-api-spesifikasjon.git</developerConnection>
-		<url>https://github.com/digipost/signering-api-spesifikasjon/</url>
+		<connection>scm:git:git@github.com:digipost/signature-api-specification.git</connection>
+		<developerConnection>scm:git:git@github.com:digipost/signature-api-specification.git</developerConnection>
+		<url>https://github.com/digipost/signature-api-specification/</url>
 		<tag>HEAD</tag>
 	</scm>
 
