@@ -31,6 +31,7 @@
                                 <validating>true</validating>
                                 <excludes>
                                     <exclude>thirdparty/*.*</exclude>
+                                    <exclude>catalog.xml</exclude>
                                 </excludes>
                             </validationSet>
                         </validationSets>
@@ -49,6 +50,7 @@
                             <exclude>pom.xml</exclude>
                             <exclude>validation/*.*</exclude>
                             <exclude>src/main/xsd/thirdparty/*.*</exclude>
+                            <exclude>src/main/xsd/catalog.xml</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
