@@ -17,30 +17,20 @@
 
 -->
 <xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1" elementFormDefault="qualified"
-    xmlns="http://signering.digipost.no/schema/v1"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+           xmlns="http://signering.digipost.no/schema/v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
     <xs:element name="manifest">
         <xs:complexType>
             <xs:annotation>
-                <xs:documentation>Contains metadata related to a signature request</xs:documentation>
+                <xs:documentation>Contains metadata related to a document in a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="subject" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="mime-type" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="file-name" minOccurs="1" maxOccurs="1" type="xs:string"/>
-                <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="signable-document">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="link" minOccurs="1" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
