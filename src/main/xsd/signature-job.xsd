@@ -16,8 +16,7 @@
     limitations under the License.
 
 -->
-<xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1" elementFormDefault="qualified"
-           xmlns="http://signering.digipost.no/schema/v1"
+<xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1/signature-job" elementFormDefault="qualified"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
