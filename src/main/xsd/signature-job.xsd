@@ -27,8 +27,10 @@
                 <xs:documentation>Contains metadata related to a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
+                <xs:element name="uuid" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="signer" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
