@@ -6,7 +6,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification</artifactId>
-	<version>1.0.API-EXPANSION-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 
 
 	<build>
