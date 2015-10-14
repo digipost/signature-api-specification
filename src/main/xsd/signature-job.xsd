@@ -38,7 +38,18 @@
     <xs:element name="signature-job-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="link" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="signature-job-status-response">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
