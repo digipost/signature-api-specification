@@ -17,6 +17,7 @@
 
 -->
 <xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1/signature-job" elementFormDefault="qualified"
+           xmlns="http://signering.digipost.no/schema/v1/signature-job"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
@@ -47,11 +48,19 @@
     <xs:element name="signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-job-status"/>
                 <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
                 <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:simpleType name="signature-job-status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CREATED"/>
+            <xs:enumeration value="COMPLETED"/>
+            <xs:enumeration value="CANCELED"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>
