@@ -38,6 +38,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
+                <xs:element name="uuid" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
                 <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
                 <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
