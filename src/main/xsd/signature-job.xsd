@@ -31,7 +31,7 @@
                 <xs:element name="id" minOccurs="1" maxOccurs="1">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
-                            <xs:maxLength value ="50"/>
+                            <xs:maxLength value="50"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
@@ -68,7 +68,5 @@
             <xs:enumeration value="CANCELED"/>
         </xs:restriction>
     </xs:simpleType>
-
-
 
 </xs:schema>
