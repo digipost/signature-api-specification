@@ -28,7 +28,13 @@
                 <xs:documentation>Contains metadata related to a signature job to be completed in the portal</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="uuid" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value ="50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="signer" minOccurs="1" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -38,7 +44,13 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
-                <xs:element name="uuid" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value ="50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
                 <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
                 <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
