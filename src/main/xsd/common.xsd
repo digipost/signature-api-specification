@@ -27,6 +27,7 @@
             <xs:sequence>
                 <xs:element name="error-code" minOccurs="1" maxOccurs="1" type="xs:string"/>
                 <xs:element name="error-message" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="error-type" minOccurs="1" maxOccurs="1" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
