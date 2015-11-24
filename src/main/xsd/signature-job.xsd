@@ -20,53 +20,94 @@
            xmlns="http://signering.digipost.no/schema/v1/signature-job"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:common="http://signering.digipost.no/schema/v1/common"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
-    <xs:element name="signature-job-request">
+    <xs:element name="direct-signature-job-request">
         <xs:complexType>
             <xs:annotation>
                 <xs:documentation>Contains metadata related to a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:maxLength value="50"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="xs:string"/>
-                <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
-                <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="common:signer"/>
+                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
+                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
+                <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="signature-job-response">
+    <xs:complexType name="exit-urls">
+        <xs:sequence>
+            <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+            <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+            <xs:element name="error-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="direct-signature-job-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
-                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="common:url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="signature-job-status-response">
+    <xs:element name="direct-signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-job-status"/>
-                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
-                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
+                <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="signature-job-status">
+    <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CREATED"/>
             <xs:enumeration value="COMPLETED"/>
             <xs:enumeration value="CANCELED"/>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:complexType name="additional-info">
+        <xs:choice>
+            <xs:element name="success-info" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="success-links"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <!-- TODO: error-info, … ? -->
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="success-links">
+        <xs:sequence>
+            <xs:element name="xades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+            <xs:element name="pades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+            <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="direct-signature-job-status-change-request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-sender-status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="direct-signature-job-sender-status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CONFIRMED"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 
 </xs:schema>

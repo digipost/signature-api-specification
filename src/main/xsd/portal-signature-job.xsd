@@ -20,6 +20,7 @@
            xmlns="http://signering.digipost.no/schema/v1/portal-signature-job"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:common="http://signering.digipost.no/schema/v1/common"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
     <xs:element name="portal-signature-job-request">
@@ -28,14 +29,10 @@
                 <xs:documentation>Contains metadata related to a signature job to be completed in the portal</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:maxLength value="50"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="common:signers"/>
+                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
+                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -44,24 +41,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
-                <xs:element name="id" minOccurs="1" maxOccurs="1">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:maxLength value="50"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
-                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
-                <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="portal-signature-job-status-change-request">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-sender-status"/>
+                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -72,6 +53,35 @@
             <xs:enumeration value="CANCELED"/>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:complexType name="additional-info">
+        <xs:choice>
+            <xs:element name="success-info" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="success-links"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <!-- TODO: error-info, … ? -->
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="success-links">
+        <xs:sequence>
+            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+            <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+            <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="portal-signature-job-status-change-request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-sender-status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:simpleType name="portal-signature-job-sender-status">
         <xs:restriction base="xs:string">

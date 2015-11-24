@@ -32,5 +32,119 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:simpleType name="signature-job-id">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="url">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="500"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="signers">
+        <xs:sequence>
+            <xs:element name="signer" minOccurs="1" maxOccurs="1" type="signer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="signer">
+        <xs:sequence>
+            <xs:element name="person" minOccurs="1" maxOccurs="1" type="person"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="person">
+        <xs:sequence>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
+                        type="personal-identification-number"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="personal-identification-number">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{11}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="sender">
+        <xs:sequence>
+            <xs:element name="organization" minOccurs="1" maxOccurs="1" type="organization"/>
+            <xs:element name="sender-identifier" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="organization">
+        <xs:simpleContent>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[0-9]{4}:\w{1,35}"/>
+                <xs:attribute name="authority" type="iso6523-authority" use="optional" default="iso6523-actorid-upis"/>
+            </xs:restriction>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="iso6523-authority">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="iso6523-actorid-upis"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="document">
+        <xs:sequence>
+            <xs:element name="title" minOccurs="1" maxOccurs="1" type="title"/>
+            <xs:element name="description" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="href" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="4"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="mime" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="title">
+        <xs:sequence>
+            <xs:element name="non-sensitive" minOccurs="1" maxOccurs="1" type="title-string"/>
+            <xs:element name="sensitive" minOccurs="0" maxOccurs="1" type="title-string"/>
+        </xs:sequence>
+        <xs:attribute name="lang" type="language-code" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="title-string">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="language-code">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>
