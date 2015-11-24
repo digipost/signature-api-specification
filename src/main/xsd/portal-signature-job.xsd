@@ -23,6 +23,8 @@
            xmlns:common="http://signering.digipost.no/schema/v1/common"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
+    <xs:import namespace="http://signering.digipost.no/schema/v1/common" schemaLocation="common.xsd"/>
+
     <xs:element name="portal-signature-job-request">
         <xs:complexType>
             <xs:annotation>
