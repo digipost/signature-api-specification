@@ -85,17 +85,10 @@
     <xs:complexType name="organization">
         <xs:simpleContent>
             <xs:restriction base="xs:string">
-                <xs:pattern value="[0-9]{4}:\w{1,35}"/>
-                <xs:attribute name="authority" type="iso6523-authority" use="optional" default="iso6523-actorid-upis"/>
+                <xs:pattern value="[0-9]{9}"/>
             </xs:restriction>
         </xs:simpleContent>
     </xs:complexType>
-
-    <xs:simpleType name="iso6523-authority">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="iso6523-actorid-upis"/>
-        </xs:restriction>
-    </xs:simpleType>
 
     <xs:complexType name="document">
         <xs:sequence>
