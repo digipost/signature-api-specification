@@ -71,7 +71,13 @@
 
     <xs:complexType name="sender">
         <xs:sequence>
-            <xs:element name="organization" minOccurs="1" maxOccurs="1" type="organization"/>
+            <xs:element name="organization" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{9}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="sender-identifier" minOccurs="0" maxOccurs="1">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -80,14 +86,6 @@
                 </xs:simpleType>
             </xs:element>
         </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="organization">
-        <xs:simpleContent>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="[0-9]{9}"/>
-            </xs:restriction>
-        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="document">
