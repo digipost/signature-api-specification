@@ -51,6 +51,7 @@
                             <exclude>validation/*.*</exclude>
                             <exclude>src/main/xsd/thirdparty/*.*</exclude>
                             <exclude>src/main/xsd/catalog.xml</exclude>
+                            <exclude>examples/</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
