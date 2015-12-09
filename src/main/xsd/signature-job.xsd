@@ -31,7 +31,7 @@
                 <xs:documentation>Contains metadata related to a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="reference" minOccurs="1" maxOccurs="1" type="common:signature-job-reference"/>
                 <xs:element name="signer" minOccurs="1" maxOccurs="1" type="common:signer"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
                 <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
@@ -51,7 +51,8 @@
     <xs:element name="direct-signature-job-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="reference" minOccurs="1" maxOccurs="1" type="common:signature-job-reference"/>
                 <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="common:url"/>
                 <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="common:url"/>
             </xs:sequence>
@@ -61,7 +62,8 @@
     <xs:element name="direct-signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="reference" minOccurs="1" maxOccurs="1" type="common:signature-job-reference"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
                 <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
             </xs:sequence>

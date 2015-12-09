@@ -33,6 +33,10 @@
     </xs:element>
 
     <xs:simpleType name="signature-job-id">
+        <xs:restriction base="xs:long" />
+    </xs:simpleType>
+
+    <xs:simpleType name="signature-job-reference">
         <xs:restriction base="xs:string">
             <xs:maxLength value="50"/>
         </xs:restriction>

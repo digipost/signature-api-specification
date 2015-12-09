@@ -31,7 +31,7 @@
                 <xs:documentation>Contains metadata related to a signature job to be completed in the portal</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="reference" minOccurs="1" maxOccurs="1" type="common:signature-job-reference"/>
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="common:signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
                 <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
@@ -42,8 +42,9 @@
     <xs:element name="portal-signature-job-status-change-response">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="reference" minOccurs="1" maxOccurs="1" type="common:signature-job-reference"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
-                <xs:element name="id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
                 <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
             </xs:sequence>
         </xs:complexType>
