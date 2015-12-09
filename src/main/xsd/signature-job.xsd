@@ -97,19 +97,4 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="direct-signature-job-status-change-request">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-sender-status"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:simpleType name="direct-signature-job-sender-status">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="CONFIRMED"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-
 </xs:schema>
