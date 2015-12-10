@@ -28,7 +28,7 @@
     <xs:element name="portal-signature-job-request">
         <xs:complexType>
             <xs:annotation>
-                <xs:documentation>Contains metadata related to a signature job to be completed in the portal</xs:documentation>
+                <xs:documentation>Contains metadata related to a signature job to be signed in the portal</xs:documentation>
             </xs:annotation>
             <xs:sequence>
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="common:signature-job-reference"/>
@@ -51,17 +51,17 @@
 
     <xs:simpleType name="portal-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="COMPLETED"/>
-            <xs:enumeration value="CANCELED"/>
+            <xs:enumeration value="SIGNED"/>
+            <xs:enumeration value="CANCELLED"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="additional-info">
         <xs:choice>
-            <xs:element name="success-info" minOccurs="1" maxOccurs="1">
+            <xs:element name="job-signed-info" minOccurs="1" maxOccurs="1">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="success-links"/>
+                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="job-signed-links"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -69,7 +69,7 @@
         </xs:choice>
     </xs:complexType>
 
-    <xs:complexType name="success-links">
+    <xs:complexType name="job-signed-links">
         <xs:sequence>
             <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
             <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>

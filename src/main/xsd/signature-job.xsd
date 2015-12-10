@@ -71,17 +71,17 @@
     <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CREATED"/>
-            <xs:enumeration value="COMPLETED"/>
-            <xs:enumeration value="CANCELED"/>
+            <xs:enumeration value="SIGNED"/>
+            <xs:enumeration value="CANCELLED"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="additional-info">
         <xs:choice>
-            <xs:element name="success-info" minOccurs="1" maxOccurs="1">
+            <xs:element name="job-signed-info" minOccurs="1" maxOccurs="1">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="success-links"/>
+                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="job-signed-links"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -89,7 +89,7 @@
         </xs:choice>
     </xs:complexType>
 
-    <xs:complexType name="success-links">
+    <xs:complexType name="job-signed-links">
         <xs:sequence>
             <xs:element name="xades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
             <xs:element name="pades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
