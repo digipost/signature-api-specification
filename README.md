@@ -17,7 +17,7 @@ Posten Signering er laget med tanke på å håndtere 3 ulike scenarier for signe
 Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasjonsprosessen. Se følgende GitHub-repoer for mer informasjon om integrasjon vha. klientbibliotekene:
 
 * [Klientbibliotek for Java](https://github.com/digipost/signature-api-client-java)
-* *[Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
+* [Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
 
 *OBS: klientbibliotekene er pr. Desember 2015 "work in progress", og er dermed hverken fullstendig implementert eller releaset i stabil versjon*
 
@@ -29,21 +29,22 @@ Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
 
 * **[FELLES] Sikkerhetsmekanismene** gir en innføring i hvordan sikkerheten er implementert i APIene. Fokuset her er å forklare hvordan du skal integrere, ikke alle detaljene om mekanismene. Dette er felles for begge APIene.
 * **[FELLES] Dokumentpakken** forklarer hvordan man bygger opp en komplett dokumentpakke bestående av dokumentet som skal signeres av sluttbruker og metadata om dokumentet
-* **[SCENARIE 1] API-flyt** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Synkrone 
-* signeringsoppdrag med maskin-til-maskin-integrasjon*
-* **[SCENARIE 1] API-flyt** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
+* **API-flyt for Synkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
+* **API-flyt for Asynkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
 
 ### [FELLES] Sikkerhetsmekanismene
 
 SIkkerheten i APIet til Posten SIgnering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/) (for eksempel fra [Buypass](https://www.buypass.no/produkter-og-tjenester/virksomhetssertifikat) eller [Commfides](https://www.commfides.com/e-ID/Bestill-Commfides-Virksomhetssertifikat.html)).
 
-De fleste HTTP-klienter har innebygget støtte for TO-veis SSL. Du kan se eksempler på implementasjonen i våre klientbiblioteker. 
+De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. 
 
-Du benytter ditt eget sertifikat i keystore'n, og legger til Buypass sitt rotsertifikat i truststoren. Deretter validerer du at sertifikatet tilhører Posten Norge AS, vha å sjekke organisasjonsnummer som står i Common Name. Et godt tips kan være å benytte Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det servern skal identifisere seg med). Sertifikatet ditt vil da bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` så får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, vha å sjekke organisasjonsnummer som står i Common Name. 
+
+Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
 ### [FELLES] Dokumentpakken
 
-Dokumentpakken i Posten Signering er basert på ASiCE-standarden. Pakken skal inneholde dokumentene som skal signeres (PDF-filer eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
+Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf)). Pakken skal inneholde dokumentene som skal signeres (PDF-filer eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
 `mainfest.xml`-filen følger skjemaet `http://signering.digipost.no/schema/v1/signature-document` som finnes i dette repoet. Følgende er et eksempel på en komplett fil:
 
@@ -156,10 +157,125 @@ Dokumentpakken i Posten Signering er basert på ASiCE-standarden. Pakken skal in
 </XAdESSignatures>
 ```
 
-### [SCENARIE 1] API-flyt
+Flere detaljer om dokumentpakken kan finnes i de relevante XSDene. 
 
-TODO
+### API-flyt for Synkrone signeringsoppdrag
 
-### [SCENARIE 2] API-flyt
+Dette integrasjonsmønsteret vil passe for større tjenesteeiere som har egne portaler og nettløsninger, og som ønsker å tilby signering sømløst som en del av en prosess der brukeren allerede er innlogget i en sesjon på tjenesteeiers nettsider. Signeringsprosessen vil oppleves som en integrert del av brukerflyten på tjenesteiers sider, og brukeren blir derfor sendt tilbake til tjenesteeiers nettsider etter at signeringen er gjennomført.
 
-TODO
+Relevante typer for dette APIet finnes i filen `signature-job.xsd`.
+
+#### Steg 1: opprette signeringsoppdraget
+
+Flyten begynner ved at tjenesteeier gjør et bakkanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som et enkelt HTTP multipart kall, der den ene delen er dokumentpakken og den andre delen er en del metadata.
+
+* Kallet gjøres mot ressursen `/signature-jobs`
+* Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se forrige kapittel for mer informasjon om dokumentpakken.
+* Metadataene som skal sendes med i dette kallet er definert av elementet `direct-signature-job-request`. Disse legges med multipart-kallet med mediatypen `application/xml`.
+
+En del av metadataene er et sett med URLer definert i elementet `exit-urls`. Disse adressene vil bli benyttet av signeringstjenesten til å redirecte brukeren tilbake til din portal ved fullført signering. Følgende tre URLer skal oppgis:
+
+* **completion-url:** Hit sendes brukern dersom signeringen er vellykket. Du kan da be om status for å få URLer til nedlasting av signert dokument.
+* **cancellation-url:** Hit sendes brukern dersom han selv velger å avbryte signeringen. Dette er en handling brukern *selv valgte* å gjennomføre.
+* **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukern *ikke* valgte å gjøre selv.
+
+Følgende er et eksempel på en komplett og gyldig metadata for et signeringsoppdrag:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<direct-signature-job-request xmlns="http://signering.digipost.no/schema/v1/signature-job"
+                              xmlns:common="http://signering.digipost.no/schema/v1/common">
+    <id>1</id>
+    <signer>
+        <common:person>
+            <common:personal-identification-number>12345678910</common:personal-identification-number>
+        </common:person>
+    </signer>
+    <sender>
+        <common:organization>123456789</common:organization>
+    </sender>
+    <primary-document href="document.pdf" mime="application/pdf">
+        <common:title lang="NO">
+            <common:non-sensitive>Tittel</common:non-sensitive>
+        </common:title>
+        <common:description>Melding til signatar</common:description>
+    </primary-document>
+    <exit-urls>
+        <completion-url>https://www.sender.org/completed</completion-url>
+        <cancellation-url>https://www.sender.org/canceled</cancellation-url>
+        <error-url>https://www.sender.org/failed</error-url>
+    </exit-urls>
+</direct-signature-job-request>
+```
+
+Som respons på dette kallet vil man få en respons definert ved elementet `direct-signature-job-response`. 
+
+* Denne responsen inneholder en URL (`redirect-url`) som man redirecter brukerens nettleser til for å starte signeringsseremonien.
+* I tillegg inneholder den en URL du benytter for å spørre om status på oppdraget. Her skal man **IKKE** benytte seg av polling, man skal derimot vente til brukern returneres til en av URLene definert i requesten, for deretter å gjøre kallet. For å forhindre polling kreves det er token som du får tilbake ved redirecten, se Steg 3 for nærmere forklaring.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<direct-signature-job-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
+    <id>1</id>
+    <redirect-url>
+        https://signering.example.com#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
+    </redirect-url>
+    <status-url>https://signering.example.com/api/signature-jobs/1/status</status-url>
+</direct-signature-job-response>
+```
+
+#### Steg 2: signeringsseremonien
+
+Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukern til portalen ved å benytte URL du får som svar på opprettelsen av oppdraget. Denne linken inneholder et engangstoken generert av signeringstjenesten, og det er dette tokenet som gjør at brukern får tilgang til å lese dokumentet og gjennomføre signeringen.
+
+For å håndtere sikkerheten i dette kallet, så vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Grunnen til at den kun vil fungere én gang er at slike URLer kan fremkomme i eventuelle mellomtjenere's logger, og dermed ikke vil være sikre etter å ha blitt benyttet første gang.
+
+Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter du senere skal benytte når du spør om status.
+
+*(OBS: Dette query-parameteret er pr. desember 2015 ikke på plass i APIet enda)*
+
+#### Steg 3: hent status
+
+Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bakkanal-kall for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter du fikk i Steg 2.
+
+Du skal ikke sende med noen andre data i dette kallet. 
+
+Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-status-response`. Et eksempel på denne responsen ved et suksessfullt signeringsoppdrag vises under:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
+    <id>1</id>
+    <status>COMPLETED</status>
+    <additional-info>
+        <success-info>
+            <links>
+                <xades-url>https://signering.example.com/api/signature-jobs/1/xades</xades-url>
+                <pades-url>https://signering.example.com/api/signature-jobs/1/pades</pades-url>
+                <confirmation-url>https://signering.example.com/api/signature-jobs/1/change-sender-status</confirmation-url>
+            </links>
+        </success-info>
+    </additional-info>
+</direct-signature-job-status-response>
+```
+
+#### Steg 4: laste ned PAdES eller XAdES
+
+I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en enkel HTTP GET på for å laste ned det signerte dokumentet i de to formatene.
+
+**XAdES** er et format som brukes til å styrke og standardisere signaturene som kommer fra e-ID-leverandørene. Formatet har støtte for langtidsvalidering, og gjør samtidig at man får ett format å forholde seg til, uavhengig av hvilken e-ID-leverandør som er brukt til signering.
+
+**PAdES** er et signaturformat som inneholder originaldokumentet, alle signaturer og all informasjon som er nødvendig for å validere signaturen. Formatet er spesifisert av ETSI, og bygger på PDF. XAdES-dokumentet er også vedlagt denne PDFen som et vedlegg. En unik egenskap med PAdES er at dokumentet kan åpnes i en vilkårlig PDF- leser. Adobe Reader (og eventuelle andre avanserte PDF lesere) vil også kunne vise frem deler av valideringsinformasjonen slik at sluttbrukeren selv kan se at dokumentet er gyldig signert.
+
+*Mer dokumentasjon av disse formatene kommer…*
+
+#### Steg 5: Bekrefte ferdig prosessering
+
+Til slutt gjør du et POST-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
+
+*Mer informasjon om dette kallet kommer senere…*
+
+
+### API-flyt for Asynkrone signeringsoppdrag
+
+Kommer…
