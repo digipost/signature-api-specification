@@ -23,7 +23,7 @@ Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasj
 
 ## Manuell integrasjon
 
-Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenarie som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller, så er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
+Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
 
 Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
 
@@ -34,17 +34,17 @@ Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
 
 ### [FELLES] Sikkerhetsmekanismene
 
-SIkkerheten i APIet til Posten SIgnering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/) (for eksempel fra [Buypass](https://www.buypass.no/produkter-og-tjenester/virksomhetssertifikat) eller [Commfides](https://www.commfides.com/e-ID/Bestill-Commfides-Virksomhetssertifikat.html)).
+SIkkerheten i APIet til Posten Signering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/) (for eksempel fra [Buypass](https://www.buypass.no/produkter-og-tjenester/virksomhetssertifikat) eller [Commfides](https://www.commfides.com/e-ID/Bestill-Commfides-Virksomhetssertifikat.html)).
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. 
 
-Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil da bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` så får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, vha å sjekke organisasjonsnummer som står i Common Name. 
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil da bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` så får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummer som står i Common Name. 
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
 ### [FELLES] Dokumentpakken
 
-Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf)). Pakken skal inneholde dokumentene som skal signeres (PDF-filer eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
+Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf)). Pakken skal inneholde dokumentene som skal signeres (PDF-filer eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
 `mainfest.xml`-filen følger skjemaet `http://signering.digipost.no/schema/v1/signature-document` som finnes i dette repoet. Følgende er et eksempel på en komplett fil:
 
@@ -71,7 +71,7 @@ Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated S
 </manifest>
 ```
 
-`signatures.xml` følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier at de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
+`signatures.xml` følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -167,7 +167,7 @@ Relevante typer for dette APIet finnes i filen `signature-job.xsd`.
 
 #### Steg 1: opprette signeringsoppdraget
 
-Flyten begynner ved at tjenesteeier gjør et bakkanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som et enkelt HTTP multipart kall, der den ene delen er dokumentpakken og den andre delen er en del metadata.
+Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som et enkelt HTTP multipart kall, der den ene delen er dokumentpakken og den andre delen er en del metadata.
 
 * Kallet gjøres mot ressursen `/signature-jobs`
 * Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se forrige kapittel for mer informasjon om dokumentpakken.
@@ -175,9 +175,9 @@ Flyten begynner ved at tjenesteeier gjør et bakkanal-kall mot APIene for å opp
 
 En del av metadataene er et sett med URLer definert i elementet `exit-urls`. Disse adressene vil bli benyttet av signeringstjenesten til å redirecte brukeren tilbake til din portal ved fullført signering. Følgende tre URLer skal oppgis:
 
-* **completion-url:** Hit sendes brukern dersom signeringen er vellykket. Du kan da be om status for å få URLer til nedlasting av signert dokument.
-* **cancellation-url:** Hit sendes brukern dersom han selv velger å avbryte signeringen. Dette er en handling brukern *selv valgte* å gjennomføre.
-* **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukern *ikke* valgte å gjøre selv.
+* **completion-url:** Hit sendes brukeren dersom signeringen er vellykket. Du kan da be om status for å få URLer til nedlasting av signert dokument.
+* **cancellation-url:** Hit sendes brukeren dersom han selv velger å avbryte signeringen. Dette er en handling brukeren *selv valgte* å gjennomføre.
+* **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukeren *ikke* valgte å gjøre selv.
 
 Følgende er et eksempel på metadata for et signeringsoppdrag:
 
@@ -211,7 +211,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`. 
 
 * Denne responsen inneholder en URL (`redirect-url`) som man redirecter brukerens nettleser til for å starte signeringsseremonien.
-* I tillegg inneholder den en URL du benytter for å spørre om status på oppdraget. Her skal man **IKKE** benytte seg av polling, man skal derimot vente til brukern returneres til en av URLene definert i requesten, for deretter å gjøre kallet. For å forhindre polling kreves det er token som du får tilbake ved redirecten, se Steg 3 for nærmere forklaring.
+* I tillegg inneholder den en URL du benytter for å spørre om status på oppdraget. Her skal man **IKKE** benytte seg av polling, man skal derimot vente til brukeren returneres til en av URLene definert i requesten, for deretter å gjøre kallet. For å forhindre polling kreves det et token som du får tilbake ved redirecten, se Steg 3 for nærmere forklaring.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -226,9 +226,9 @@ Som respons på dette kallet vil man få en respons definert av elementet `direc
 
 #### Steg 2: signeringsseremonien
 
-Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukern til portalen ved å benytte URL du får som svar på opprettelsen av oppdraget. Denne linken inneholder et engangstoken generert av signeringstjenesten, og det er dette tokenet som gjør at brukern får tilgang til å lese dokumentet og gjennomføre signeringen.
+Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukeren til portalen ved å benytte URL du får som svar på opprettelsen av oppdraget. Denne linken inneholder et engangstoken generert av signeringstjenesten, og det er dette tokenet som gjør at brukeren får tilgang til å lese dokumentet og gjennomføre signeringen.
 
-**Noen ord om sikkerheten her:** For å håndtere sikkerheten i dette kallet, så vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjenere's logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
+**Noen ord om sikkerheten her:** For å håndtere sikkerheten i dette kallet vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjeneres logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
 
 Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter du senere skal benytte når du spør om status.
 
@@ -236,7 +236,7 @@ Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til 
 
 #### Steg 3: hent status
 
-Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bakkanal-kall for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter du fikk i Steg 2.
+Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bak-kanal-kall for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter du fikk i Steg 2.
 
 Du skal ikke sende med noen andre data i dette kallet. 
 
