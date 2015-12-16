@@ -179,7 +179,7 @@ En del av metadataene er et sett med URLer definert i elementet `exit-urls`. Dis
 * **cancellation-url:** Hit sendes brukern dersom han selv velger å avbryte signeringen. Dette er en handling brukern *selv valgte* å gjennomføre.
 * **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukern *ikke* valgte å gjøre selv.
 
-Følgende er et eksempel på en komplett og gyldig metadata for et signeringsoppdrag:
+Følgende er et eksempel på metadata for et signeringsoppdrag:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -208,7 +208,7 @@ Følgende er et eksempel på en komplett og gyldig metadata for et signeringsopp
 </direct-signature-job-request>
 ```
 
-Som respons på dette kallet vil man få en respons definert ved elementet `direct-signature-job-response`. 
+Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`. 
 
 * Denne responsen inneholder en URL (`redirect-url`) som man redirecter brukerens nettleser til for å starte signeringsseremonien.
 * I tillegg inneholder den en URL du benytter for å spørre om status på oppdraget. Her skal man **IKKE** benytte seg av polling, man skal derimot vente til brukern returneres til en av URLene definert i requesten, for deretter å gjøre kallet. For å forhindre polling kreves det er token som du får tilbake ved redirecten, se Steg 3 for nærmere forklaring.
@@ -218,9 +218,9 @@ Som respons på dette kallet vil man få en respons definert ved elementet `dire
 <direct-signature-job-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
     <id>1</id>
     <redirect-url>
-        https://signering.example.com#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
+        https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
     </redirect-url>
-    <status-url>https://signering.example.com/api/signature-jobs/1/status</status-url>
+    <status-url>https://api.signering.posten.no/signature-jobs/1/status</status-url>
 </direct-signature-job-response>
 ```
 
@@ -228,7 +228,7 @@ Som respons på dette kallet vil man få en respons definert ved elementet `dire
 
 Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukern til portalen ved å benytte URL du får som svar på opprettelsen av oppdraget. Denne linken inneholder et engangstoken generert av signeringstjenesten, og det er dette tokenet som gjør at brukern får tilgang til å lese dokumentet og gjennomføre signeringen.
 
-For å håndtere sikkerheten i dette kallet, så vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Grunnen til at den kun vil fungere én gang er at slike URLer kan fremkomme i eventuelle mellomtjenere's logger, og dermed ikke vil være sikre etter å ha blitt benyttet første gang.
+**Noen ord om sikkerheten her:** For å håndtere sikkerheten i dette kallet, så vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjenere's logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
 
 Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter du senere skal benytte når du spør om status.
 
@@ -250,9 +250,9 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
     <additional-info>
         <success-info>
             <links>
-                <xades-url>https://signering.example.com/api/signature-jobs/1/xades</xades-url>
-                <pades-url>https://signering.example.com/api/signature-jobs/1/pades</pades-url>
-                <confirmation-url>https://signering.example.com/api/signature-jobs/1/change-sender-status</confirmation-url>
+                <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+                <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/change-sender-status</confirmation-url>
             </links>
         </success-info>
     </additional-info>
@@ -261,11 +261,11 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 
 #### Steg 4: laste ned PAdES eller XAdES
 
-I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en enkel HTTP GET på for å laste ned det signerte dokumentet i de to formatene.
+I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en HTTP GET på for å laste ned det signerte dokumentet i de to formatene.
 
 **XAdES** er et format som brukes til å styrke og standardisere signaturene som kommer fra e-ID-leverandørene. Formatet har støtte for langtidsvalidering, og gjør samtidig at man får ett format å forholde seg til, uavhengig av hvilken e-ID-leverandør som er brukt til signering.
 
-**PAdES** er et signaturformat som inneholder originaldokumentet, alle signaturer og all informasjon som er nødvendig for å validere signaturen. Formatet er spesifisert av ETSI, og bygger på PDF. XAdES-dokumentet er også vedlagt denne PDFen som et vedlegg. En unik egenskap med PAdES er at dokumentet kan åpnes i en vilkårlig PDF- leser. Adobe Reader (og eventuelle andre avanserte PDF lesere) vil også kunne vise frem deler av valideringsinformasjonen slik at sluttbrukeren selv kan se at dokumentet er gyldig signert.
+**PAdES** er et signaturformat som inneholder originaldokumentet, alle signaturer og all informasjon som er nødvendig for å validere signaturen. Formatet er spesifisert av ETSI, og bygger på PDF. En unik egenskap med PAdES er at dokumentet kan åpnes i en vilkårlig PDF- leser. Adobe Reader (og eventuelle andre avanserte PDF lesere) vil også kunne vise frem deler av valideringsinformasjonen slik at sluttbrukeren selv kan se at dokumentet er gyldig signert. I tillegg ligger også XAdES-dokumentet vedlagt denne PDFen.
 
 *Mer dokumentasjon av disse formatene kommer…*
 
