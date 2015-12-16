@@ -9,17 +9,17 @@ Mappen `src/main/xsd` inneholder XSD-filer som spesifiserer de ulike objektene s
 Posten Signering er laget med tanke på å håndtere 3 ulike scenarier for signering:
 
 1. **Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt hvis sluttbruker er i en sesjon hos tjenesteeier på tjenesteeiers nettsider. Her ønsker tjenesteeier at sluttbruker skal signere et dokument. Sluttbruker opplever signaturprosessen som en integrert del av tjenesteeiers nettsted.
-2. **Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt der det er ønskelig med signering av dokumenter uten at sluttbruker som skal signere er i en sesjon på tjenesteeierens nettside. Dette kan for eksempel være ved batch- utsending av dokumenter som skal signeres uten at sluttbruker er til stede på tjenesteeiers nettsted.
-3. **Manuelle asynkrone signeringsoppdrag:** Dette scenariet er aktuelt dersom Signeringstjenesten skal benyttes av enten en mindre tjenesteeier, eller en avdeling av en større tjenesteeier der den aktuelle prosessen er manuell. Denne flyten gjennomføres utelukkende via signeringsportalen, og man bruker derfor ikke APIer for integrasjonen.
+2. **Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt der det er ønskelig med signering av dokumenter uten at sluttbruker som skal signere er i en sesjon på tjenesteeierens nettside. Dette kan for eksempel være ved batchutsending av dokumenter som skal signeres, eller for å håndtere et scenario der f.eks bruker har hatt telefondialog med tjenesteeier.
+3. **Manuelle asynkrone signeringsoppdrag:** Dette scenariet er aktuelt dersom Signeringstjenesten skal benyttes av enten en mindre tjenesteeier, eller en avdeling av en større tjenesteeier der den aktuelle prosessen er manuell. Denne flyten gjennomføres utelukkende via signeringsportalen, og man bruker derfor ikke APIer for integrasjonen. Derfor ikke beskrevet nærmere i denne dokumentasjonen.
 
-## Integrasjon vha. klientbiblioteker
+## Integrasjon med klientbiblioteker
 
 Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasjonsprosessen. Se følgende GitHub-repoer for mer informasjon om integrasjon vha. klientbibliotekene:
 
 * [Klientbibliotek for Java](https://github.com/digipost/signature-api-client-java)
 * [Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
 
-*OBS: klientbibliotekene er pr. Desember 2015 "work in progress", og er dermed hverken fullstendig implementert eller releaset i stabil versjon*
+*OBS: klientbibliotekene er pr. desember 2015 "work in progress", og er dermed hverken fullstendig implementert eller releaset i stabil versjon*
 
 ## Manuell integrasjon
 
@@ -27,7 +27,7 @@ Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenari
 
 Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
 
-* **[FELLES] Sikkerhetsmekanismene** gir en innføring i hvordan sikkerheten er implementert i APIene. Fokuset her er å forklare hvordan du skal integrere, ikke alle detaljene om mekanismene. Dette er felles for begge APIene.
+* **[FELLES] Sikkerhetsmekanismene** gir en innføring i hvordan sikkerheten er implementert i APIene. Fokuset her er å forklare hvordan du skal integrere, ikke alle detaljene om mekanismene.
 * **[FELLES] Dokumentpakken** forklarer hvordan man bygger opp en komplett dokumentpakke bestående av dokumentet som skal signeres av sluttbruker og metadata om dokumentet
 * **API-flyt for Synkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
 * **API-flyt for Asynkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
@@ -38,7 +38,7 @@ SIkkerheten i APIet til Posten SIgnering er implementert vha. toveis TLS. For å
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. 
 
-Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det servern skal identifisere seg med). Sertifikatet ditt vil da bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` så får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, vha å sjekke organisasjonsnummer som står i Common Name. 
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil da bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` så får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, vha å sjekke organisasjonsnummer som står i Common Name. 
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
