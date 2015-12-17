@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
+<portal-signature-job-status-change-response xmlns="http://signering.digipost.no/schema/v1/portal-signature-job">
     <signature-job-id>1</signature-job-id>
     <status>SIGNED</status>
     <additional-info>
@@ -11,4 +11,4 @@
             </links>
         </job-signed-info>
     </additional-info>
-</direct-signature-job-status-response>
+</portal-signature-job-status-change-response>

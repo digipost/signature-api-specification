@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<direct-signature-job-request xmlns="http://signering.digipost.no/schema/v1/signature-job"
+<portal-signature-job-request xmlns="http://signering.digipost.no/schema/v1/portal-signature-job"
                               xmlns:common="http://signering.digipost.no/schema/v1/common">
     <reference>123-ABC</reference>
-    <signer>
-        <common:person>
-            <common:personal-identification-number>12345678910</common:personal-identification-number>
-        </common:person>
-    </signer>
+    <signers>
+        <common:signer>
+            <common:person>
+                <common:personal-identification-number>12345678910</common:personal-identification-number>
+            </common:person>
+        </common:signer>
+    </signers>
     <sender>
         <common:organization>123456789</common:organization>
     </sender>
@@ -16,9 +18,4 @@
         </common:title>
         <common:description>Melding til signatar</common:description>
     </primary-document>
-    <exit-urls>
-        <completion-url>https://www.sender.org/completed</completion-url>
-        <cancellation-url>https://www.sender.org/canceled</cancellation-url>
-        <error-url>https://www.sender.org/failed</error-url>
-    </exit-urls>
-</direct-signature-job-request>
+</portal-signature-job-request>
