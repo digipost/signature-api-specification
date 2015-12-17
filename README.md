@@ -185,7 +185,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-request xmlns="http://signering.digipost.no/schema/v1/signature-job"
                               xmlns:common="http://signering.digipost.no/schema/v1/common">
-    <id>1</id>
+    <reference>123-ABC</reference>
     <signer>
         <common:person>
             <common:personal-identification-number>12345678910</common:personal-identification-number>
@@ -216,7 +216,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `direc
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
-    <id>1</id>
+    <signature-job-id>1</signature-job-id>
     <redirect-url>
         https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
     </redirect-url>
@@ -245,16 +245,16 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
-    <id>1</id>
-    <status>COMPLETED</status>
+    <signature-job-id>1</signature-job-id>
+    <status>SIGNED</status>
     <additional-info>
-        <success-info>
+        <job-signed-info>
             <links>
                 <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
                 <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
-                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/change-sender-status</confirmation-url>
+                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
             </links>
-        </success-info>
+        </job-signed-info>
     </additional-info>
 </direct-signature-job-status-response>
 ```

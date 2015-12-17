@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-request xmlns="http://signering.digipost.no/schema/v1/signature-job"
                               xmlns:common="http://signering.digipost.no/schema/v1/common">
-    <id>1</id>
+    <reference>123-ABC</reference>
     <signer>
         <common:person>
             <common:personal-identification-number>12345678910</common:personal-identification-number>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
-    <id>1</id>
-    <status>COMPLETED</status>
+    <signature-job-id>1</signature-job-id>
+    <status>SIGNED</status>
     <additional-info>
-        <success-info>
+        <job-signed-info>
             <links>
-                <xades-url>https://signering.example.com/api/signature-jobs/1/xades</xades-url>
-                <pades-url>https://signering.example.com/api/signature-jobs/1/pades</pades-url>
-                <confirmation-url>https://signering.example.com/api/signature-jobs/1/change-sender-status</confirmation-url>
+                <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+                <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
             </links>
-        </success-info>
+        </job-signed-info>
     </additional-info>
 </direct-signature-job-status-response>
