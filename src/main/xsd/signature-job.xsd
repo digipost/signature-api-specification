@@ -63,6 +63,17 @@
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
+                <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="common:url" >
+                    <xs:annotation>
+                        <xs:documentation>
+                            If a confirmation url is included in the response, the client is required to POST an empty
+                            request to this url to confirm that the status has been received, and proper actions has been
+                            taken by the client as a result of the particular status. A typical example being when the client
+                            gets a 'signed' status, the client should download the signed documents, and finally confirm the
+                            received status using this url.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
             </xs:sequence>
         </xs:complexType>
@@ -93,7 +104,6 @@
         <xs:sequence>
             <xs:element name="xades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
             <xs:element name="pades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-            <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="common:url"/>
         </xs:sequence>
     </xs:complexType>
 
