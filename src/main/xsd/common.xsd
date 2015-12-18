@@ -56,12 +56,6 @@
 
     <xs:complexType name="signer">
         <xs:sequence>
-            <xs:element name="person" minOccurs="1" maxOccurs="1" type="person"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="person">
-        <xs:sequence>
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
                         type="personal-identification-number"/>
         </xs:sequence>
@@ -94,7 +88,14 @@
 
     <xs:complexType name="document">
         <xs:sequence>
-            <xs:element name="title" minOccurs="1" maxOccurs="1" type="title"/>
+            <xs:element name="title" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="description" minOccurs="1" maxOccurs="1">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -120,26 +121,5 @@
             </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
-
-    <xs:complexType name="title">
-        <xs:sequence>
-            <xs:element name="non-sensitive" minOccurs="1" maxOccurs="1" type="title-string"/>
-            <xs:element name="sensitive" minOccurs="0" maxOccurs="1" type="title-string"/>
-        </xs:sequence>
-        <xs:attribute name="lang" type="language-code" use="required"/>
-    </xs:complexType>
-
-    <xs:simpleType name="title-string">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="100"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="language-code">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="[a-zA-Z]{2}"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>

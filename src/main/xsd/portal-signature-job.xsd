@@ -56,36 +56,38 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
+                <xs:element name="signatures" minOccurs="1" maxOccurs="1" type="signatures"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <xs:simpleType name="portal-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="SIGNED"/>
-            <xs:enumeration value="CANCELLED"/>
+            <xs:enumeration value="PARTIALLY_COMPLETED"/>
+            <xs:enumeration value="COMPLETED"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="additional-info">
-        <xs:choice>
-            <xs:element name="job-signed-info" minOccurs="1" maxOccurs="1">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="job-signed-links"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <!-- TODO: error-info, … ? -->
-        </xs:choice>
-    </xs:complexType>
-
-    <xs:complexType name="job-signed-links">
+    <xs:complexType name="signatures">
         <xs:sequence>
-            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+            <xs:element name="signature" minOccurs="1" maxOccurs="1" type="signature"/>
             <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="signature">
+        <xs:sequence>
+            <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="common:personal-identification-number"/>
+            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="signature-status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="WAITING"/>
+            <xs:enumeration value="SIGNED"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

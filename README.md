@@ -54,18 +54,14 @@ Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated S
           xmlns:common="http://signering.digipost.no/schema/v1/common">
     <signers>
         <common:signer>
-            <common:person>
-                <common:personal-identification-number>12345678910</common:personal-identification-number>
-            </common:person>
+            <common:personal-identification-number>12345678910</common:personal-identification-number>
         </common:signer>
     </signers>
     <sender>
         <common:organization>123456789</common:organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title lang="NO">
-            <common:non-sensitive>Tittel</common:non-sensitive>
-        </common:title>
+        <common:title>Tittel</common:title>
         <common:description>Melding til signatar</common:description>
     </primary-document>
 </manifest>
@@ -187,17 +183,13 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
                               xmlns:common="http://signering.digipost.no/schema/v1/common">
     <reference>123-ABC</reference>
     <signer>
-        <common:person>
-            <common:personal-identification-number>12345678910</common:personal-identification-number>
-        </common:person>
+        <common:personal-identification-number>12345678910</common:personal-identification-number>
     </signer>
     <sender>
         <common:organization>123456789</common:organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title lang="NO">
-            <common:non-sensitive>Tittel</common:non-sensitive>
-        </common:title>
+        <common:title>Tittel</common:title>
         <common:description>Melding til signatar</common:description>
     </primary-document>
     <exit-urls>
@@ -247,15 +239,9 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 <direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
     <signature-job-id>1</signature-job-id>
     <status>SIGNED</status>
-    <additional-info>
-        <job-signed-info>
-            <links>
-                <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
-                <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
-                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
-            </links>
-        </job-signed-info>
-    </additional-info>
+    <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
+    <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+    <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
 </direct-signature-job-status-response>
 ```
 

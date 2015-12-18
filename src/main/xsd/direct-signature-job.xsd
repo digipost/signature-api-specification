@@ -74,7 +74,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="additional-info" minOccurs="0" maxOccurs="1" type="additional-info"/>
+                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -86,25 +87,5 @@
             <xs:enumeration value="CANCELLED"/>
         </xs:restriction>
     </xs:simpleType>
-
-    <xs:complexType name="additional-info">
-        <xs:choice>
-            <xs:element name="job-signed-info" minOccurs="1" maxOccurs="1">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="links" minOccurs="1" maxOccurs="1" type="job-signed-links"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <!-- TODO: error-info, … ? -->
-        </xs:choice>
-    </xs:complexType>
-
-    <xs:complexType name="job-signed-links">
-        <xs:sequence>
-            <xs:element name="xades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-            <xs:element name="pades-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-        </xs:sequence>
-    </xs:complexType>
 
 </xs:schema>

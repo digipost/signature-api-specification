@@ -3,17 +3,13 @@
                               xmlns:common="http://signering.digipost.no/schema/v1/common">
     <reference>123-ABC</reference>
     <signer>
-        <common:person>
-            <common:personal-identification-number>12345678910</common:personal-identification-number>
-        </common:person>
+        <common:personal-identification-number>12345678910</common:personal-identification-number>
     </signer>
     <sender>
         <common:organization>123456789</common:organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title lang="NO">
-            <common:non-sensitive>Tittel</common:non-sensitive>
-        </common:title>
+        <common:title>Tittel</common:title>
         <common:description>Melding til signatar</common:description>
     </primary-document>
     <exit-urls>
