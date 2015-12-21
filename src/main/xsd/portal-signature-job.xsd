@@ -16,14 +16,13 @@
     limitations under the License.
 
 -->
-<xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1/portal-signature-job" elementFormDefault="qualified"
-           xmlns="http://signering.digipost.no/schema/v1/portal-signature-job"
+<xs:schema version="1.0" targetNamespace="http://signering.posten.no/schema/v1" elementFormDefault="qualified"
+           xmlns="http://signering.posten.no/schema/v1"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:common="http://signering.digipost.no/schema/v1/common"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
-    <xs:import namespace="http://signering.digipost.no/schema/v1/common" schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="common.xsd"/>
 
     <xs:element name="portal-signature-job-request">
         <xs:complexType>
@@ -31,10 +30,10 @@
                 <xs:documentation>Contains metadata related to a signature job to be signed in the portal</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="common:signature-job-reference"/>
-                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="common:signers"/>
-                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
-                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
+                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="signers"/>
+                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
+                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="document"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -42,9 +41,9 @@
     <xs:element name="portal-signature-job-status-change-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
-                <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="common:url" >
+                <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
                             For every received, the client is required to POST an empty request to this url to confirm
@@ -71,15 +70,15 @@
     <xs:complexType name="signatures">
         <xs:sequence>
             <xs:element name="signature" minOccurs="1" maxOccurs="1" type="signature"/>
-            <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+            <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="signature">
         <xs:sequence>
             <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="common:personal-identification-number"/>
-            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
 

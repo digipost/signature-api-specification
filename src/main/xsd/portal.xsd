@@ -22,19 +22,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
-    <xs:include schemaLocation="common.xsd"/>
-
-    <xs:element name="manifest">
-        <xs:complexType>
-            <xs:annotation>
-                <xs:documentation>Contains metadata related to a document in a signature job</xs:documentation>
-            </xs:annotation>
-            <xs:sequence>
-                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="signers"/>
-                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="document"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:include schemaLocation="signature-document.xsd"/>
+    <xs:include schemaLocation="portal-signature-job.xsd"/>
 
 </xs:schema>

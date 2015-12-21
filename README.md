@@ -46,23 +46,22 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf)). Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
-`mainfest.xml`-filen følger skjemaet `http://signering.digipost.no/schema/v1/signature-document` som finnes i dette repoet. Følgende er et eksempel på en komplett fil:
+`manifest.xml`-filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Følgende er et eksempel på en komplett fil:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<manifest xmlns="http://signering.digipost.no/schema/v1/signature-document"
-          xmlns:common="http://signering.digipost.no/schema/v1/common">
+<manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
-        <common:signer>
-            <common:personal-identification-number>12345678910</common:personal-identification-number>
-        </common:signer>
+        <signer>
+            <personal-identification-number>12345678910</personal-identification-number>
+        </signer>
     </signers>
     <sender>
-        <common:organization>123456789</common:organization>
+        <organization>123456789</organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title>Tittel</common:title>
-        <common:description>Melding til signatar</common:description>
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
     </primary-document>
 </manifest>
 ```
@@ -179,18 +178,17 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<direct-signature-job-request xmlns="http://signering.digipost.no/schema/v1/signature-job"
-                              xmlns:common="http://signering.digipost.no/schema/v1/common">
+<direct-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
     <signer>
-        <common:personal-identification-number>12345678910</common:personal-identification-number>
+        <personal-identification-number>12345678910</personal-identification-number>
     </signer>
     <sender>
-        <common:organization>123456789</common:organization>
+        <organization>123456789</organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title>Tittel</common:title>
-        <common:description>Melding til signatar</common:description>
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
     </primary-document>
     <exit-urls>
         <completion-url>https://www.sender.org/completed</completion-url>
@@ -207,7 +205,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `direc
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<direct-signature-job-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
+<direct-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <redirect-url>
         https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
@@ -236,7 +234,7 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<direct-signature-job-status-response xmlns="http://signering.digipost.no/schema/v1/signature-job">
+<direct-signature-job-status-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <status>SIGNED</status>
     <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>

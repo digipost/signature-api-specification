@@ -16,14 +16,13 @@
     limitations under the License.
 
 -->
-<xs:schema version="1.0" targetNamespace="http://signering.digipost.no/schema/v1/signature-job" elementFormDefault="qualified"
-           xmlns="http://signering.digipost.no/schema/v1/signature-job"
+<xs:schema version="1.0" targetNamespace="http://signering.posten.no/schema/v1" elementFormDefault="qualified"
+           xmlns="http://signering.posten.no/schema/v1"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:common="http://signering.digipost.no/schema/v1/common"
            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
 
-    <xs:import namespace="http://signering.digipost.no/schema/v1/common" schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="common.xsd"/>
 
     <xs:element name="direct-signature-job-request">
         <xs:complexType>
@@ -31,10 +30,10 @@
                 <xs:documentation>Contains metadata related to a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="common:signature-job-reference"/>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="common:signer"/>
-                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="common:sender"/>
-                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="common:document"/>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
+                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="signer"/>
+                <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
+                <xs:element name="primary-document" minOccurs="1" maxOccurs="1" type="document"/>
                 <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
             </xs:sequence>
         </xs:complexType>
@@ -42,18 +41,18 @@
 
     <xs:complexType name="exit-urls">
         <xs:sequence>
-            <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-            <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-            <xs:element name="error-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+            <xs:element name="completion-url" minOccurs="1" maxOccurs="1" type="url"/>
+            <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="url"/>
+            <xs:element name="error-url" minOccurs="1" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:element name="direct-signature-job-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
-                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="common:url"/>
-                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="common:url"/>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="url"/>
+                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -61,9 +60,9 @@
     <xs:element name="direct-signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="common:signature-job-id"/>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
-                <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="common:url" >
+                <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
                             If a confirmation url is included in the response, the client is required to POST an empty
@@ -74,8 +73,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
-                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="common:url"/>
+                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
+                <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<manifest xmlns="http://signering.digipost.no/schema/v1/signature-document"
-          xmlns:common="http://signering.digipost.no/schema/v1/common">
+<manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
-        <common:signer>
-            <common:personal-identification-number>12345678910</common:personal-identification-number>
-        </common:signer>
+        <signer>
+            <personal-identification-number>12345678910</personal-identification-number>
+        </signer>
     </signers>
     <sender>
-        <common:organization>123456789</common:organization>
+        <organization>123456789</organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title>Tittel</common:title>
-        <common:description>Melding til signatar</common:description>
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
     </primary-document>
 </manifest>
