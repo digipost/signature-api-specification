@@ -262,4 +262,114 @@ Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at
 
 ### API-flyt for Asynkrone signeringsoppdrag
 
-Kommer…
+Dette integrasjonsmønsteret passer for tjenesteeiere som ønsker å opprette signeringsoppdrag i signeringstjenesten som et ledd i en flyt som ikke starter med at sluttbruker befinner seg på tjenesteeiers nettsider. Signeringsseremonien gjennomføres av sluttbruker i Signeringsportalen, og tjenesteeier vil deretter asynkront kunne polle på status og hente ned det signerte dokumentet.
+
+Dette scenariet er også utviklet med tanke på å støtte prosesser der det er behov for å innhente signaturer fra flere enn én sluttbruker på et dokument
+
+*Støtte for multisignatur er pr. desember 2015 ikke tilgjengelig*
+
+Relevante typer for denne delen av APIet finnes i filen `portal-signature-job.xsd`.
+
+#### Steg 1: opprette signeringsoppdraget
+
+Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
+
+* Kallet gjøres som en `HTTP POST` mot ressursen `/portal/signature-jobs`
+* Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se tidligere kapittel for mer informasjon om dokumentpakken.
+* Metadataene som skal sendes med i dette kallet er definert av elementet `portal-signature-job-request`. Disse legges med multipart-kallet med mediatypen `application/xml`.
+
+
+
+Følgende er et eksempel på metadata for et signeringsoppdrag:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-request xmlns="http://signering.digipost.no/schema/v1/portal-signature-job"
+                              xmlns:common="http://signering.digipost.no/schema/v1/common">
+    <reference>123-ABC</reference>
+    <signers>
+        <common:signer>
+            <common:person>
+                <common:personal-identification-number>12345678910</common:personal-identification-number>
+            </common:person>
+        </common:signer>
+    </signers>
+    <sender>
+        <common:organization>123456789</common:organization>
+    </sender>
+    <primary-document href="document.pdf" mime="application/pdf">
+        <common:title lang="NO">
+            <common:non-sensitive>Tittel</common:non-sensitive>
+        </common:title>
+        <common:description>Melding til signatar</common:description>
+    </primary-document>
+</portal-signature-job-request>
+```
+
+Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-response xmlns="http://signering.digipost.no/schema/v1/portal-signature-job">
+    <signature-job-id>1</signature-job-id>
+</portal-signature-job-response>
+```
+
+*OBS: pr desember 2015 vil du kun få en 200 OK på dette kallet, og ikke selve responsen*
+
+#### Steg 2: Polling på status
+
+Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig (noe som er veldig sannsynlig).
+
+For å gjøre en polling, så gjør du en `HTTP GET` mot `/portal/signature-jobs`. Du skal ikke ha med noen request-body på dette kallet.
+
+Responsen på dette kallet vil være én av to ting:
+
+1. **0 oppdateringer:** Dersom det ikke er noen oppdateringer på tvers av alle dine aktive signeringsoppdrag så vil da få en HTTP respons med statuskode `204 No Content`.
+2. **Minst 1 oppdatering:** Dersom det er oppdateringer på dine oppdrag, så vil du få en `200 OK` med responsbody som inneholder informasjon om oppdateringen. Denne er definert av elementet `portal-signature-job-status-change-response`.
+
+Følgende er et eksempel på en respons der hele signeringsoppdraget har blitt fullført:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-status-change-response xmlns="http://signering.digipost.no/schema/v1/portal-signature-job">
+    <signature-job-id>1</signature-job-id>
+    <status>SIGNED</status>
+    <additional-info>
+        <job-signed-info>
+            <links>
+                <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+                <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
+            </links>
+        </job-signed-info>
+    </additional-info>
+</portal-signature-job-status-change-response>
+
+```
+
+*OBS: det vil komme en del endringer i denne responsen i forbindelse med at multisignatar-støtte implementeres. Den vil inneholde konseptuelt samme informasjon, men oppsettet vil endres en del.*
+
+#### Steg 3: laste ned PAdES eller XAdES
+
+I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en `HTTP GET` på for å laste ned det signerte dokumentet i de to formatene.
+
+Se nærmere forklaring av disse formatene i dokumentasjonen på det synkrone scenariet.
+
+#### Steg 4: Bekrefte ferdig prosessering
+
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
+
+I tillegg vil dette kallet gjøre at du ikke lenger får informasjon om denne statusoppdateringen ved polling. Se mer informasjon om det nedenfor, i avsnittet om fler-server-scenarioet.
+
+*Mer informasjon om dette kallet kommer senere…*
+
+#### Mer informasjon om pollingmekanismen
+
+##### Hvor ofte skal du polle?
+Mekanikken fungerer slik at du venter en viss periode mellom hver gang du spør om oppdateringer. Oppdateringenene vil komme på en kø, og så lenge du får en ny statusoppdatering, så kan du umiddelbart etter å ha prosessert denne igjen spørre om en oppdatering. Dersom du får beskjed om at det ikke er flere oppdateringer igjen, så skal du ikke spørre om oppdateringer før det har gått en viss periode. Når du gjør denne pollingen så vil du alltid få en HTTP-header (`X-Next-permitted-poll-time`) som respons som forteller deg når du kan gjøre neste polling.
+
+##### Hva med et fler-server-scenario:
+Signeringstjenestens pollingmekaniske er laget med tanke på at det skal være enkelt å gjøre pollingen fra flere servere uten at du skal måtte synkronisere pollingen på tvers av disse. Dersom du bruker flere servere uten synkronisering så vil du komme opp i situasjoner der en av serverene poller før neste poll-tid, selv om en annen server har fått beskjed om dette. Det er en helt OK oppførsel, du vil da få en HTTP respons med statusen `429 Too Many Requests` tilbake, som vil inneholde headeren `X-Next-permitted-poll-time`. Så lenge du etter det kallet respekterer poll-tiden for den serveren, så vil alt fungere bra.
+
+Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, slik at en eventuell annen server som kommer inn ikke vil få den samme statusoppdateringen. Selv om du kaller på polling-APIet på samme tid, så er det garantert at du ikke får samme oppdatering to ganger. For å håndtere at feil kan skje enten i overføringen av statusen til deres servere eller at det kan skje feil i prosesseringen på deres side, så vil en oppdatering som hentes fra køen og ikke bekreftes dukke opp igjen på køen. Pr. i dag så er det satt en venteperiode på 10 minutter før en oppdateing igjen forekommer på køen. På grunn av dette så er det essensielt at prosesseringsbekrefelse sendes som beskrevet i Steg 4.
