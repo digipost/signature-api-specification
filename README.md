@@ -284,24 +284,19 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<portal-signature-job-request xmlns="http://signering.digipost.no/schema/v1/portal-signature-job"
-                              xmlns:common="http://signering.digipost.no/schema/v1/common">
+<portal-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
     <signers>
-        <common:signer>
-            <common:person>
-                <common:personal-identification-number>12345678910</common:personal-identification-number>
-            </common:person>
-        </common:signer>
+        <signer>
+            <personal-identification-number>12345678910</personal-identification-number>
+        </signer>
     </signers>
     <sender>
-        <common:organization>123456789</common:organization>
+        <organization>123456789</organization>
     </sender>
     <primary-document href="document.pdf" mime="application/pdf">
-        <common:title lang="NO">
-            <common:non-sensitive>Tittel</common:non-sensitive>
-        </common:title>
-        <common:description>Melding til signatar</common:description>
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
     </primary-document>
 </portal-signature-job-request>
 ```
@@ -310,7 +305,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<portal-signature-job-response xmlns="http://signering.digipost.no/schema/v1/portal-signature-job">
+<portal-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
 </portal-signature-job-response>
 ```
@@ -332,20 +327,19 @@ Følgende er et eksempel på en respons der hele signeringsoppdraget har blitt f
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<portal-signature-job-status-change-response xmlns="http://signering.digipost.no/schema/v1/portal-signature-job">
+<portal-signature-job-status-change-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
-    <status>SIGNED</status>
-    <additional-info>
-        <job-signed-info>
-            <links>
-                <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
-                <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
-                <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
-            </links>
-        </job-signed-info>
-    </additional-info>
+    <status>COMPLETED</status>
+    <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
+    <signatures>
+        <signature>
+            <status>SIGNED</status>
+            <personal-identification-number>12345678910</personal-identification-number>
+            <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+        </signature>
+        <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+    </signatures>
 </portal-signature-job-status-change-response>
-
 ```
 
 *OBS: det vil komme en del endringer i denne responsen i forbindelse med at multisignatar-støtte implementeres. Den vil inneholde konseptuelt samme informasjon, men oppsettet vil endres en del.*
