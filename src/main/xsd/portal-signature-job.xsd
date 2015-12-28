@@ -69,7 +69,7 @@
 
     <xs:complexType name="signatures">
         <xs:sequence>
-            <xs:element name="signature" minOccurs="1" maxOccurs="1" type="signature"/>
+            <xs:element name="signature" minOccurs="1" maxOccurs="10" type="signature"/>
             <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
