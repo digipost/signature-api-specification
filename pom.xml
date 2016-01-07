@@ -7,6 +7,7 @@
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification</artifactId>
 	<version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
 
 	<build>
@@ -17,6 +18,18 @@
         </resources>
 		<pluginManagement>
             <plugins>
+                <plugin>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
@@ -55,6 +68,14 @@
 					</configuration>
 				</plugin>
                 <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
@@ -70,13 +91,19 @@
 		</pluginManagement>
 		<plugins>
             <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>resources</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>validate</goal>
-                        </goals>
+                        <goals><goal>validate</goal></goals>
                     </execution>
                 </executions>
             </plugin>
@@ -85,14 +112,36 @@
 				<artifactId>license-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>check-license-header</id>
-						<phase>test</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
+						<goals><goal>check</goal></goals>
 					</execution>
 				</executions>
 			</plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <goals><goal>attach-artifact</goal></goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/${project.build.finalName}.jar</file>
+                                    <type>jar</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
