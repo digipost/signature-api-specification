@@ -20,7 +20,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>1.0.1</version>
                     <configuration>
                         <catalogs>
                             <catalog>validation/catalog.xml</catalog>
@@ -117,7 +117,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>3.3.0</maven>
     </prerequisites>
 
 </project>
