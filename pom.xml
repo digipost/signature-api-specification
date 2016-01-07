@@ -31,7 +31,6 @@
                                 <validating>true</validating>
                                 <excludes>
                                     <exclude>thirdparty/*.*</exclude>
-                                    <exclude>catalog.xml</exclude>
                                 </excludes>
                             </validationSet>
                         </validationSets>
