@@ -1,8 +1,8 @@
 # Posten Signering – API spesifikasjon
 
-Dette repoet inneholder informasjon om APIene til Posten Signering. 
+Dette repoet inneholder informasjon om APIene til Posten Signering.
 
-Mappen `src/main/xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
+Mappen `xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
 
 ## Tre ulike scenarier for signeringsoppdrag
 
@@ -36,9 +36,9 @@ Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
 
 Sikkerheten i APIet til Posten Signering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/) (for eksempel fra [Buypass](https://www.buypass.no/produkter-og-tjenester/virksomhetssertifikat) eller [Commfides](https://www.commfides.com/e-ID/Bestill-Commfides-Virksomhetssertifikat.html)). Dersom du har fått flere sertifikater så skal du benytte sertifikatet som har spesifisert `KeyUsage=Autentisering`.
 
-De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. 
+De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker.
 
-Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`. 
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til Buypass sitt rotsertifikat i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha Buypass sitt rotsertifikat i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
@@ -152,7 +152,7 @@ Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated S
 </XAdESSignatures>
 ```
 
-Flere detaljer om dokumentpakken kan finnes i de relevante XSDene. 
+Flere detaljer om dokumentpakken kan finnes i de relevante XSDene.
 
 ### API-flyt for Synkrone signeringsoppdrag
 
@@ -198,7 +198,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 </direct-signature-job-request>
 ```
 
-Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`. 
+Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
 
 * Denne responsen inneholder en URL (`redirect-url`) som man redirecter brukerens nettleser til for å starte signeringsseremonien.
 * I tillegg inneholder den en URL du benytter for å spørre om status på oppdraget. Her skal man **IKKE** benytte seg av polling, man skal derimot vente til brukeren returneres til en av URLene definert i requesten, for deretter å gjøre kallet. For å forhindre polling kreves det et token som du får tilbake ved redirecten, se Steg 3 for nærmere forklaring.
@@ -228,7 +228,7 @@ Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til 
 
 Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter du fikk i Steg 2.
 
-Du skal ikke sende med noen andre data i dette kallet. 
+Du skal ikke sende med noen andre data i dette kallet.
 
 Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-status-response`. Et eksempel på denne responsen ved et suksessfullt signeringsoppdrag vises under:
 

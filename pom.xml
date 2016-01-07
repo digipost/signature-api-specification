@@ -12,7 +12,7 @@
 	<build>
         <resources>
             <resource>
-                <directory>src/main/xsd</directory>
+                <directory>xsd</directory>
             </resource>
         </resources>
 		<pluginManagement>
@@ -23,11 +23,11 @@
                     <version>1.0.1</version>
                     <configuration>
                         <catalogs>
-                            <catalog>validation/catalog.xml</catalog>
+                            <catalog>src/validation/catalog.xml</catalog>
                         </catalogs>
                         <validationSets>
                             <validationSet>
-                                <dir>src/main/xsd</dir>
+                                <dir>${project.resources[0].directory}</dir>
                                 <validating>true</validating>
                                 <excludes>
                                     <exclude>thirdparty/*.*</exclude>
@@ -41,15 +41,15 @@
 					<artifactId>license-maven-plugin</artifactId>
 					<version>2.11</version>
 					<configuration>
-						<header>src/main/license-header.txt</header>
+						<header>src/license-header.txt</header>
 						<strictCheck>true</strictCheck>
 						<excludes>
 							<exclude>LICENSE*</exclude>
 							<exclude>NOTICE</exclude>
                             <exclude>pom.xml</exclude>
-                            <exclude>validation/*.*</exclude>
-                            <exclude>src/main/xsd/thirdparty/*.*</exclude>
-                            <exclude>src/main/xsd/catalog.xml</exclude>
+                            <exclude>src/validation/*.*</exclude>
+                            <exclude>xsd/thirdparty/*.*</exclude>
+                            <exclude>xsd/catalog.xml</exclude>
                             <exclude>examples/</exclude>
 						</excludes>
 					</configuration>
