@@ -1,0 +1,15 @@
+Signature API Specification JAXB Classes
+
+Copyright 2015 Posten Norge AS. All Rights Reserved.
+
+This product includes software developed by Posten Norge AS. - https://www.posten.no/
+Licensed under Apache 2 - http://www.apache.org/licenses/LICENSE-2.0.html
+
+
+This software includes third party software subject to the following licenses:
+
+  Digipost Signature API JAXB Classes under The Apache Software License, Version 2.0
+  Digipost Signature API Schema under The Apache Software License, Version 2.0
+  JAXB2 Basics - Runtime under BSD-Style License
+
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <name>Digipost Signature API Schema</name>
+
+	<artifactId>signature-api-specification</artifactId>
+    <packaging>pom</packaging>
+
+
+	<build>
+        <resources>
+            <resource>
+                <directory>xsd</directory>
+            </resource>
+        </resources>
+		<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>1.0.1</version>
+                    <configuration>
+                        <catalogs>
+                            <catalog>src/validation/catalog.xml</catalog>
+                        </catalogs>
+                        <validationSets>
+                            <validationSet>
+                                <dir>${project.resources[0].directory}</dir>
+                                <validating>true</validating>
+                                <excludes>
+                                    <exclude>thirdparty/*.*</exclude>
+                                </excludes>
+                            </validationSet>
+                        </validationSets>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>2.11</version>
+					<configuration>
+						<header>src/license-header.txt</header>
+						<strictCheck>true</strictCheck>
+						<excludes>
+                            <exclude>pom.xml</exclude>
+                            <exclude>src/validation/*.*</exclude>
+                            <exclude>xsd/thirdparty/*.*</exclude>
+                            <exclude>xsd/catalog.xml</exclude>
+                            <exclude>examples/</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>resources</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>validate</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals><goal>check</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <goals><goal>attach-artifact</goal></goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/${project.build.finalName}.jar</file>
+                                    <type>jar</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+
+
+
+    <parent>
+        <groupId>no.digipost.signature</groupId>
+        <artifactId>signature-api-specification-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+</project>

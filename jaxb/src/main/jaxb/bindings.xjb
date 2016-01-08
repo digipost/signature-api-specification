@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings version="2.1"
+          xmlns="http://java.sun.com/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+          extensionBindingPrefixes="xjc">
+
+    <globalBindings>
+        <xjc:simple/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.XSDateTimeAdapter" name="java.util.Date" xmlType="xs:dateTime"/>
+    </globalBindings>
+
+    <bindings schemaLocation="../../../target/generated-resources/xsd/direct-and-portal.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="no.digipost.signature.api.xml"></package>
+            <nameXmlTransform>
+                <typeName prefix="XML" />
+                <anonymousTypeName prefix="XML" />
+                <elementName prefix="XML" />
+            </nameXmlTransform>
+        </schemaBindings>
+    </bindings>
+
+    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/ts_102918v010201.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="no.digipost.signature.api.xml.thirdparty.asice" />
+        </schemaBindings>
+    </bindings>
+    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/XAdES.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="no.digipost.signature.api.xml.thirdparty.xades" />
+        </schemaBindings>
+    </bindings>
+    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/xmldsig-core-schema.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="no.digipost.signature.api.xml.thirdparty.xmldsig" />
+        </schemaBindings>
+    </bindings>
+
+</bindings>
