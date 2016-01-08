@@ -5,19 +5,23 @@
 	<description>Service description of Digipost's signature service.</description>
 
     <groupId>no.digipost.signature</groupId>
-	<artifactId>signature-api-specification</artifactId>
+	<artifactId>signature-api-specification-parent</artifactId>
 	<version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>schema</module>
+        <module>jaxb</module>
+    </modules>
+
 
 	<build>
-        <resources>
-            <resource>
-                <directory>xsd</directory>
-            </resource>
-        </resources>
 		<pluginManagement>
             <plugins>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.10</version>
+                </plugin>
                 <plugin>
                     <artifactId>maven-help-plugin</artifactId>
                     <version>2.2</version>
@@ -31,22 +35,14 @@
                     <version>2.7</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0.1</version>
+                    <groupId>org.jasig.maven</groupId>
+                    <artifactId>maven-notice-plugin</artifactId>
+                    <version>1.0.6.1</version>
                     <configuration>
-                        <catalogs>
-                            <catalog>src/validation/catalog.xml</catalog>
-                        </catalogs>
-                        <validationSets>
-                            <validationSet>
-                                <dir>${project.resources[0].directory}</dir>
-                                <validating>true</validating>
-                                <excludes>
-                                    <exclude>thirdparty/*.*</exclude>
-                                </excludes>
-                            </validationSet>
-                        </validationSets>
+                        <noticeTemplate>${project.basedir}/src/main/notice/NOTICE.template</noticeTemplate>
+                        <licenseMapping>
+                            <param>${project.basedir}/src/main/notice/license-mappings.xml</param>
+                        </licenseMapping>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -58,12 +54,10 @@
 						<strictCheck>true</strictCheck>
 						<excludes>
 							<exclude>LICENSE*</exclude>
+                            <exclude>**/LICENSE*</exclude>
 							<exclude>NOTICE</exclude>
+                            <exclude>**/NOTICE</exclude>
                             <exclude>pom.xml</exclude>
-                            <exclude>src/validation/*.*</exclude>
-                            <exclude>xsd/thirdparty/*.*</exclude>
-                            <exclude>xsd/catalog.xml</exclude>
-                            <exclude>examples/</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
@@ -89,60 +83,6 @@
                 </plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals><goal>resources</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xml-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals><goal>validate</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals><goal>check</goal></goals>
-					</execution>
-				</executions>
-			</plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals><goal>jar</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <goals><goal>attach-artifact</goal></goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>target/${project.build.finalName}.jar</file>
-                                    <type>jar</type>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-		</plugins>
 	</build>
 
 	<scm>

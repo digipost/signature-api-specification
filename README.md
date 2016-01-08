@@ -2,7 +2,7 @@
 
 Dette repoet inneholder informasjon om APIene til Posten Signering.
 
-Mappen `xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
+Mappen `schema/xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
 
 ## Tre ulike scenarier for signeringsoppdrag
 
