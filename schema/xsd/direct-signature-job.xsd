@@ -33,7 +33,6 @@
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signer" minOccurs="1" maxOccurs="1" type="signer"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="document" minOccurs="1" maxOccurs="1" type="document"/>
                 <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
             </xs:sequence>
         </xs:complexType>
