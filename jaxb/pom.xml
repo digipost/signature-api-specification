@@ -16,7 +16,7 @@
         <dependency>
             <groupId>no.digipost.signature</groupId>
             <artifactId>signature-api-specification</artifactId>
-            <version>1.0.RENAME_TO_DOCUMENT-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
