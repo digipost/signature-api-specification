@@ -197,6 +197,7 @@
                     <bindingDirectory>${project.basedir}/src/main/jaxb</bindingDirectory>
                     <args>
                         <arg>-XtoString</arg>
+                        <arg>-Xjavadoc</arg>
                         <arg>-Xvalue-constructor</arg>
                         <arg>-Xfluent-api</arg>
                     </args>
@@ -215,6 +216,11 @@
                             <groupId>org.jvnet.jaxb2_commons</groupId>
                             <artifactId>jaxb2-value-constructor</artifactId>
                             <version>3.0</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.cxf.xjcplugins</groupId>
+                            <artifactId>cxf-xjc-javadoc</artifactId>
+                            <version>3.0.5</version>
                         </plugin>
                     </plugins>
                 </configuration>
