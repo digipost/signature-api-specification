@@ -37,6 +37,14 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="portal-signature-job-response">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="portal-signature-job-status-change-response">
         <xs:complexType>
             <xs:sequence>
