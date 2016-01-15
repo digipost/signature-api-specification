@@ -38,10 +38,11 @@
                     <groupId>org.jasig.maven</groupId>
                     <artifactId>maven-notice-plugin</artifactId>
                     <version>1.0.6.1</version>
+                    <inherited>false</inherited>
                     <configuration>
-                        <noticeTemplate>${project.basedir}/src/main/notice/NOTICE.template</noticeTemplate>
+                        <noticeTemplate>${project.basedir}/src/notice/NOTICE.template</noticeTemplate>
                         <licenseMapping>
-                            <param>${project.basedir}/src/main/notice/license-mappings.xml</param>
+                            <param>${project.basedir}/src/notice/license-mappings.xml</param>
                         </licenseMapping>
                     </configuration>
                 </plugin>
@@ -49,18 +50,22 @@
                     <groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>2.11</version>
-					<configuration>
-						<header>src/license-header.txt</header>
-						<strictCheck>true</strictCheck>
-						<excludes>
-							<exclude>LICENSE*</exclude>
-                            <exclude>**/LICENSE*</exclude>
-							<exclude>NOTICE</exclude>
-                            <exclude>**/NOTICE</exclude>
-                            <exclude>pom.xml</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
+                    <configuration>
+                        <header>src/license-header.txt</header>
+                        <strictCheck>true</strictCheck>
+                        <excludes>
+                            <exclude>**/pom.xml</exclude>
+                            <exclude>src/validation/*.*</exclude>
+                            <exclude>xsd/thirdparty/*.*</exclude>
+                            <exclude>xsd/catalog.xml</exclude>
+                            <exclude>examples/**/*</exclude>
+                            <exclude>NOTICE</exclude>
+                            <exclude>src/notice/NOTICE.template</exclude>
+                            <exclude>src/notice/license-mappings.xml</exclude>
+                            <exclude>jaxb/*.xjb</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.6</version>
@@ -83,6 +88,35 @@
                 </plugin>
 			</plugins>
 		</pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.jasig.maven</groupId>
+                <artifactId>maven-notice-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>check-NOTICE-file</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.11</version>
+                <executions>
+                    <execution>
+                        <id>check-license-header</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 	</build>
 
 	<scm>
