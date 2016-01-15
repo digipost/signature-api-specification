@@ -7,10 +7,6 @@
     <sender>
         <organization>123456789</organization>
     </sender>
-    <primary-document href="document.pdf" mime="application/pdf">
-        <title>Tittel</title>
-        <description>Melding til signatar</description>
-    </primary-document>
     <exit-urls>
         <completion-url>https://www.sender.org/completed</completion-url>
         <cancellation-url>https://www.sender.org/canceled</cancellation-url>

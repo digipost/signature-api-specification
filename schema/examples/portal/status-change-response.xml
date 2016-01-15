@@ -7,7 +7,7 @@
         <signature>
             <status>SIGNED</status>
             <personal-identification-number>12345678910</personal-identification-number>
-            <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+            <xades-url>https://api.signering.posten.no/signature-jobs/1/xades/1</xades-url>
         </signature>
         <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
     </signatures>

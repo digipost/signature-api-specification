@@ -3,6 +3,6 @@
     <signature-job-id>1</signature-job-id>
     <status>SIGNED</status>
     <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
-    <xades-url>https://api.signering.posten.no/signature-jobs/1/xades</xades-url>
+    <xades-url>https://api.signering.posten.no/signature-jobs/1/xades/1</xades-url>
     <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
 </direct-signature-job-status-response>
