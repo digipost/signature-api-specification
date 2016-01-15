@@ -6,7 +6,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification-parent</artifactId>
-	<version>1.0-BETA1</version>
+	<version>1.0-BETA1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
