@@ -41,9 +41,6 @@
                     <inherited>false</inherited>
                     <configuration>
                         <noticeTemplate>${project.basedir}/src/notice/NOTICE.template</noticeTemplate>
-                        <licenseMapping>
-                            <param>${project.basedir}/src/notice/license-mappings.xml</param>
-                        </licenseMapping>
                     </configuration>
                 </plugin>
                 <plugin>
