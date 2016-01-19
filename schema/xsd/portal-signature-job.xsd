@@ -103,6 +103,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="WAITING"/>
             <xs:enumeration value="REJECTED"/>
+            <xs:enumeration value="CANCELLED"/>
             <xs:enumeration value="SIGNED"/>
         </xs:restriction>
     </xs:simpleType>
