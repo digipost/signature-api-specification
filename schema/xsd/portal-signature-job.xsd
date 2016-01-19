@@ -49,6 +49,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
+                <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -70,6 +71,7 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="cancellation-url" minOccurs="0" maxOccurs="1" type="url"/>
                 <xs:element name="signatures" minOccurs="1" maxOccurs="1" type="signatures"/>
             </xs:sequence>
         </xs:complexType>
