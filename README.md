@@ -300,6 +300,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
+    <cancellation-url>https://api.signering.posten.no/signature-jobs/1/cancel</cancellation-url>
 </portal-signature-job-response>
 ```
 
