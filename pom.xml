@@ -50,6 +50,8 @@
                     <configuration>
                         <header>src/license-header.txt</header>
                         <strictCheck>true</strictCheck>
+                        <failIfMissing>true</failIfMissing>
+                        <failIfUnknown>true</failIfUnknown>
                         <mapping>
                             <xjb>XML_STYLE</xjb>
                         </mapping>
