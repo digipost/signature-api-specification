@@ -1,14 +1,6 @@
 h2. Dokumentpakke
 
-* Integritet ivaretas ved at dokumentene (posten til mottaker) pakkes og signeres iht. "Associated Signature Container (ASiC)":http://www.etsi.org/deliver/etsi_ts/103100_103199/103174/02.02.01_60/ts_103174v020201p.pdf fra ETSI. Dette formatet ivaretar integriteten over tid.
-* Konfidensialitet fra avsender til mottaker ivaretas ved bruk av "Cryptographic Message Syntax (CMS)":http://tools.ietf.org/html/rfc5652 fra IETF
-* Integritetsbeskyttet "Standard Business Document (SBD)":http://www.gs1.org/ecom/standards/guidelines#s2 fra UN/CEFACT knytter sammen den krypterte pakken med adressering, varsling og annen metadata. 
-
-En forsendelse i Sikker digital post inneholder blant annet informasjon for varsling og et hoveddokument med null eller flere vedlegg.
-
-Her beskrives hvordan dokumenter og vedlegg som sendes i Sikker digital post er beskyttet.
-
-Dokumentene og metadata relatert til dokumentene pakkes i en dokumentpakke som ivaretar dokumentenes integritet, samt integriteten til metadata relatert til dokumentene. Dokumentpakkens konfidensialitet ivaretas ved at dokumentpakken krypteres med en symmetrisk engangsnøkkel, og den symmetriske nøkkelen krypteres med mottakerens sertifikat som hentes fra oppslagstjenesten for kontaktinformasjon.
+Integriteten til dokumenter og metadata i signeringstjenesten skal kunne valideres mange år etter mottak. Det er ivaretatt ved at informasjonen pakkes i en dokumentpakke som beskyttes med digitale signaturer som beskrevet nedenfor. I praksis er dette en zip-fil med en gitt struktur som inneholder en digital signatur over innholdet.
 
 h3. Standarder
 
@@ -18,19 +10,10 @@ table(table table-striped table-condensed).
 | ETSI, ETSI TS 103 174 | "Electronic Signatures and Infrastructures (ESI); ASiC Baseline Profile":etsi2 | ETSI, 2013-06. |
 | ETSI, ETSI TS 101 903 | "Electronic Signatures and Infrastructures (ESI); XML Advanced Electronic Signatures (XAdES)":etsi3 | ETSI, 2010-12. |
 | ETSI, ETSI TS 103 171 | "Electronic Signatures and Infrastructures (ESI); XAdES Baseline Profile":etsi4 | ETSI, 2012-03. |
-| IETF, RFC 5652 | "Cryptographic Message Syntax <notexttile>(CMS)</notexttile>":ietf5 | IETF, 2009-09. |
-| IETF, RFC 3560 | "Use of the RSAES-OAEP Key Transport Algorithm in the Cryptographic Message Syntax <notexttile>(CMS)</notexttile>":ietf6 | IETF, 2003-07. |
-| IETF, RFC 3565 | "Use of the Advanced Encryption Standard (AES) Encryption Algorithm in Cryptographic Message Syntax <notexttile>(CMS)</notexttile>":ietf7 | IETF, 2003-07. |
-| IETF, RFC 5084 | "Using AES-CCM and AES-GCM Authenticated Encryption in the Cryptographic Message Syntax <notexttile>(CMS)</notexttile>":ietf8 | IETF, 2007-11. |
-| IETF, RFC 5083 | "Cryptographic Message Syntax (CMS) Authenticated-Enveloped-Data Content Type":ietf9 | IETF, 2007-11 |
 
-h3. Integritet
+h4. ASiC-profil for dokumentpakken
 
-Integriteten til dokumentene skal kunne valideres mange år etter mottak, og er ivaretatt ved digitale signaturer som beskrevet nedenfor. I praksis er dette en zip-fil med en gitt struktur som inneholder en digital signatur over innholdet.
-
-h4. ASiC profil for dokumentpakken brukt i sikker digital post.
-
-Hoveddokumentet og vedleggene pakkes sammen i en dokumentpakke sammen med noe metadata i henhold til "ASiC (ETSI TS 102 918)":etsi1, og videre begrenset i henhold til profilen definert i "Baseline Profile (ETSI TS 103 174)":etsi2. Ytterlige begrensninger "Baseline Profile (ETSI TS 103 174)":etsi2 følger nedenfor:
+Dokumentet pakkes i en dokumentpakke sammen med noe metadata i henhold til "ASiC (ETSI TS 102 918)":etsi1, og videre begrenset i henhold til profilen definert i "Baseline Profile (ETSI TS 103 174)":etsi2. Ytterlige begrensninger følger nedenfor:
 
 table(table table-striped table-condensed).
 |_. Krav |_. Felt |_. Kommentar |
@@ -40,11 +23,11 @@ table(table table-striped table-condensed).
 | "krav 8.3.1":etsi2_12 | "ASiC-E XAdES signature" | Det skal kun være en signatur i META-INF katalogen, med navn signatures.xml. Denne signaturen skal dekke alle andre filer i beholderen, og avsenderens virksomhetssertifikat skal benyttes for signering. |
 |{white-space:nowrap}. "krav 8.3.2":etsi2_12 | "Requirements for the contents of Container" refererer til "6.2.2 punkt 4b) <notextile>"META-INF/manifest.xml" if present […]</notextile> i "ASiC":etsi1 | Denne filen skal ikke være tilstede. |
 
-h4. Signatur i dokumentpakken for sikker digital post
+h4. Signatur i dokumentpakken
 
-Dokumentpakken bør være signert av "Behandlingsansvarlig":../Aktorer, men kan signeres av "Databehandler":../Aktorer.
+Dokumentpakken bør være signert av "Behandlingsansvarlig", men kan signeres av "Databehandler".
 
-Signaturen skal være i henhold til "XAdES (ETSI TS 101 903)":etsi3 med basisprofilen definert i "XAdES Baseline Profile (ETSI TS 103 171)":etsi4 (B-Level Conformance). Ytterlige begrensninger til "XAdES Baseline Profile (ETSI TS 103 171)":etsi4 følger nedenfor:
+Signaturen skal være i henhold til "XAdES (ETSI TS 101 903)":etsi3 med basisprofilen definert i "XAdES Baseline Profile (ETSI TS 103 171)":etsi4 (B-Level Conformance). Ytterlige begrensninger følger nedenfor:
 
 table(table table-striped table-condensed).
 |_. Krav |_. Felt |_. Kommentar |
@@ -70,9 +53,3 @@ Kan være "http://www.w3.org/TR/2001/REC-xml-c14n-20010315":http://www.w3.org/TR
 [etsi4_11]http://www.etsi.org/deliver/etsi_ts/103100_103199/103171/02.01.01_60/ts_103171v020101p.pdf#page=11
 [etsi4_12]http://www.etsi.org/deliver/etsi_ts/103100_103199/103171/02.01.01_60/ts_103171v020101p.pdf#page=12
 [etsi4_13]http://www.etsi.org/deliver/etsi_ts/103100_103199/103171/02.01.01_60/ts_103171v020101p.pdf#page=13
-[ietf5]http://tools.ietf.org/html/rfc5652
-[ietf5_6_3]http://tools.ietf.org/html/rfc5652#section-6.3
-[ietf6]http://tools.ietf.org/html/rfc3560
-[ietf7]http://tools.ietf.org/html/rfc3565
-[ietf8]http://tools.ietf.org/html/rfc5084
-[ietf9]http://tools.ietf.org/html/rfc5083
