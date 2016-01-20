@@ -57,6 +57,7 @@
                             <exclude>xsd/catalog.xml</exclude>
                             <exclude>examples/**/*</exclude>
                             <exclude>NOTICE</exclude>
+                            <exclude>LICENSE</exclude>
                             <exclude>src/notice/NOTICE.template</exclude>
                             <exclude>src/notice/license-mappings.xml</exclude>
                             <exclude>jaxb/*.xjb</exclude>
