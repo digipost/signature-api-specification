@@ -44,7 +44,7 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 ### [FELLES] Dokumentpakken
 
-Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Se [dokumentpakke](doc/dokumentpakke.textile) for mer informasjon om profilen.
+Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
 
 Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
