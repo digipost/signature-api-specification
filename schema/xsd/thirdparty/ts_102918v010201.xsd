@@ -3,7 +3,7 @@
 	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://uri.etsi.org/2918/v1.2.1#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
 	attributeFormDefault="unqualified">
-	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"/>
+	<xsd:import schemaLocation="xmldsig-core-schema.xsd" namespace="http://www.w3.org/2000/09/xmldsig#"/>
 	<xsd:element name="ASiCManifest" type="ASiCManifestType">
 		<xsd:annotation>
 			<xsd:documentation>Schema for ASiC-E with CAdES specifying content for ASiCManifest.xml</xsd:documentation>

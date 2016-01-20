@@ -50,6 +50,11 @@
                     <configuration>
                         <header>src/license-header.txt</header>
                         <strictCheck>true</strictCheck>
+                        <failIfMissing>true</failIfMissing>
+                        <failIfUnknown>true</failIfUnknown>
+                        <mapping>
+                            <xjb>XML_STYLE</xjb>
+                        </mapping>
                         <excludes>
                             <exclude>**/pom.xml</exclude>
                             <exclude>src/validation/*.*</exclude>
@@ -57,6 +62,7 @@
                             <exclude>xsd/catalog.xml</exclude>
                             <exclude>examples/**/*</exclude>
                             <exclude>NOTICE</exclude>
+                            <exclude>LICENSE</exclude>
                             <exclude>src/notice/NOTICE.template</exclude>
                             <exclude>src/notice/license-mappings.xml</exclude>
                             <exclude>jaxb/*.xjb</exclude>

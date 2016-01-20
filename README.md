@@ -19,7 +19,7 @@ Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasj
 * [Klientbibliotek for Java](https://github.com/digipost/signature-api-client-java)
 * [Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
 
-*OBS: klientbibliotekene er pr. desember 2015 "work in progress", og er dermed hverken fullstendig implementert eller releaset i stabil versjon*
+*OBS: klientbibliotekene og api-spesifikasjonen forandrer seg løpende. Se under "Releases" på GitHub for å finne siste BETA-versjon som skal fungere mot testmiljøet.*
 
 ## Manuell integrasjon
 
@@ -61,10 +61,10 @@ Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en f
     <sender>
         <organization>123456789</organization>
     </sender>
-    <primary-document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
         <description>Melding til signatar</description>
-    </primary-document>
+    </document>
 </manifest>
 ```
 
@@ -218,7 +218,7 @@ Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukeren til
 
 Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter du senere skal benytte når du spør om status.
 
-*(OBS: Dette query-parameteret er pr. desember 2015 ikke på plass i APIet enda)*
+*(OBS: Dette query-parameteret er pr. januar 2016 ikke på plass i APIet enda)*
 
 #### Steg 3: hent status
 
@@ -274,7 +274,7 @@ Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å op
 
 
 
-Følgende er et eksempel på metadata for et signeringsoppdrag:
+Følgende er et eksempel på metadata for et signeringsoppdrag som skal signeres av to signatarer:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -341,11 +341,13 @@ Følgende er et eksempel på en respons der en del av signeringsoppdraget har bl
 
 I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en `HTTP GET` på for å laste ned det signerte dokumentet i de to formatene.
 
-Se nærmere forklaring av disse formatene i dokumentasjonen på det synkrone scenariet.
+XAdES-filen laster du ned pr. signatar, mens PAdES-filen lastes ned på tvers av alle signatarer. Denne vil inneholde signeringsinformasjon for alle signatarer som frem til nå har signert på oppdraget. I de aller fleste tilfeller er det ikke aktuelt å laste ned denne før alle signatarene har statusen `SIGNED`.
+
+Se nærmere forklaring av disse to formatene i dokumentasjonen på det synkrone scenariet.
 
 #### Steg 4: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
 
 I tillegg vil dette kallet gjøre at du ikke lenger får informasjon om denne statusoppdateringen ved polling. Se mer informasjon om det nedenfor, i avsnittet om fler-server-scenarioet.
 
