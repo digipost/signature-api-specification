@@ -8,8 +8,8 @@
     <sender>
         <organization>123456789</organization>
     </sender>
-    <primary-document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
         <description>Melding til signatar</description>
-    </primary-document>
+    </document>
 </manifest>
