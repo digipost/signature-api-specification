@@ -33,10 +33,10 @@
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="distribution-time" minOccurs="0" maxOccurs="1" type="xs:dateTime" >
+                <xs:element name="activation-time" minOccurs="0" maxOccurs="1" type="xs:dateTime" >
                     <xs:annotation>
                         <xs:documentation>
-                            Specifies the earliest time the documents should be made available to the signers to sign.
+                            Specifies the earliest time the documents should be activated, i.e. made available to the signer(s) to sign.
                             Omitting this, or using a time before now makes the documents available for signing immediately.
                         </xs:documentation>
                     </xs:annotation>
