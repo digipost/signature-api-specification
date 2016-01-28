@@ -33,11 +33,24 @@
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="activation-time" minOccurs="0" maxOccurs="1" type="xs:dateTime" >
+                <xs:element name="activation-time" minOccurs="0" maxOccurs="1" type="xs:dateTime">
                     <xs:annotation>
                         <xs:documentation>
                             Specifies the earliest time the documents should be activated, i.e. made available to the signer(s) to sign.
                             Omitting this, or using a time before now makes the documents available for signing immediately.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="expiration-time" minOccurs="0" maxOccurs="1" type="xs:dateTime">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Specifies the latest time the document can be signed.
+                            Omitting this will set a default expiration-time for the job.
+                            Setting an expiration-time in the past, before the activation-time, or unreasonably far in the future
+                            will be rejected by the API.
+
+                            Please refer to the documentation to determine the default expiration-time, as well as the limit for
+                            how far in the future a job can be set to expire.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
