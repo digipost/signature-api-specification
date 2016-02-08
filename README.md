@@ -48,25 +48,7 @@ Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated S
 
 Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
-`manifest.xml`-filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Følgende er et eksempel på en komplett fil:
-
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<manifest xmlns="http://signering.posten.no/schema/v1">
-    <signers>
-        <signer>
-            <personal-identification-number>12345678910</personal-identification-number>
-        </signer>
-    </signers>
-    <sender>
-        <organization>123456789</organization>
-    </sender>
-    <document href="document.pdf" mime="application/pdf">
-        <title>Tittel</title>
-        <description>Melding til signatar</description>
-    </document>
-</manifest>
-```
+`manifest.xml`-filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
 
 `signatures.xml` følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
 
@@ -180,18 +162,30 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
-    <signer>
-        <personal-identification-number>12345678910</personal-identification-number>
-    </signer>
-    <sender>
-        <organization>123456789</organization>
-    </sender>
     <exit-urls>
         <completion-url>https://www.sender.org/completed</completion-url>
         <cancellation-url>https://www.sender.org/canceled</cancellation-url>
         <error-url>https://www.sender.org/failed</error-url>
     </exit-urls>
 </direct-signature-job-request>
+```
+
+Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<direct-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
+    <signer>
+        <personal-identification-number>12345678910</personal-identification-number>
+    </signer>
+    <sender>
+        <organization-number>123456789</organization-number>
+    </sender>
+    <document href="document.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
+    </document>
+</direct-signature-job-manifest>
 ```
 
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
@@ -280,6 +274,14 @@ Følgende er et eksempel på metadata for et signeringsoppdrag som skal signeres
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
+</portal-signature-job-request>
+```
+
+Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
         <signer>
             <personal-identification-number>12345678910</personal-identification-number>
@@ -289,9 +291,17 @@ Følgende er et eksempel på metadata for et signeringsoppdrag som skal signeres
         </signer>
     </signers>
     <sender>
-        <organization>123456789</organization>
+        <organization-number>123456789</organization-number>
     </sender>
-</portal-signature-job-request>
+    <document href="document.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
+    </document>
+    <availability>
+        <activation-time>2016-02-10T12:00:00+01:00</activation-time>
+        <expiration-time>2016-04-01T00:00:00+01:00</expiration-time>
+    </availability>
+</portal-signature-job-manifest>
 ```
 
 Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
