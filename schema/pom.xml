@@ -35,14 +35,14 @@
                                 <dir>examples</dir>
                                 <systemId>${project.basedir}/xsd/direct-and-portal.xsd</systemId>
                                 <excludes>
-                                    <exclude>asice/signatures.xml</exclude>
+                                    <exclude>xades/*.*</exclude>
                                 </excludes>
                             </validationSet>
                             <validationSet>
                                 <dir>examples</dir>
                                 <systemId>${project.basedir}/xsd/thirdparty/ts_102918v010201.xsd</systemId>
                                 <includes>
-                                    <include>asice/signatures.xml</include>
+                                    <include>xades/*.*</include>
                                 </includes>
                             </validationSet>
                         </validationSets>

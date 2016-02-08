@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<direct-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
+    <signer>
+        <personal-identification-number>12345678910</personal-identification-number>
+    </signer>
+    <sender>
+        <organization-number>123456789</organization-number>
+    </sender>
+    <document href="document.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <description>Melding til signatar</description>
+    </document>
+</direct-signature-job-manifest>

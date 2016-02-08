@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
-    <signer>
-        <personal-identification-number>12345678910</personal-identification-number>
-    </signer>
-    <sender>
-        <organization>123456789</organization>
-    </sender>
     <exit-urls>
         <completion-url>https://www.sender.org/completed</completion-url>
         <cancellation-url>https://www.sender.org/canceled</cancellation-url>
