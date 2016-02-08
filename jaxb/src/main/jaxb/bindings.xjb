@@ -20,6 +20,7 @@
           xmlns="http://java.sun.com/xml/ns/jaxb"
           xmlns:xs="http://www.w3.org/2001/XMLSchema"
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+          xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
           extensionBindingPrefixes="xjc">
 
     <globalBindings>
@@ -37,6 +38,18 @@
             </nameXmlTransform>
         </schemaBindings>
     </bindings>
+
+    <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
+        <bindings node="//xs:element[@name='portal-signature-job-manifest']/xs:complexType">
+            <inheritance:implements>no.digipost.signature.jaxb.XMLManifest</inheritance:implements>
+        </bindings>
+    </bindings>
+    <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
+        <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
+            <inheritance:implements>no.digipost.signature.jaxb.XMLManifest</inheritance:implements>
+        </bindings>
+    </bindings>
+
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/ts_102918v010201.xsd" node="/xs:schema">
         <schemaBindings>

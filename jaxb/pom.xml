@@ -164,6 +164,7 @@
                         <arg>-Xjavadoc</arg>
                         <arg>-Xvalue-constructor</arg>
                         <arg>-Xfluent-api</arg>
+                        <arg>-Xinheritance</arg>
                     </args>
                     <plugins>
                         <plugin>
