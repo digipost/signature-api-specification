@@ -155,7 +155,7 @@ Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
 
 Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
 
-* Kallet gjøres som en `HTTP POST` mot ressursen `/direct/signature-jobs`
+* Kallet gjøres som en `HTTP POST` mot ressursen `<rot-URL>/direct/signature-jobs`
 * Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se forrige kapittel for mer informasjon om dokumentpakken.
 * Metadataene som skal sendes med i dette kallet er definert av elementet `direct-signature-job-request`. Disse legges med multipart-kallet med mediatypen `application/xml`.
 
@@ -267,7 +267,7 @@ Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
 Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
 
-* Kallet gjøres som en `HTTP POST` mot ressursen `/portal/signature-jobs`
+* Kallet gjøres som en `HTTP POST` mot ressursen `<rot-URL>/portal/signature-jobs`
 * Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se tidligere kapittel for mer informasjon om dokumentpakken.
 * Metadataene som skal sendes med i dette kallet er definert av elementet `portal-signature-job-request`. Disse legges med multipart-kallet med mediatypen `application/xml`.
 
@@ -323,7 +323,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 
 Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig (noe som er veldig sannsynlig).
 
-For å gjøre en polling, så gjør du en `HTTP GET` mot `/portal/signature-jobs`. Du skal ikke ha med noen request-body på dette kallet.
+For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Du skal ikke ha med noen request-body på dette kallet.
 
 Responsen på dette kallet vil være én av to ting:
 
