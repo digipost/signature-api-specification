@@ -25,9 +25,9 @@ Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasj
 
 **Om Scenarier:** Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
 
-**Om ROT-URL:**
+**Om rot-URL:**
 
-I informasjonen nedenfor er det beskrevet en rekke `path`-er du skal gå mot når du integrerer. Disse skal være relative til ROT-URL for din avsenderkonto. For å finne denne URLen trenger du to ting:
+I informasjonen nedenfor er det beskrevet en rekke `path`-er du skal gå mot når du integrerer. Disse skal være relative til rot-URL for din avsenderkonto. For å finne denne URLen trenger du to ting:
 
 1.  Du må vite hvilket miljø du skal gå mot. Dette kan f.eks være `https://api.difitest.signering.posten.no/api` for testmiljøet eller `https://api.signering.posten.no/api` for produksjon.
 2.  Du må også vite din avsenderidentifikator. Dersom ditt firma kun skal gjøre en integrasjon så vil dette typisk være ditt org.nummer, men det kan også være noe annet. Dette får du vite når du snakker med oss om å lage din konto i systemet.
