@@ -149,7 +149,7 @@ Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en f
 
 Dette integrasjonsmønsteret vil passe for større tjenesteeiere som har egne portaler og nettløsninger, og som ønsker å tilby signering sømløst som en del av en prosess der brukeren allerede er innlogget i en sesjon på tjenesteeiers nettsider. Signeringsprosessen vil oppleves som en integrert del av brukerflyten på tjenesteiers sider, og brukeren blir derfor sendt tilbake til tjenesteeiers nettsider etter at signeringen er gjennomført.
 
-Relevante typer for denne delen av APIet finnes i filen `signature-job.xsd`.
+Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
 
 #### Steg 1: opprette signeringsoppdraget
 
@@ -265,7 +265,7 @@ Dette integrasjonsmønsteret passer for tjenesteeiere som ønsker å opprette si
 
 Dette scenariet er også utviklet med tanke på å støtte prosesser der det er behov for å innhente signaturer fra flere enn én sluttbruker på et dokument
 
-Relevante typer for denne delen av APIet finnes i filen `portal-signature-job.xsd`.
+Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
 #### Steg 1: opprette signeringsoppdraget
 
@@ -277,7 +277,7 @@ Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å op
 
 
 
-Følgende er et eksempel på metadata for et signeringsoppdrag som skal signeres av to signatarer:
+Følgende er et eksempel på metadata for et asynkront signeringsoppdrag:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -286,7 +286,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag som skal signeres
 </portal-signature-job-request>
 ```
 
-Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
+Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signeringsoppdrag som skal signeres av to signatarer:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
