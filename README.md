@@ -23,9 +23,17 @@ Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasj
 
 ## Manuell integrasjon
 
-Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
+**Om Scenarier:** Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
 
-Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:
+**Om ROT-URL:**
+I informasjonen nedenfor er det beskrevet en rekke `path`-er du skal gå mot når du integrerer. Disse skal være relative til ROT-URL for din avsenderkonto. For å finne denne URLen trenger du to ting:
+
+1) Du må vite hvilket miljø du skal gå mot. Dette kan f.eks være `https://api.difitest.signering.posten.no/api` for testmiljøet eller `https://api.signering.posten.no/api` for produksjon.
+2) Du må også vite din avsenderidentifikator. Dersom ditt firma kun skal gjøre en integrasjon så vil dette typisk være ditt org.nummer, men det kan også være noe annet. Dette får du vite når du snakker med oss om å lage din konto i systemet.
+
+Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/984661185/` for en integrasjon gjort av `Posten Norge AS`. Et eksempel på en faktisk URL blir da `https://api.difitest.signering.posten.no/api/984661185/signature-jobs`
+
+**Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:**
 
 * **[FELLES] Sikkerhetsmekanismene** gir en innføring i hvordan sikkerheten er implementert i APIene. Fokuset her er å forklare hvordan du skal integrere, ikke alle detaljene om mekanismene.
 * **[FELLES] Dokumentpakken** forklarer hvordan man bygger opp en komplett dokumentpakke bestående av dokumentet som skal signeres av sluttbruker og metadata om dokumentet
