@@ -32,7 +32,7 @@ I informasjonen nedenfor er det beskrevet en rekke `path`-er du skal gå mot nå
 1.  Du må vite hvilket miljø du skal gå mot. Dette kan f.eks være `https://api.difitest.signering.posten.no/api` for testmiljøet eller `https://api.signering.posten.no/api` for produksjon.
 2.  Du må også vite din avsenderidentifikator. Dersom ditt firma kun skal gjøre en integrasjon så vil dette typisk være ditt org.nummer, men det kan også være noe annet. Dette får du vite når du snakker med oss om å lage din konto i systemet.
 
-Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/984661185/` for en integrasjon gjort av `Posten Norge AS`. Et eksempel på en faktisk URL blir da `https://api.difitest.signering.posten.no/api/984661185/signature-jobs`
+Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/984661185/` for en integrasjon gjort av `Posten Norge AS`. Et eksempel på en faktisk URL for å opprette synkrone signeringsoppdrag blir da `https://api.difitest.signering.posten.no/api/984661185/direct/signature-jobs`
 
 **Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:**
 
@@ -155,7 +155,7 @@ Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
 
 Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
 
-* Kallet gjøres som en `HTTP POST` mot ressursen `/signature-jobs`
+* Kallet gjøres som en `HTTP POST` mot ressursen `/direct/signature-jobs`
 * Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se forrige kapittel for mer informasjon om dokumentpakken.
 * Metadataene som skal sendes med i dette kallet er definert av elementet `direct-signature-job-request`. Disse legges med multipart-kallet med mediatypen `application/xml`.
 
@@ -209,7 +209,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `direc
     <redirect-url>
         https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
     </redirect-url>
-    <status-url>https://api.signering.posten.no/signature-jobs/1/status</status-url>
+    <status-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/status</status-url>
 </direct-signature-job-response>
 ```
 
@@ -236,9 +236,9 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 <direct-signature-job-status-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <status>SIGNED</status>
-    <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
-    <xades-url>https://api.signering.posten.no/signature-jobs/1/xades/1</xades-url>
-    <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+    <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/complete</confirmation-url>
+    <xades-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/xades/1</xades-url>
+    <pades-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/pades</pades-url>
 </direct-signature-job-status-response>
 ```
 
@@ -319,7 +319,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
-    <cancellation-url>https://api.signering.posten.no/signature-jobs/1/cancel</cancellation-url>
+    <cancellation-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/cancel</cancellation-url>
 </portal-signature-job-response>
 ```
 
@@ -341,18 +341,18 @@ Følgende er et eksempel på en respons der en del av signeringsoppdraget har bl
 <portal-signature-job-status-change-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <status>PARTIALLY_COMPLETED</status>
-    <confirmation-url>https://api.signering.posten.no/signature-jobs/1/complete</confirmation-url>
+    <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/complete</confirmation-url>
     <signatures>
         <signature>
             <status>SIGNED</status>
             <personal-identification-number>12345678910</personal-identification-number>
-            <xades-url>https://api.signering.posten.no/signature-jobs/1/xades/1</xades-url>
+            <xades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/xades/1</xades-url>
         </signature>
         <signature>
             <status>WAITING</status>
             <personal-identification-number>98765432100</personal-identification-number>
         </signature>
-        <pades-url>https://api.signering.posten.no/signature-jobs/1/pades</pades-url>
+        <pades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/pades</pades-url>
     </signatures>
 </portal-signature-job-status-change-response>
 ```

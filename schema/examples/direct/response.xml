@@ -4,5 +4,5 @@
     <redirect-url>
         https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
     </redirect-url>
-    <status-url>https://api.signering.posten.no/signature-jobs/1/status</status-url>
+    <status-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/status</status-url>
 </direct-signature-job-response>
