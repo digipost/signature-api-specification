@@ -30,7 +30,7 @@ Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasj
 I informasjonen nedenfor er det beskrevet en rekke `path`-er du skal gå mot når du integrerer. Disse skal være relative til rot-URL for din avsenderkonto. For å finne denne URLen trenger du to ting:
 
 1.  Du må vite hvilket miljø du skal gå mot. Dette kan f.eks være `https://api.difitest.signering.posten.no/api` for testmiljøet eller `https://api.signering.posten.no/api` for produksjon.
-2.  Du må også vite din avsenderidentifikator. Dersom ditt firma kun skal gjøre en integrasjon så vil dette typisk være ditt org.nummer, men det kan også være noe annet. Dette får du vite når du snakker med oss om å lage din konto i systemet.
+2.  Du må også vite din avsenderidentifikator. Pr. i dag er dette din organisasjons org.nummer.
 
 Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/984661185/` for en integrasjon gjort av `Posten Norge AS`. Et eksempel på en faktisk URL for å opprette synkrone signeringsoppdrag blir da `https://api.difitest.signering.posten.no/api/984661185/direct/signature-jobs`
 
