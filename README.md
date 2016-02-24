@@ -162,7 +162,7 @@ Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å op
 En del av metadataene er et sett med URLer definert i elementet `exit-urls`. Disse adressene vil bli benyttet av signeringstjenesten til å redirecte brukeren tilbake til din portal ved fullført signering. Følgende tre URLer skal oppgis:
 
 * **completion-url:** Hit sendes brukeren dersom signeringen er vellykket. Du kan da be om status for å få URLer til nedlasting av signert dokument.
-* **cancellation-url:** Hit sendes brukeren dersom han selv velger å avbryte signeringen. Dette er en handling brukeren *selv valgte* å gjennomføre.
+* **rejection-url:** Hit sendes brukeren dersom han selv velger å avbryte signeringen. Dette er en handling brukeren *selv valgte* å gjennomføre.
 * **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukeren *ikke* valgte å gjøre selv.
 
 Følgende er et eksempel på metadata for et signeringsoppdrag:
@@ -173,7 +173,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
     <reference>123-ABC</reference>
     <exit-urls>
         <completion-url>https://www.sender.org/completed</completion-url>
-        <cancellation-url>https://www.sender.org/canceled</cancellation-url>
+        <rejection-url>https://www.sender.org/rejected</rejection-url>
         <error-url>https://www.sender.org/failed</error-url>
     </exit-urls>
 </direct-signature-job-request>
