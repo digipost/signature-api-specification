@@ -59,15 +59,13 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="expiration-time" minOccurs="0" maxOccurs="1" type="xs:dateTime">
+            <xs:element name="available-seconds" minOccurs="0" maxOccurs="1" type="xs:nonNegativeInteger">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the latest time the document can be signed.
-                        Omitting this will set a default expiration-time for the job.
-                        Setting an expiration-time in the past, before the activation-time, or unreasonably far in the future
-                        will be rejected by the API.
+                        Specifies how many seconds after activation (i.e. seconds after activation-time if set, creation time if not) the document can be signed.
+                        Omitting this will set a default availability length for the job.
 
-                        Please refer to the documentation to determine the default expiration-time, as well as the limit for
+                        Please refer to the documentation to determine the default availability length, as well as the limit for
                         how far in the future a job can be set to expire.
                     </xs:documentation>
                 </xs:annotation>

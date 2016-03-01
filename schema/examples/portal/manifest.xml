@@ -17,6 +17,6 @@
     </document>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
-        <expiration-time>2016-04-01T00:00:00+01:00</expiration-time>
+        <available-seconds>864000</available-seconds>
     </availability>
 </portal-signature-job-manifest>
