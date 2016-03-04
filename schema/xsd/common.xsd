@@ -115,4 +115,10 @@
         </xs:attribute>
     </xs:complexType>
 
+    <xs:simpleType name="nonNegativeLong">
+        <xs:restriction base="xs:long">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 </xs:schema>

@@ -59,7 +59,7 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="available-seconds" minOccurs="0" maxOccurs="1" type="xs:nonNegativeInteger">
+            <xs:element name="available-seconds" minOccurs="0" maxOccurs="1" type="nonNegativeLong">
                 <xs:annotation>
                     <xs:documentation>
                         Specifies how many seconds after activation (i.e. seconds after activation-time if set, creation time if not) the document can be signed.
