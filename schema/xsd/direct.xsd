@@ -92,8 +92,32 @@
 
     <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="SIGNED"/>
-            <xs:enumeration value="REJECTED"/>
+            <xs:enumeration value="SIGNED" >
+                <xs:annotation>
+                    <xs:documentation>
+                        The document has been signed, and the signer has been redirected to the
+                        completion-url provided in the direct-signature-job-request's exit-urls.
+                        The signed document artifacts can be downloaded by following the appropriate
+                        urls in the direct-signature-job-status-response.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="REJECTED" >
+                <xs:annotation>
+                    <xs:documentation>
+                        The user decided to reject to sign the document, and has been redirected to the
+                        rejection-url provided in the direct-signature-job-request's exit-urls.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FAILED" >
+                <xs:annotation>
+                    <xs:documentation>
+                        An unexpected error occured during the signing ceremony, and the user has been redirected to the
+                        error-url provided in the direct-signature-job-request's exit-urls.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
 
