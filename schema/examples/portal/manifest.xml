@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
-        <signer>
+        <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
         </signer>
-        <signer>
+        <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
+        </signer>
+        <signer order="2">
+            <personal-identification-number>01013300001</personal-identification-number>
+        </signer>
+        <signer order="3">
+            <personal-identification-number>02038412546</personal-identification-number>
         </signer>
     </signers>
     <sender>
