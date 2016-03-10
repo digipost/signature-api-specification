@@ -109,7 +109,7 @@
     <parent>
         <groupId>no.digipost.signature</groupId>
         <artifactId>signature-api-specification-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-CHAINS-CHAINS-CHAINS-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
