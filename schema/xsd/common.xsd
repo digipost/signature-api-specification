@@ -59,6 +59,22 @@
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
                         type="personal-identification-number"/>
         </xs:sequence>
+        <xs:attribute name="order" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies the order in which documents should be activated. Lower values indicates earlier activation.
+                    A document with higher order will only be made available when all lower order signers have signed the document.
+                    If two signers have the same order, the document will be made available to both in parallell.
+                    Specifying order with only one signer has no effect.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="9"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:simpleType name="personal-identification-number">
