@@ -317,7 +317,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 </portal-signature-job-manifest>
 ```
 
-`order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"`, og for signataren med `order="3"` når begge de med `order="2"` har signert.
+`order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
  Tiden angitt i `available-seconds` gjelder for hvert sett med signatarer i parallell, slik at alle signatarene vil ha lik frist fra oppdraget blir tilgjengelig for dem.
 
