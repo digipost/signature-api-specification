@@ -66,6 +66,10 @@
                     A document with higher order will only be made available when all lower order signers have signed the document.
                     If two signers have the same order, the document will be made available to both in parallell.
                     Specifying order with only one signer has no effect.
+
+                    The specified signature deadline for portal jobs will be for each individual signer.
+                    For example, 1 day for 3 chained signers means 3 days maximum. The time only runs once for signers in paralell,
+                    so three paralell signers with 1 day deadline will maximum take 1 day.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
