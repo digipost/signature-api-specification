@@ -284,17 +284,23 @@ Følgende er et eksempel på metadata for et asynkront signeringsoppdrag:
 </portal-signature-job-request>
 ```
 
-Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signeringsoppdrag som skal signeres av to signatarer:
+Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signeringsoppdrag som skal signeres av fire signatarer:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
-        <signer>
+        <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
         </signer>
-        <signer>
-            <personal-identification-number>98765432100</personal-identification-number>
+        <signer order="2">
+            <personal-identification-number>10987654321</personal-identification-number>
+        </signer>
+        <signer order="2">
+            <personal-identification-number>01013300001</personal-identification-number>
+        </signer>
+        <signer order="3">
+            <personal-identification-number>02038412546</personal-identification-number>
         </signer>
     </signers>
     <sender>
@@ -306,10 +312,14 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     </document>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
-        <expiration-time>2016-04-01T00:00:00+01:00</expiration-time>
+        <available-seconds>864000</available-seconds>
     </availability>
 </portal-signature-job-manifest>
 ```
+
+`order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"`, og for signataren med `order="3"` når begge de med `order="2"` har signert.
+
+ Tiden angitt i `available-seconds` gjelder for hvert sett med signatarer i parallell, slik at alle signatarene vil ha lik frist fra oppdraget blir tilgjengelig for dem.
 
 Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
 
