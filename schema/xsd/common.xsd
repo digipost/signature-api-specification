@@ -73,7 +73,7 @@
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-                <xs:restriction base="xs:integer">
+                <xs:restriction base="xs:int">
                     <xs:minInclusive value="0"/>
                     <xs:maxInclusive value="9"/>
                 </xs:restriction>
