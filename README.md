@@ -221,13 +221,11 @@ Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukeren til
 
 **Noen ord om sikkerheten her:** For å håndtere sikkerheten i dette kallet vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjeneres logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
 
-Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter du senere skal benytte når du spør om status.
-
-*(OBS: Dette query-parameteret er pr. januar 2016 ikke på plass i APIet enda)*
+Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter (`status_query_token`) du senere skal benytte når du spør om status.
 
 #### Steg 3: hent status
 
-Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter du fikk i Steg 2.
+Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter (`status_query_token`) du fikk i Steg 2.
 
 Du skal ikke sende med noen andre data i dette kallet.
 
