@@ -45,7 +45,7 @@ Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/9846
 
 Sikkerheten i APIet til Posten Signering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
 
-Dersom du har flere sertifikater så skal du benytte sertifikatet som har spesifisert `KeyUsage` `DigitalSignature` og `ExtendedKeyUsage` `clientAuth`.
+Du skal benytte virksomhetssertifikatet som har spesifisert KeyUsage = DigitalSignature og ExtendedKeyUsage = clientAuth.
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker.
 
