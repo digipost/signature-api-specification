@@ -14,7 +14,7 @@ Posten Signering er laget med tanke på å håndtere 3 ulike scenarier for signe
 
 ## Integrasjon med klientbiblioteker
 
-Det blir laget klientbiblioteker for både Java og .NET, som forenkler integrasjonsprosessen. Se følgende GitHub-repoer for mer informasjon om integrasjon vha. klientbibliotekene:
+Det finnes klientbiblioteker som forenkler integrasjonsprosessen:
 
 * [Klientbibliotek for Java](https://github.com/digipost/signature-api-client-java)
 * [Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
