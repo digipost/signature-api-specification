@@ -36,14 +36,18 @@ Rot-URLen blir da eksempelvis `https://api.difitest.signering.posten.no/api/9846
 
 **Nedenfor finner du informasjon om integrasjon i følgende fire kapitler:**
 
-* **[FELLES] Sikkerhetsmekanismene** gir en innføring i hvordan sikkerheten er implementert i APIene. Fokuset her er å forklare hvordan du skal integrere, ikke alle detaljene om mekanismene.
+* **[FELLES] Sikkerhet** gir en innføring i hvordan sikkerheten er implementert i APIene.
 * **[FELLES] Dokumentpakken** forklarer hvordan man bygger opp en komplett dokumentpakke bestående av dokumentet som skal signeres av sluttbruker og metadata om dokumentet
 * **API-flyt for synkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
 * **API-flyt for asynkrone signeringsoppdrag** gir en kort innføring i hvordan en normal flyt gjennom APIet implementeres for scenariet *Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon*
 
-### [FELLES] Sikkerhetsmekanismene
+### [FELLES] Sikkerhet
 
-Sikkerheten i APIet til Posten Signering er implementert vha. toveis TLS. For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
+Signeringstjenesten benytter to-veis TLS for å sikre konfidensialitet og meldingsintegritet på transportlaget. Dokumentpakken med dokumentet som skal signeres er integritetssikret med ASiC-E.
+
+#### To-veis TLS
+
+For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
 
 Du skal benytte virksomhetssertifikatet som har spesifisert KeyUsage = DigitalSignature og ExtendedKeyUsage = clientAuth.
 
@@ -52,6 +56,17 @@ De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempl
 Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til [tillitsankrene (CA-sertifikater)](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering) i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å identifisere seg. Ved å ha tillitsankrene i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator, som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
+
+#### Personopplysninger
+
+Sensitive personopplysninger skal ikke legges andre steder enn dokumentet som skal signeres. Det betyr at det ikke skal forekomme sensitive opplysninger i metadatafelter som for eksempel emne, beskrivelse eller referanse.
+
+Personlige opplysninger skal kun legges i følgende felter:
+
+* `personal-identification-number` – signatarens fødselsnummer eller d-nummer
+* `description` – kan inneholde en personlig melding, tilleggsinformasjon til dokumentet eller beskrivelse av dokumentet
+
+Øvrige felter skal ikke inneholde personlige opplysninger. Det vil si at emne kun skal inneholde en generell beskrivelse av dokumentet og at referansen ikke skal identifisere personen.
 
 ### [FELLES] Dokumentpakken
 
