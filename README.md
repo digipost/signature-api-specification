@@ -319,7 +319,9 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
- Tiden angitt i `available-seconds` gjelder for hvert sett med signatarer i parallell, slik at alle signatarene vil ha lik frist fra oppdraget blir tilgjengelig for dem.
+`availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering. 
+Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første signatarene får tilgang til dokumentet til signering.
+Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signatarer vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med signatarer med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil signatarer med `order=1` få maks 4 dager fra `activation-time` til å signere. Signatarer med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle signatarer med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 signatar ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte signatarer. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
 
 Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
 
