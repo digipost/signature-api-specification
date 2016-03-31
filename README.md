@@ -57,11 +57,13 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
 
-Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
+Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
-`manifest.xml`-filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
+**Dokument:** filen er enten PDF eller en ren tekstfil, og kan maksimalt være 3 MB (3 145 728 bytes) stor. Denne filen refereres til [med det påkrevde `href`-attributtet i `document`-elementet](https://github.com/digipost/signature-api-specification/blob/master/schema/xsd/common.xsd#L120) i `manifest.xml`.
 
-`signatures.xml` følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
+**`manifest.xml`:** Filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
+
+**`signatures.xml`:** Filen følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
