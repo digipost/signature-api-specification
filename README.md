@@ -49,9 +49,9 @@ Dersom du har flere sertifikater så skal du benytte sertifikatet som har spesif
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker.
 
-Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til [tillitsankrene (CA-sertifikater)](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering) i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å verifisere seg. Ved å ha tillitsankrene i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til [tillitsankrene (CA-sertifikater)](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering) i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å identifisere seg. Ved å ha tillitsankrene i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
 
-Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
+Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator, som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
 ### [FELLES] Dokumentpakken
 
