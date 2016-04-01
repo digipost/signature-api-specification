@@ -59,17 +59,15 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 #### Personopplysninger
 
-Sensitive personopplysninger skal ikke forekomme andre steder enn dokumentet som skal signeres. Det betyr at det ikke skal være sensitive opplysninger i metadatafelter som for eksempel tittel, beskrivelse eller referanse.
-
-Personopplysninger skal kun legges i følgende felter:
+Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter:
 
 * `personal-identification-number` – signatarens fødselsnummer eller d-nummer
 * `title` – tittelen/emnet til dokumentet, som oppsummerer hva signaturoppdraget handler om
 * `description` – kan inneholde en personlig melding, tilleggsinformasjon til dokumentet eller beskrivelse av dokumentet
 
-Øvrige felter skal ikke inneholde personlige opplysninger. Det vil si at referansen (`reference`) ikke skal identifisere signataren med noen personopplysninger, da dette feltet vil brukes utenfor en sikker kontekst (f.eks i epost-varslinger).
+Øvrige felter skal ikke inneholde sensitive personopplysninger eller personopplysninger. Eksempelvis vil referansen (`reference`) brukes utenfor en sikker kontekst (f.eks i epost-varslinger), og kan derfor ikke inneholde personopplysninger.
 
-Se nærmere beskrivelse av forskjellen på personopplysninger og sensitive personopplysninger på [Datatilsynet sine nettsider](https://www.datatilsynet.no/personvern/personopplysninger/).
+Se nærmere beskrivelse av begrepene personopplysninger og sensitive personopplysninger på [Datatilsynet sine nettsider](https://www.datatilsynet.no/personvern/personopplysninger/).
 
 ### [FELLES] Dokumentpakken
 
