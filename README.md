@@ -151,11 +151,12 @@ Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil)
 
 ### API-flyt for Synkrone signeringsoppdrag
 
-![Flytskjema for Synkrone signeringsoppdrag](/doc/flytskjemaer/synkron-maskin-til-maskin.png?raw=true "Flytskjema for Synkrone signeringsoppdrag")
-
 Dette integrasjonsmønsteret vil passe for større tjenesteeiere som har egne portaler og nettløsninger, og som ønsker å tilby signering sømløst som en del av en prosess der brukeren allerede er innlogget i en sesjon på tjenesteeiers nettsider. Signeringsprosessen vil oppleves som en integrert del av brukerflyten på tjenesteiers sider, og brukeren blir derfor sendt tilbake til tjenesteeiers nettsider etter at signeringen er gjennomført.
 
 Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
+
+![Flytskjema for Synkrone signeringsoppdrag](/doc/flytskjemaer/synkron-maskin-til-maskin.png?raw=true "Flytskjema for Synkrone signeringsoppdrag")
+**Flytskjema for det synkrone scenariet:** *skjemaet viser flyten helt fra en bruker logger inn på tjenesteeiers nettsider til oppdraget er fullstendig signert. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
 
 #### Steg 1: opprette signeringsoppdraget
 
