@@ -268,6 +268,9 @@ Dette scenariet er også utviklet med tanke på å støtte prosesser der det er 
 
 Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
+![Flytskjema for Asynkrone signeringsoppdrag](/doc/flytskjemaer/asynkron-maskin-til-maskin.png?raw=true "Flytskjema for Asynkrone signeringsoppdrag")
+**Flytskjema for det asynkrone scenariet:** *skjemaet viser flyten fra tjenesteeier sender inn oppdrag, starer polling, via at sluttbruker(e) signerer oppdragene, og tjenesteeier får svar på polling og kan laste ned signert versjon. Dersom du ikke sender et oppdrag til mer enn en bruker (multisignatar) kan du se bort i fra den første "steg 4"-seksjonen. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
+
 #### Steg 1: opprette signeringsoppdraget
 
 Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
