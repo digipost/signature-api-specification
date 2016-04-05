@@ -59,24 +59,27 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 #### Personopplysninger
 
-Sensitive personopplysninger skal ikke forekomme andre steder enn dokumentet som skal signeres. Det betyr at det ikke skal være sensitive opplysninger i metadatafelter som for eksempel emne, beskrivelse eller referanse.
-
-Personlige opplysninger skal kun legges i følgende felter:
+Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter:
 
 * `personal-identification-number` – signatarens fødselsnummer eller d-nummer
+* `title` – tittelen/emnet til dokumentet, som oppsummerer hva signaturoppdraget handler om
 * `description` – kan inneholde en personlig melding, tilleggsinformasjon til dokumentet eller beskrivelse av dokumentet
 
-Øvrige felter skal ikke inneholde personlige opplysninger. Det vil si at emne kun skal inneholde en generell beskrivelse av dokumentet og at referansen ikke skal identifisere signataren.
+Øvrige felter skal ikke inneholde sensitive personopplysninger eller personopplysninger. Eksempelvis vil referansen (`reference`) brukes utenfor en sikker kontekst (f.eks i epost-varslinger), og kan derfor ikke inneholde personopplysninger.
+
+Se nærmere beskrivelse av begrepene personopplysninger og sensitive personopplysninger på [Datatilsynet sine nettsider](https://www.datatilsynet.no/personvern/personopplysninger/).
 
 ### [FELLES] Dokumentpakken
 
 Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
 
-Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
+Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
-`manifest.xml`-filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
+**Dokument:** filen er enten PDF eller en ren tekstfil, og kan maksimalt være 3 MB (3 145 728 bytes) stor. Denne filen refereres til [med det påkrevde `href`-attributtet i `document`-elementet](https://github.com/digipost/signature-api-specification/blob/master/schema/xsd/common.xsd#L120) i `manifest.xml`.
 
-`signatures.xml` følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
+**`manifest.xml`:** Filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
+
+**`signatures.xml`:** Filen følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -167,6 +170,9 @@ Pakken skal inneholde dokumentene som skal signeres (PDF- eller TXT-filer), en f
 Dette integrasjonsmønsteret vil passe for større tjenesteeiere som har egne portaler og nettløsninger, og som ønsker å tilby signering sømløst som en del av en prosess der brukeren allerede er innlogget i en sesjon på tjenesteeiers nettsider. Signeringsprosessen vil oppleves som en integrert del av brukerflyten på tjenesteiers sider, og brukeren blir derfor sendt tilbake til tjenesteeiers nettsider etter at signeringen er gjennomført.
 
 Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
+
+![Flytskjema for Synkrone signeringsoppdrag](/doc/flytskjemaer/synkron-maskin-til-maskin.png?raw=true "Flytskjema for Synkrone signeringsoppdrag")
+**Flytskjema for det synkrone scenariet:** *skjemaet viser flyten helt fra en bruker logger inn på tjenesteeiers nettsider til oppdraget er fullstendig signert. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
 
 #### Steg 1: opprette signeringsoppdraget
 
@@ -278,6 +284,9 @@ Dette scenariet er også utviklet med tanke på å støtte prosesser der det er 
 
 Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
+![Flytskjema for Asynkrone signeringsoppdrag](/doc/flytskjemaer/asynkron-maskin-til-maskin.png?raw=true "Flytskjema for Asynkrone signeringsoppdrag")
+**Flytskjema for det asynkrone scenariet:** *skjemaet viser flyten fra tjenesteeier sender inn oppdrag, starer polling, via at sluttbruker(e) signerer oppdragene, og tjenesteeier får svar på polling og kan laste ned signert versjon. Dersom du ikke sender et oppdrag til mer enn en bruker (multisignatar) kan du se bort i fra den første "steg 4"-seksjonen. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
+
 #### Steg 1: opprette signeringsoppdraget
 
 Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
@@ -332,7 +341,9 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
- Tiden angitt i `available-seconds` gjelder for hvert sett med signatarer i parallell, slik at alle signatarene vil ha lik frist fra oppdraget blir tilgjengelig for dem.
+`availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering. 
+Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første signatarene får tilgang til dokumentet til signering.
+Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signatarer vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med signatarer med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil signatarer med `order=1` få maks 4 dager fra `activation-time` til å signere. Signatarer med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle signatarer med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 signatar ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte signatarer. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
 
 Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
 
