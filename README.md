@@ -57,6 +57,13 @@ Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med)
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator, som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
+##### Vanlige problemer med oppsett av to-veis TLS
+
+* Det benyttes feil trustStore for klienten. I testmiljøet må trustStore inneholde testsertifikatene, i produksjon må det være produksjonssertifikater.
+* Sertifikatet som benyttes er ikke et virksomhetssertifikat. Virksomhetssertifikater utstedes typisk av Buypass eller Commfides.
+* Klienten støtter ikke TLS v1.2. Java 6 støtter ikke TLS v1.2, i Java 7 må dette skrus på eksplisitt.
+* Sertifikatet er utstedt av Commfides SHA-1 rotsertifikat. Kun sertifikater med SHA-256 fra Commfides er støttet. Dette gjelder primært eldre sertifikater.
+
 #### Personopplysninger
 
 Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter:
