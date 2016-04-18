@@ -24,6 +24,13 @@
 
     <xs:include schemaLocation="common.xsd"/>
 
+    <xs:complexType name="direct-signer">
+        <xs:sequence>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
+                        type="personal-identification-number"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:element name="direct-signature-job-request">
         <xs:complexType>
             <xs:annotation>
@@ -42,7 +49,7 @@
                 <xs:documentation>Contains metadata related to a document in a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="signer"/>
+                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="direct-signer"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
                 <xs:element name="document" minOccurs="1" maxOccurs="1" type="document"/>
             </xs:sequence>
