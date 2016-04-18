@@ -30,10 +30,17 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="notifications">
+        <xs:sequence>
+            <xs:element name="email-address" minOccurs="0" maxOccurs="1" type="xs:string"/>
+            <xs:element name="mobile-number" minOccurs="0" maxOccurs="1" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="portal-signer">
         <xs:sequence>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
-                        type="personal-identification-number"/>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:element name="notifications" minOccurs="0" maxOccurs="1" type="notifications" />
         </xs:sequence>
         <xs:attribute name="order" use="optional">
             <xs:annotation>
