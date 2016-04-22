@@ -50,6 +50,17 @@
         </bindings>
     </bindings>
 
+    <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
+        <bindings node="//xs:complexType[@name='portal-document']">
+            <inheritance:implements>no.digipost.signature.jaxb.XMLDocument</inheritance:implements>
+        </bindings>
+    </bindings>
+    <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
+        <bindings node="//xs:complexType[@name='direct-document']">
+            <inheritance:implements>no.digipost.signature.jaxb.XMLDocument</inheritance:implements>
+        </bindings>
+    </bindings>
+
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/ts_102918v010201.xsd" node="/xs:schema">
         <schemaBindings>

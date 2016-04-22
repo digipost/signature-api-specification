@@ -15,8 +15,11 @@
  */
 package no.digipost.signature.jaxb;
 
-public interface XMLManifest {
+public interface XMLDocument {
 
-	XMLDocument getDocument();
+	String getTitle();
+	String getDescription();
+	String getHref();
+	String getMime();
 
 }
