@@ -29,6 +29,7 @@
     </sender>
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
+        <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
         <description>Melding til signatar</description>
     </document>
     <availability>
