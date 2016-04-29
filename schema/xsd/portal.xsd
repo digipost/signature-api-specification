@@ -217,6 +217,23 @@
             <xs:enumeration value="WAITING"/>
             <xs:enumeration value="REJECTED"/>
             <xs:enumeration value="CANCELLED"/>
+            <xs:enumeration value="RESERVED">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates that the signer is reserved against digital communication from the government. This is a status returned from
+                        <a href="http://begrep.difi.no/Oppslagstjenesten/">Oppslagstjenesten for kontakt og reservasjonsregisteret</a>
+                        and is only relevant for government senders.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CONTACT_INFORMATION_MISSING">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates that no contact information could be found for the signer. This will happen when no contact information is provided
+                        when creating the signature job, and no contact information could be found in <a href="http://begrep.difi.no/Oppslagstjenesten/">Oppslagstjenesten for kontakt og reservasjonsregisteret</a> (when applicable).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="EXPIRED"/>
             <xs:enumeration value="SIGNED"/>
         </xs:restriction>
