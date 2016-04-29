@@ -233,6 +233,13 @@ when creating the signature job, and no contact information could be found in Di
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="ABORTED">
+                <xs:annotation>
+                    <xs:documentation>
+The signature job was never made available to the signer because another signer of the same job failed.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="EXPIRED"/>
             <xs:enumeration value="SIGNED"/>
         </xs:restriction>
