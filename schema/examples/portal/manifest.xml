@@ -4,20 +4,21 @@
         <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
             <notifications>
-                <email-address>signer1@example.com</email-address>
-                <mobile-number>00000000</mobile-number>
+                <email address="signer1@example.com" />
+                <sms number="00000000" />
             </notifications>
         </signer>
         <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
             <notifications>
-                <email-address>signer2@example.com</email-address>
+                <email address="signer2@example.com" />
             </notifications>
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
             <notifications>
-                <mobile-number>33333333</mobile-number>
+                <email />
+                <sms />
             </notifications>
         </signer>
         <signer order="3">
