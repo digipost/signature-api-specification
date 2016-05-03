@@ -43,23 +43,23 @@
             <xs:element name="email" minOccurs="1" maxOccurs="1" type="email">
                 <xs:annotation>
                     <xs:documentation>
-                        Notifications by email is always required, so when customizing the notifications using the notificaton
-                        element, you must include this tag. If no notification element is present on the signer, the email
-                        notification is implicitly set.
+Notifications by email is always required, so when customizing the notifications using the notificaton
+element, you must include this tag. If no notification element is present on the signer, the email
+notification is implicitly set.
 
-                        You can here override the email address that will be used for notifying the user by setting the attribute
-                        "address", if not overridden the address the user has specified himself will be used.
+You can here override the email address that will be used for notifying the user by setting the attribute
+"address", if not overridden the address the user has specified himself will be used.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="sms" minOccurs="0" maxOccurs="1" type="sms">
                 <xs:annotation>
                     <xs:documentation>
-                        Notifications by SMS is optional, and there is an extra cost applied is used. By including the sms-element
-                        in the notification element, you are opting in to use SMS-notifications.
+Notifications by SMS is optional, and there is an extra cost applied is used. By including the sms-element
+in the notification element, you are opting in to use SMS-notifications.
 
-                        You can here override the mobile number that will be used for notifying the user by setting the attribute
-                        "number", if not overridden the number the user has specified himself will be used.
+You can here override the mobile number that will be used for notifying the user by setting the attribute
+"number", if not overridden the number the user has specified himself will be used.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
