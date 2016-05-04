@@ -20,7 +20,8 @@
            xmlns="http://signering.posten.no/schema/v1"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+           xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xs:include schemaLocation="common.xsd"/>
 
@@ -206,43 +207,38 @@ though the status has not changed.
 
     <xs:complexType name="signature">
         <xs:sequence>
-            <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
+            <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string">
+                <xsd:annotation>
+                    <xs:documentation>
+Textual field which describes the signer status. Note that this field might contain new, unknown statuses in the future.
+Clients should use the portal-signature-job-status element for getting the status of the entire job. Unknown signer status should be logged for later review and ignored at runtime.
+
+Currently known values:
+    * WAITING
+        The signer has not yet been resolved. Either waiting for the job to be made available or for the signer to perform the signature.
+    * REJECTED
+        The signer rejected the job.
+    * CANCELLED
+        The job owner cancelled the job.
+    * RESERVED
+        Indicates that the signer is reserved against digital communication from the government. This is a status returned from
+        Difis Oppslagstjenesten for kontakt og reservasjonsregisteret and is only relevant for government senders.
+    * CONTACT_INFORMATION_MISSING
+        Indicates that no contact information could be found for the signer. This will happen when no contact information is provided
+        when creating the signature job, and no contact information could be found in Difis Oppslagstjenesten for kontakt og reservasjonsregisteret (when applicable).
+    * ABORTED
+        The signature job was never made available to the signer because another signer of the same job failed.
+    * EXPIRED
+        The job has expired.
+    * SIGNED
+        The signer has signed the job.
+                    </xs:documentation>
+                </xsd:annotation>
+            </xs:element>
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
             <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="signature-status">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="WAITING"/>
-            <xs:enumeration value="REJECTED"/>
-            <xs:enumeration value="CANCELLED"/>
-            <xs:enumeration value="RESERVED">
-                <xs:annotation>
-                    <xs:documentation>
-Indicates that the signer is reserved against digital communication from the government. This is a status returned from
-Difis Oppslagstjenesten for kontakt og reservasjonsregisteret and is only relevant for government senders.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="CONTACT_INFORMATION_MISSING">
-                <xs:annotation>
-                    <xs:documentation>
-Indicates that no contact information could be found for the signer. This will happen when no contact information is provided
-when creating the signature job, and no contact information could be found in Difis Oppslagstjenesten for kontakt og reservasjonsregisteret (when applicable).
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="ABORTED">
-                <xs:annotation>
-                    <xs:documentation>
-The signature job was never made available to the signer because another signer of the same job failed.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="EXPIRED"/>
-            <xs:enumeration value="SIGNED"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>
