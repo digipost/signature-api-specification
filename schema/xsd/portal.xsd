@@ -222,8 +222,9 @@ though the status has not changed.
 
     <xs:simpleType name="portal-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="PARTIALLY_COMPLETED"/>
-            <xs:enumeration value="COMPLETED"/>
+            <xs:enumeration value="IN_PROGRESS"/>
+            <xs:enumeration value="COMPLETED_SUCCESSFULLY"/>
+            <xs:enumeration value="FAILED"/>
         </xs:restriction>
     </xs:simpleType>
 
