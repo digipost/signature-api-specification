@@ -256,8 +256,6 @@ Currently known values:
     * CONTACT_INFORMATION_MISSING
         Indicates that no contact information could be found for the signer. This will happen when no contact information is provided
         when creating the signature job, and no contact information could be found in Difis Oppslagstjenesten for kontakt og reservasjonsregisteret (when applicable).
-    * ABORTED
-        The signature job was never made available to the signer because another signer of the same job failed.
     * EXPIRED
         The job has expired.
     * SIGNED
