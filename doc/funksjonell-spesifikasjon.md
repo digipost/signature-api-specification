@@ -14,21 +14,19 @@ SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fr
 
 **Kontaktinformasjon for varsling kan angis på to måter:**
 
- * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes.
+ * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes. Overstyrt varslingsinformasjon får prioritet over Kontakt- og reservasjonsregisteret.
  * Dersom varslingsinformasjon ikke spesifiseres, så vil tjenesten hente varslingsinfo fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
 
-**Krav om at kontaktinfo finnes:**
+**Krav til kontaktinformasjon:**
 
  * Alle signatarer må ha en e-postadresse.
  * Dersom SMS-varsling bestilles for signataren må det finnes et mobilnummer for signataren.
- * Dersom et av disse kravene feiler for en av signatarene i oppdraget, så vil tjenesteeier ved statushenting i API få en beskjed som tilsier at oppdraget ikke kunne sendes på grunn av manglende kontaktinfo. For portaloppdrag vil denne beskjeden komme ved oppretting av oppdraget.
+
+Dersom en av reglene over ikke er oppfylt vil oppdraget bli avvist.
 
 ### Bruk av Kontakt- og reservasjonsregisteret
 
-Før et oppdrag gjøres tilgjengelig slås alle signatarene opp i Kontakt- og reservasjonsregisteret. Hvis en eller flere av
-signatarene er reservert mot digital kommunikasjon vil oppdraget bli avvist og påfølgende uthenting av status for oppdraget
-vil gi en feil med informasjon om hvilke signatar(er) som er reservert. En slik reservasjon vil feile oppdraget selv om
-tjenesteeier har spesifisert egen varslingsinfo for signataren, da en reservasjon mot digital kommunikasjon trumfer dette.
+Signeringstjenesten gjør oppslag mot Kontakt- og reservasjonsregisteret ved opprettelse av oppdrag for alle offentlige virksomheter for signatarer uten overstyrt kontaktinformasjon. Hvis signatarer er reservert mot digital kommunikasjon vil oppdraget bli avvist og påfølgende uthenting av status for oppdraget vil gi en feil med informasjon om hvilke signatarer som er reservert. Signatarer med overstyrt kontaktinformasjon bli ikke sjekket for reservasjon.
 
 * Ved utsending av senere varsler (enten utsatt aktivering på grunn av kjedet signatur eller påminnelser) blir det gjort et nytt oppslag mot registeret for å hente ut den sist oppdaterte kontaktinformasjonen.
 * Dersom Oppslagstjenesten for Kontakt- og reservasjonsregisteret er utilgjengelig ved utsending av påminnelser vil resultatet fra oppslaget ved opprettelse av oppdraget bli brukt. 
