@@ -1,4 +1,4 @@
-h2. Varsling
+## Varsling
 
 Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. Reglene for utsending av varsler avhenger av signeringsfristen:
 
@@ -17,7 +17,7 @@ Kontaktinformasjon for varsling kan angis på to måter:
  * Hentet fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
  * Overstyrt av tjenesteeieren ved opprettelse av signeringsoppdraget.
 
-h3. Bruk av Kontakt- og reservasjonsregisteret
+### Bruk av Kontakt- og reservasjonsregisteret
 
 Før et oppdrag gjøres tilgjengelig slås alle signatarene opp i Kontakt- og reservasjonsregisteret. Hvis en eller flere av
 signatarene er reservert mot digital kommunikasjon vil oppdraget bli avvist og påfølgende uthenting av status for oppdraget
