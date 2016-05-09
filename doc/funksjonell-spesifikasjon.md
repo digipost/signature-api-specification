@@ -12,18 +12,24 @@ Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. Re
 
 SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fristen er så kort at det er nødvendig med umiddelbar utsending.
 
-Kontaktinformasjon for varsling kan angis på to måter:
+**Kontaktinformasjon for varsling kan angis på to måter:**
 
- * Hentet fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
- * Overstyrt av tjenesteeieren ved opprettelse av signeringsoppdraget.
+ * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes
+ * Dersom varslingsinformasjon ikke spesifiseres, så vil tjenesten hente varslingsinfo fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
+
+**Krav om at kontaktinfo finnes:**
+
+ * Alle signatarer for ett oppdrag må ha en epost-adresse det kan varsles til. 
+ * Dersom sms-varsling bestilles for signataren må det også finnes et mobilnummer for signataren. 
+ * Dersom en av disse kravene feiler for en av signatarene i oppdraget, så vil tjenesteeier ved statushenting i API få en beskjed som tilsier at oppdraget ikke kunne sendes pga. manglende kontaktinfo. For portaloppdrag vil denne beskjeden komme ved oppretting av oppdraget.
 
 ### Bruk av Kontakt- og reservasjonsregisteret
 
 Før et oppdrag gjøres tilgjengelig slås alle signatarene opp i Kontakt- og reservasjonsregisteret. Hvis en eller flere av
 signatarene er reservert mot digital kommunikasjon vil oppdraget bli avvist og påfølgende uthenting av status for oppdraget
-vil gi en feil med informasjon om hvilken signatar som er reservert.
+vil gi en feil med informasjon om hvilke signatar(er) som er reservert. En slik reservasjon vil feile oppdraget selv om tjenesteeier har spesifisert egen varslingsinfo for signataren, da en reservasjon mot digital kommunikasjon trumfer dette.
 
-Ved utsending av senere varsler blir det gjort et nytt oppslag mot registeret for å hente ut den sist oppdaterte kontaktinformasjonen.
-Dersom Oppslagstjenesten for Kontakt- og reservasjonsregisteret er utilgjengelig ved utsending av påminnelser vil resultatet fra oppslaget
-ved opprettelse av oppdraget bli brukt. Hvis sluttbrukeren har reservert seg etter at oppdraget ble opprettet vil det ikke bli sendt påminnelser,
-men oppdraget vil heller ikke feile før signeringsfristen eventuelt løper ut.
+* Ved utsending av senere varsler (enten utsatt aktivering pga. kjedet signatur eller påminnelsr) blir det gjort et nytt oppslag mot registeret for å hente ut den sist oppdaterte kontaktinformasjonen.
+* Dersom Oppslagstjenesten for Kontakt- og reservasjonsregisteret er utilgjengelig ved utsending av påminnelser vil resultatet fra oppslaget ved opprettelse av oppdraget bli brukt. 
+* **Reservasjon ved utsatte førstegangsvarsler:** I scenariet der tjenesteeier har satt en kjedet rekkefølge på signatarene, og førstegangsvarsel skal sendes til en signatar som i perioden mellom oppdraget ble opprettet og førstegangsvarsel skal sendes har reservert seg mot elektronisk kommunikasjon, så vil hele oppdraget feiles.
+* **Reservasjon ved påminnelser** Hvis sluttbrukeren har reservert seg etter at oppdraget ble opprettet, men oppdraget allerede er aktivert, vil det ikke bli sendt påminnelser (epost/sms), men oppdraget vil heller ikke feile før signeringsfristen eventuelt løper ut.
