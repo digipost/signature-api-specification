@@ -10,6 +10,8 @@ Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. Re
 | 6-9 dager       | Ved aktivering | 3 dager før frist | 2 dager før frist |
 | 10 dager +      | Ved aktivering | 5 dager før frist | 2 dager før frist |
 
+Dersom det ikke finnes en e-postadresse for en signatar vil det sendes SMS istedet for e-post ved aktivering.
+
 SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fristen er så kort at det er nødvendig med umiddelbar utsending.
 
 **Kontaktinformasjon for varsling kan angis på to måter:**
@@ -19,11 +21,10 @@ SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fr
 
 **Krav til kontaktinformasjon:**
 
- * Alle signatarer må ha en e-postadresse.
- * Dersom SMS-varsling bestilles for signataren må det finnes et mobilnummer for signataren.
+ * Alle signatarer må ha minst ha én av e-postadresse og mobilnummer.
+ * Sending av SMS er frivillig og kan bestilles av tjenesteeieren.
+ * Dersom en signatar har mobilnummer og ikke e-postadresse vil det alltid bli sendt SMS.
  * Tjenesten støtter kun norske mobilnumre. Oppdrag med overstyrt kontaktinformasjon med utenlandsk mobilnummer vil bli avvist, mens utenlandske mobilnumre fra Kontakt- og reservasjonsregisteret vil bli ignorert.
-
-Dersom en av reglene over ikke er oppfylt vil oppdraget bli avvist.
 
 ### Bruk av Kontakt- og reservasjonsregisteret
 
