@@ -14,7 +14,7 @@ SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fr
 
 **Kontaktinformasjon for varsling kan angis på to måter:**
 
- * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes. Overstyrt varslingsinformasjon får prioritet over Kontakt- og reservasjonsregisteret.
+ * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes. Overstyrt varslingsinformasjon får prioritet over Kontakt- og reservasjonsregisteret. **NB: Offentlige virksomheter kan kun overstyre varslingsinformasjonen dersom signataren mottar oppdraget i kraft av en rolle knyttet til sitt arbeid.**
  * Dersom varslingsinformasjon ikke spesifiseres, så vil tjenesten hente varslingsinfo fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
 
 **Krav til kontaktinformasjon:**
