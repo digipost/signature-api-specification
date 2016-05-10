@@ -21,6 +21,7 @@ SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fr
 
  * Alle signatarer må ha en e-postadresse.
  * Dersom SMS-varsling bestilles for signataren må det finnes et mobilnummer for signataren.
+ * Tjenesten støtter kun norske mobilnumre. Oppdrag med overstyrt kontaktinformasjon med utenlandsk mobilnummer vil bli avvist, mens utenlandske mobilnumre fra Kontakt- og reservasjonsregisteret vil bli ignorert.
 
 Dersom en av reglene over ikke er oppfylt vil oppdraget bli avvist.
 
