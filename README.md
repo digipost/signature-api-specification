@@ -321,15 +321,28 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     <signers>
         <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
+            <notifications-using-lookup>
+                <email/>
+            </notifications-using-lookup>
         </signer>
         <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
+            <notifications-using-lookup>
+                <email/>
+            </notifications-using-lookup>
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
+            <notifications-using-lookup>
+                <email/>
+            </notifications-using-lookup>
         </signer>
         <signer order="3">
             <personal-identification-number>02038412546</personal-identification-number>
+            <notifications-using-lookup>
+                <email/>
+                <sms/>
+            </notifications-using-lookup>
         </signer>
     </signers>
     <sender>

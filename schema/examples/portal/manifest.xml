@@ -16,13 +16,16 @@
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
-            <notifications>
-                <email />
-                <sms />
-            </notifications>
+            <notifications-using-lookup>
+                <email/>
+                <sms/>
+            </notifications-using-lookup>
         </signer>
         <signer order="3">
             <personal-identification-number>02038412546</personal-identification-number>
+            <notifications-using-lookup>
+                <email/>
+            </notifications-using-lookup>
         </signer>
     </signers>
     <sender>

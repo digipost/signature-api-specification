@@ -31,46 +31,41 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="enabled" />
+
+    <xs:complexType name="notifications-using-lookup">
+        <xs:sequence>
+            <xs:element name="email" type="enabled"/>
+            <xs:element name="sms" type="enabled" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
     <xs:complexType name="email">
-        <xs:attribute name="address" type="xs:string" />
+        <xs:attribute name="address" type="xs:string" use="required" />
     </xs:complexType>
 
     <xs:complexType name="sms">
-        <xs:attribute name="number" type="xs:string" />
+        <xs:attribute name="number" type="xs:string" use="required" />
     </xs:complexType>
 
     <xs:complexType name="notifications">
-        <xs:sequence>
-            <xs:element name="email" minOccurs="1" maxOccurs="1" type="email">
-                <xs:annotation>
-                    <xs:documentation>
-Notifications by email is always required, so when customizing the notifications using the notificaton
-element, you must include this tag. If no notification element is present on the signer, the email
-notification is implicitly set.
-
-You can here override the email address that will be used for notifying the user by setting the attribute
-"address", if not overridden the address the user has specified himself will be used.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="sms" minOccurs="0" maxOccurs="1" type="sms">
-                <xs:annotation>
-                    <xs:documentation>
-Notifications by SMS is optional, and there is an extra cost applied is used. By including the sms-element
-in the notification element, you are opting in to use SMS-notifications.
-
-You can here override the mobile number that will be used for notifying the user by setting the attribute
-"number", if not overridden the number the user has specified himself will be used.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
+        <xs:choice>
+            <xs:sequence>
+                <xs:element name="email" type="email"/>
+                <xs:element name="sms" type="sms" minOccurs="0"/>
+            </xs:sequence>
+            <xs:element name="sms" type="sms"/>
+        </xs:choice>
     </xs:complexType>
 
     <xs:complexType name="portal-signer">
         <xs:sequence>
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
-            <xs:element name="notifications" minOccurs="0" maxOccurs="1" type="notifications" />
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
+                <xs:element name="notifications" type="notifications" />
+            </xs:choice>
         </xs:sequence>
         <xs:attribute name="order" use="optional">
             <xs:annotation>
