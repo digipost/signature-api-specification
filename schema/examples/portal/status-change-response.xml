@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-status-change-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
-    <status>COMPLETED</status>
+    <status>COMPLETED_SUCCESSFULLY</status>
     <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/complete</confirmation-url>
     <signatures>
         <signature>

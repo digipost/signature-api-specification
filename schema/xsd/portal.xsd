@@ -20,9 +20,118 @@
            xmlns="http://signering.posten.no/schema/v1"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+           xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="portal-signers">
+        <xs:sequence>
+            <xs:element name="signer" minOccurs="1" maxOccurs="10" type="portal-signer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="enabled" />
+
+    <xs:complexType name="notifications-using-lookup">
+        <xs:sequence>
+            <xs:element name="email" type="enabled"/>
+            <xs:element name="sms" type="enabled" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="email">
+        <xs:attribute name="address" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="sms">
+        <xs:attribute name="number" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="notifications">
+        <xs:choice>
+            <xs:sequence>
+                <xs:element name="email" type="email"/>
+                <xs:element name="sms" type="sms" minOccurs="0"/>
+            </xs:sequence>
+            <xs:element name="sms" type="sms"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="portal-signer">
+        <xs:sequence>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
+                <xs:element name="notifications" type="notifications" />
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="order" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+Specifies the order in which documents should be activated. Lower values indicates earlier activation.
+A document with higher order will only be made available when all lower order signers have signed the document.
+If two signers have the same order, the document will be made available to both in parallell.
+Specifying order with only one signer has no effect.
+
+The specified signature deadline for portal jobs will be for each individual signer.
+For example, 1 day for 3 chained signers means 3 days maximum. The time only runs once for signers in paralell,
+so three paralell signers with 1 day deadline will maximum take 1 day.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:int">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="9"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="portal-document">
+        <xs:sequence>
+            <xs:element name="title" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nonsensitive-title" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="description" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="220"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="href" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="4"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="mime" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
 
     <xs:element name="portal-signature-job-request">
         <xs:complexType>
@@ -41,9 +150,9 @@
                 <xs:documentation>Contains metadata related to a document in a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="signers"/>
+                <xs:element name="signers" minOccurs="1" maxOccurs="1" type="portal-signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="document" minOccurs="1" maxOccurs="1" type="document"/>
+                <xs:element name="document" minOccurs="1" maxOccurs="1" type="portal-document"/>
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>
             </xs:sequence>
         </xs:complexType>
@@ -54,19 +163,19 @@
             <xs:element name="activation-time" minOccurs="0" maxOccurs="1" type="xs:dateTime">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the earliest time the documents should be activated, i.e. made available to the signer(s) to sign.
-                        Omitting this, or using a time before now makes the documents available for signing immediately.
+Specifies the earliest time the documents should be activated, i.e. made available to the signer(s) to sign.
+Omitting this, or using a time before now makes the documents available for signing immediately.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="available-seconds" minOccurs="0" maxOccurs="1" type="nonNegativeLong">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies how many seconds after activation (i.e. seconds after activation-time if set, creation time if not) the document can be signed.
-                        Omitting this will set a default availability length for the job.
+Specifies how many seconds after activation (i.e. seconds after activation-time if set, creation time if not) the document can be signed.
+Omitting this will set a default availability length for the job.
 
-                        Please refer to the documentation to determine the default availability length, as well as the limit for
-                        how far in the future a job can be set to expire.
+Please refer to the documentation to determine the default availability length, as well as the limit for
+how far in the future a job can be set to expire.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -91,12 +200,12 @@
                 <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
-                            For every received response, the client is required to POST an empty request to this url to confirm
-                            that proper actions has been taken by the client as a result of the particular status.
-                            A typical example being when the client gets a 'signed' status, the client should download
-                            the signed documents, and finally confirm the received status using this url. Failing to confirm the
-                            received response may cause subsequent statuses for the same job to be reported as "changed", even
-                            though the status has not changed.
+For every received response, the client is required to POST an empty request to this url to confirm
+that proper actions has been taken by the client as a result of the particular status.
+A typical example being when the client gets a 'signed' status, the client should download
+the signed documents, and finally confirm the received status using this url. Failing to confirm the
+received response may cause subsequent statuses for the same job to be reported as "changed", even
+though the status has not changed.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -108,8 +217,9 @@
 
     <xs:simpleType name="portal-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="PARTIALLY_COMPLETED"/>
-            <xs:enumeration value="COMPLETED"/>
+            <xs:enumeration value="IN_PROGRESS"/>
+            <xs:enumeration value="COMPLETED_SUCCESSFULLY"/>
+            <xs:enumeration value="FAILED"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -122,20 +232,36 @@
 
     <xs:complexType name="signature">
         <xs:sequence>
-            <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
+            <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string">
+                <xsd:annotation>
+                    <xs:documentation>
+Textual field which describes the signer status. Note that this field might contain new, unknown statuses in the future.
+Clients should use the portal-signature-job-status element for getting the status of the entire job. Unknown signer status should be logged for later review and ignored at runtime.
+
+Currently known values:
+    * WAITING
+        The signer has not yet been resolved. Either waiting for the job to be made available or for the signer to perform the signature.
+    * REJECTED
+        The signer rejected the job.
+    * CANCELLED
+        The job owner cancelled the job.
+    * RESERVED
+        Indicates that the signer is reserved against digital communication from the government. This is a status returned from
+        Difis Oppslagstjenesten for kontakt og reservasjonsregisteret and is only relevant for government senders.
+    * CONTACT_INFORMATION_MISSING
+        Indicates that no contact information could be found for the signer. This will happen when no contact information is provided
+        when creating the signature job, and no contact information could be found in Difis Oppslagstjenesten for kontakt og reservasjonsregisteret (when applicable).
+    * EXPIRED
+        The job has expired.
+    * SIGNED
+        The signer has signed the job.
+                    </xs:documentation>
+                </xsd:annotation>
+            </xs:element>
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
             <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="signature-status">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="WAITING"/>
-            <xs:enumeration value="REJECTED"/>
-            <xs:enumeration value="CANCELLED"/>
-            <xs:enumeration value="EXPIRED"/>
-            <xs:enumeration value="SIGNED"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>
