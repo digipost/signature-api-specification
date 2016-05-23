@@ -75,6 +75,7 @@
             <xs:sequence>
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
+                <xs:element name="status-retrieval-method" minOccurs="0" maxOccurs="1" type="status-retrieval-method"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -101,12 +102,20 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:simpleType name="status-retrieval-method">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="WAIT_FOR_CALLBACK"/>
+            <xs:enumeration value="POLLING"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
     <xs:element name="direct-signature-job-response">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="url"/>
-                <xs:element name="status-url" minOccurs="1" maxOccurs="1" type="url"/>
+                <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
