@@ -124,7 +124,28 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
+                <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+Textual field which describes the job status. Note that this field might contain new, unknown statuses in the future.
+
+Currently known values:
+    * REJECTED
+        The user decided to reject to sign the document, and has been redirected to the
+        rejection-url provided in the direct-signature-job-request's exit-urls.
+    * EXPIRED
+        The user didn't sign the document before the job expired.
+    * SIGNED
+        The document has been signed, and the signer has been redirected to the
+        completion-url provided in the direct-signature-job-request's exit-urls.
+        The signed document artifacts can be downloaded by following the appropriate
+        urls in the direct-signature-job-status-response.
+    * FAILED
+        An unexpected error occured during the signing ceremony, and the user has been redirected to the
+        error-url provided in the direct-signature-job-request's exit-urls.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
@@ -141,36 +162,5 @@ received status using this url.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:simpleType name="direct-signature-job-status">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="SIGNED" >
-                <xs:annotation>
-                    <xs:documentation>
-The document has been signed, and the signer has been redirected to the
-completion-url provided in the direct-signature-job-request's exit-urls.
-The signed document artifacts can be downloaded by following the appropriate
-urls in the direct-signature-job-status-response.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="REJECTED" >
-                <xs:annotation>
-                    <xs:documentation>
-The user decided to reject to sign the document, and has been redirected to the
-rejection-url provided in the direct-signature-job-request's exit-urls.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="FAILED" >
-                <xs:annotation>
-                    <xs:documentation>
-An unexpected error occured during the signing ceremony, and the user has been redirected to the
-error-url provided in the direct-signature-job-request's exit-urls.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>
