@@ -75,7 +75,22 @@
             <xs:sequence>
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
-                <xs:element name="status-retrieval-method" minOccurs="0" maxOccurs="1" type="status-retrieval-method"/>
+                <xs:element name="status-retrieval-method" minOccurs="0" maxOccurs="1" type="status-retrieval-method">
+                    <xs:annotation>
+                        <xs:documentation>
+Indicates the method of which the sender will retrieve a job's status upon a status change by specifying one of:
+
+    * WAIT_FOR_CALLBACK
+        Querying the job's status explicitly using the query parameter appended
+        to the exit-URL after e.g. a signer have completed the job
+    * POLLING
+        Continuously polling the service, receiving a response every time one of the
+        sender's jobs has had its status changed.
+
+Defaults to WAIT_FOR_CALLBACK if omitted.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -154,6 +169,10 @@ request to this url to confirm that the status has been received, and proper act
 taken by the client as a result of the particular status. A typical example being when the client
 gets a 'signed' status, the client should download the signed documents, and finally confirm the
 received status using this url.
+
+If the status is retrieved using the POLLING method, failing to confirm the
+received response may cause subsequent statuses for the same job to be reported as "changed", even
+though the status has not changed.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
