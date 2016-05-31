@@ -1,5 +1,7 @@
 ## 2016-05-31 – Varsling og arkiv
 
+![Skjermbilde av varsling i virksomhetsadmin](screenshots/2016-05-31-virksomhetsgrensesnitt-varsling.png)
+
 **Denne versjonen bryter bakoverkompabilitet ved opprettelse av portaloppdrag via API.** Se [teknisk](#teknisk) for mer informasjon. Det er per dags dato ingen integrasjoner som benytter berørt funksjonalitet i produksjon. Vi anbefaler at alle som bruker klientbiblioteker oppgraderer til siste versjon så snart som mulig.
 
 ### Funksjonelt
