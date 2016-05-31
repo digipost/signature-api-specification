@@ -1,6 +1,6 @@
 ## 2016-05-31 – Varsling og arkiv
 
-**Denne versjonen bryter bakoverkompabilitet ved opprettelse av portaloppdrag via API.** Se [teknisk](#teknisk) for mer informasjon.
+**Denne versjonen bryter bakoverkompabilitet ved opprettelse av portaloppdrag via API.** Se [teknisk](#teknisk) for mer informasjon. Det er per dags dato ingen integrasjoner som benytter berørt funksjonalitet i produksjon. Vi anbefaler at alle som bruker klientbiblioteker oppgraderer til siste versjon så snart som mulig.
 
 ### Funksjonelt
 
@@ -13,5 +13,6 @@
 
 ### Teknisk
 
-* **Bryter bakoverkompabilitet: endret API ved polling av status på signeringsoppdrag**.
-  `status` i `signature` er endret fra en XML-enum til en `string`. `status` kan i fremtiden få verdier eksisterende klienter ikke håndterer, så klienter må støtte at dette feltet kan ha ukjente verdier. Overordnet status på oppdraget kan hentes ut i `status`-feltet på `portal-signature-job-status-change-response`, som fortsatt er en enum som kan ha verdiene `IN_PROGRESS`, `COMPLETED_SUCCESSFULLY` eller `FAILED`. Merk at `FAILED` er en ny enum-status her. Denne endringen påvirker bare integrasjoner som oppretter portaloppdrag.
+* **Bryter bakoverkompabilitet: endret respons ved polling av status på signeringsoppdrag**.
+  `status` i `signature` er endret fra en XML-enum til `string`. `status` kan i fremtiden få nye verdier som vil være ukjent for eksisterende klienter. Klienter som bruker forrige versjon av APIet vil oppleve feil når de mottar responser med nye enum-typer. Ved ukjent signatarstatus skal klienten forholde seg til overordnet signaturstatus, som beskrevet under. *Denne endringen påvirker bare integrasjoner som oppretter portaloppdrag.*
+* **Enklere status på oppdrag:** Overordnet status på et signeringsoppdrag kan hentes ut i `status`-feltet på `portal-signature-job-status-change-response`. Mulig status er `IN_PROGRESS`, `COMPLETED_SUCCESSFULLY` eller `FAILED`. `FAILED` er en ny enum-status som ikke eksisterte i forrige versjon av APIet.
