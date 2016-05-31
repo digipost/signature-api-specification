@@ -321,27 +321,30 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     <signers>
         <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
-            <notifications-using-lookup>
-                <email/>
-            </notifications-using-lookup>
+            <notifications>
+                <!-- Override contact information to be used for notifications -->
+                <email address="signer1@example.com" />
+                <sms number="00000000" />
+            </notifications>
         </signer>
         <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
-            <notifications-using-lookup>
-                <email/>
-            </notifications-using-lookup>
+            <notifications>
+                <email address="signer2@example.com" />
+            </notifications>
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
             <notifications-using-lookup>
+                <!-- Try to send notifications in both e-mail and SMS using lookup -->
                 <email/>
+                <sms/>
             </notifications-using-lookup>
         </signer>
         <signer order="3">
             <personal-identification-number>02038412546</personal-identification-number>
             <notifications-using-lookup>
                 <email/>
-                <sms/>
             </notifications-using-lookup>
         </signer>
     </signers>
@@ -350,6 +353,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     </sender>
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
+        <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
         <description>Melding til signatar</description>
     </document>
     <availability>
