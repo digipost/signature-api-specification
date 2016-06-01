@@ -1,12 +1,14 @@
-# Posten Signering – API spesifikasjon
+# Posten signering – API spesifikasjon
 
-Dette repoet inneholder informasjon om APIene til Posten Signering.
+Dette repoet inneholder informasjon om APIene til Posten signering.
+
+Dette dokumentet inneholder teknisk dokumentasjon nødvendig for å integrere med tjenesten. Se også den [funksjonelle dokumentasjonen](/doc/funksjonell-spesifikasjon.md) for funksjonell beskrivelse av tjenesten og [release notes](/doc/release-notes.md) for historikk over hva som er nytt i tidligere versjoner.
 
 Mappen `schema/xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
 
 ## Tre ulike scenarier for signeringsoppdrag
 
-Posten Signering er laget med tanke på å håndtere 3 ulike scenarier for signering:
+Posten signering er laget med tanke på å håndtere 3 ulike scenarier for signering:
 
 1. **Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt hvis sluttbruker er i en sesjon hos tjenesteeier på tjenesteeiers nettsider. Her ønsker tjenesteeier at sluttbruker skal signere et dokument. Sluttbruker opplever signaturprosessen som en integrert del av tjenesteeiers nettsted.
 2. **Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt der det er ønskelig med signering av dokumenter uten at sluttbruker som skal signere er i en sesjon på tjenesteeierens nettside. Dette kan for eksempel være ved batchutsending av dokumenter som skal signeres, eller for å håndtere et scenario der f.eks bruker har hatt telefondialog med tjenesteeier.
@@ -78,7 +80,7 @@ Se nærmere beskrivelse av begrepene personopplysninger og sensitive personopply
 
 ### [FELLES] Dokumentpakken
 
-Dokumentpakken i Posten Signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
+Dokumentpakken i Posten signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
 
 Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
