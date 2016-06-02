@@ -51,7 +51,7 @@ Signeringstjenesten benytter to-veis TLS for å sikre konfidensialitet og meldin
 
 For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
 
-Du skal benytte virksomhetssertifikatet som har spesifisert KeyUsage = DigitalSignature og ExtendedKeyUsage = clientAuth.
+Du skal benytte sertifikat med `KeyUsage` som inkluderer `DigitalSignature`. Hvis sertifikatet har angitt `ExtendedKeyUsage` må den inkludere `clientAuth`.
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. Signeringstjenesten støtter kun TLS 1.2 for to-veis TLS.
 
