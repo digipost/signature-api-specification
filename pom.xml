@@ -6,7 +6,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification-parent</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -127,7 +127,7 @@
 		<connection>scm:git:git@github.com:digipost/signature-api-specification.git</connection>
 		<developerConnection>scm:git:git@github.com:digipost/signature-api-specification.git</developerConnection>
 		<url>https://github.com/digipost/signature-api-specification/</url>
-		<tag>1.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 
