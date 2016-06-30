@@ -74,7 +74,7 @@
             </xs:annotation>
             <xs:sequence>
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
-                <xs:element name="exit-urls" minOccurs="1" maxOccurs="10" type="exit-urls" />
+                <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls" />
                 <xs:element name="status-retrieval-method" minOccurs="0" maxOccurs="1" type="status-retrieval-method">
                     <xs:annotation>
                         <xs:documentation>
@@ -115,7 +115,6 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
             <xs:element name="rejection-url" minOccurs="1" maxOccurs="1" type="url"/>
             <xs:element name="error-url" minOccurs="1" maxOccurs="1" type="url"/>
         </xs:sequence>
-        <xs:attribute name="signer" type="personal-identification-number" use="optional" />
     </xs:complexType>
 
     <xs:simpleType name="status-retrieval-method">

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
-    <exit-urls signer="12345678910">
-        <completion-url>https://www.sender.org/completed?signer=JohnDoeId</completion-url>
-        <rejection-url>https://www.sender.org/rejected?signer=JohnDoeId</rejection-url>
-        <error-url>https://www.sender.org/failed?signer=JohnDoeId</error-url>
-    </exit-urls>
-    <exit-urls signer="10987654321">
-        <completion-url>https://www.sender.org/completed?signer=JaneDoeId</completion-url>
-        <rejection-url>https://www.sender.org/rejected?signer=JaneDoeId</rejection-url>
-        <error-url>https://www.sender.org/failed?signer=JaneDoeId</error-url>
+    <exit-urls>
+        <completion-url>https://www.sender.org/completed</completion-url>
+        <rejection-url>https://www.sender.org/rejected</rejection-url>
+        <error-url>https://www.sender.org/failed</error-url>
     </exit-urls>
 </direct-signature-job-request>
