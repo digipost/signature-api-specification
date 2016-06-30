@@ -74,7 +74,7 @@
             </xs:annotation>
             <xs:sequence>
                 <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
-                <xs:element name="exit-urls" minOccurs="1" maxOccurs="1" type="exit-urls"/>
+                <xs:element name="exit-urls" minOccurs="1" maxOccurs="10" type="exit-urls" />
                 <xs:element name="status-retrieval-method" minOccurs="0" maxOccurs="1" type="status-retrieval-method">
                     <xs:annotation>
                         <xs:documentation>
@@ -101,7 +101,7 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
                 <xs:documentation>Contains metadata related to a document in a signature job</xs:documentation>
             </xs:annotation>
             <xs:sequence>
-                <xs:element name="signer" minOccurs="1" maxOccurs="1" type="direct-signer"/>
+                <xs:element name="signer" minOccurs="1" maxOccurs="10" type="direct-signer" />
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
                 <xs:element name="document" minOccurs="1" maxOccurs="1" type="direct-document"/>
             </xs:sequence>
@@ -115,6 +115,7 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
             <xs:element name="rejection-url" minOccurs="1" maxOccurs="1" type="url"/>
             <xs:element name="error-url" minOccurs="1" maxOccurs="1" type="url"/>
         </xs:sequence>
+        <xs:attribute name="signer" type="personal-identification-number" use="optional" />
     </xs:complexType>
 
     <xs:simpleType name="status-retrieval-method">
@@ -129,17 +130,25 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
-                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="url"/>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
                 <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="signer-specific-url">
+        <xs:simpleContent>
+            <xs:extension base="url">
+                <xs:attribute name="signer" type="personal-identification-number" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
     <xs:element name="direct-signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
-                <xs:element name="status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
+                <xs:element name="status" minOccurs="1" maxOccurs="10" type="signer-specific-direct-signature-job-status"/>
                 <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
@@ -155,11 +164,19 @@ though the status has not changed.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
+                <xs:element name="xades-url" minOccurs="0" maxOccurs="10" type="signer-specific-url"/>
                 <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="url"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:complexType name="signer-specific-direct-signature-job-status">
+        <xs:simpleContent>
+            <xs:extension base="direct-signature-job-status">
+                <xs:attribute name="signer" type="personal-identification-number" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
 
     <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">
