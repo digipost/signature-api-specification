@@ -147,7 +147,8 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
-                <xs:element name="status" minOccurs="1" maxOccurs="10" type="signer-specific-direct-signature-job-status"/>
+                <xs:element name="signature-job-status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
+                <xs:element name="status" minOccurs="1" maxOccurs="10" type="signer-status"/>
                 <xs:element name="confirmation-url" minOccurs="0" maxOccurs="1" type="url" >
                     <xs:annotation>
                         <xs:documentation>
@@ -169,9 +170,28 @@ though the status has not changed.
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="signer-specific-direct-signature-job-status">
+    <xs:complexType name="signer-status">
         <xs:simpleContent>
-            <xs:extension base="direct-signature-job-status">
+            <xs:extension base="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+Textual field which describes the signer status. Note that this field might contain new, unknown statuses in the future.
+Clients should use the direct-signature-job-status element for getting the status of the entire job. Unknown signer status should be logged for later review and ignored at runtime.
+
+Currently known values:
+    * WAITING
+        The signer has not yet signed the document.
+    * REJECTED
+        The user decided to reject to sign the document, and has been redirected to the rejection-url provided in the direct-signature-job-request's exit-urls.
+    * EXPIRED
+        The user didn't sign the document before the job expired.
+    * FAILED
+        An unexpected error occured during the signing ceremony, and the user has been redirected to the error-url provided in the direct-signature-job-request's exit-urls.
+    * SIGNED
+        The document has been signed, and the signer has been redirected to the completion-url provided in the direct-signature-job-request's exit-urls.
+        The signed document artifacts can be downloaded by following the appropriate urls in the direct-signature-job-status-response.
+                    </xs:documentation>
+                </xs:annotation>
                 <xs:attribute name="signer" type="personal-identification-number" />
             </xs:extension>
         </xs:simpleContent>
@@ -179,36 +199,24 @@ though the status has not changed.
 
     <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="SIGNED">
+            <xs:enumeration value="IN_PROGRESS">
                 <xs:annotation>
                     <xs:documentation>
-The document has been signed, and the signer has been redirected to the
-completion-url provided in the direct-signature-job-request's exit-urls.
-The signed document artifacts can be downloaded by following the appropriate
-urls in the direct-signature-job-status-response.
+At least one signer has not yet performed any action to the document.
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="REJECTED">
+            <xs:enumeration value="COMPLETED_SUCCESSFULLY">
                 <xs:annotation>
                     <xs:documentation>
-The user decided to reject to sign the document, and has been redirected to the
-rejection-url provided in the direct-signature-job-request's exit-urls.
+All signers have successfully signed the document.
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="FAILED">
                 <xs:annotation>
                     <xs:documentation>
-An unexpected error occured during the signing ceremony, and the user has been redirected to the
-error-url provided in the direct-signature-job-request's exit-urls.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="EXPIRED">
-                <xs:annotation>
-                    <xs:documentation>
-The user didn't sign the document before the job expired.
+All signers have performed an action to the document, but at least one have a non successful status (e.g. rejected, expired or failed).
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
