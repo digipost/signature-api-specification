@@ -4,8 +4,8 @@
     <signature-job-status>COMPLETED_SUCCESSFULLY</signature-job-status>
     <status signer="12345678910">SIGNED</status>
     <status signer="10987654321">SIGNED</status>
-    <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/complete</confirmation-url>
-    <xades-url signer="12345678910">https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/xades/1</xades-url>
-    <xades-url signer="10987654321">https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/xades/2</xades-url>
-    <pades-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/pades</pades-url>
+    <confirmation-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/complete</confirmation-url>
+    <xades-url signer="12345678910">https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/xades/1</xades-url>
+    <xades-url signer="10987654321">https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/xades/2</xades-url>
+    <pades-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/pades</pades-url>
 </direct-signature-job-status-response>

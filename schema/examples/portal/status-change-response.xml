@@ -2,13 +2,13 @@
 <portal-signature-job-status-change-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <status>COMPLETED_SUCCESSFULLY</status>
-    <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/complete</confirmation-url>
+    <confirmation-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/complete</confirmation-url>
     <signatures>
         <signature>
             <status>SIGNED</status>
             <personal-identification-number>12345678910</personal-identification-number>
-            <xades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/xades/1</xades-url>
+            <xades-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/xades/1</xades-url>
         </signature>
-        <pades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/pades</pades-url>
+        <pades-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/pades</pades-url>
     </signatures>
 </portal-signature-job-status-change-response>

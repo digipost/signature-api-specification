@@ -7,5 +7,5 @@
     <redirect-url signer="10987654321">
         https://signering.posten.no#/redirect/cwYjoZOX5jOc1BACfTdhuIPjWr4BzZ234PqHOgJj03o
     </redirect-url>
-    <status-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/status</status-url>
+    <status-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/status</status-url>
 </direct-signature-job-response>
