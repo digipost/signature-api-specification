@@ -46,7 +46,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
-					<version>2.11</version>
+					<version>3.0.rc1</version>
                     <configuration>
                         <header>src/license-header.txt</header>
                         <strictCheck>true</strictCheck>
@@ -109,7 +109,6 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>2.11</version>
                 <executions>
                     <execution>
                         <id>check-license-header</id>
