@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
-    <redirect-url>
-        https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
+    <redirect-url signer="12345678910">
+        https://signering.posten.no#/redirect/P1P-rdPK03Vf-z4NZb1mtDcExjpOzzVEkwal_F9FKm0
+    </redirect-url>
+    <redirect-url signer="10987654321">
+        https://signering.posten.no#/redirect/cwYjoZOX5jOc1BACfTdhuIPjWr4BzZ234PqHOgJj03o
     </redirect-url>
     <status-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/status</status-url>
 </direct-signature-job-response>
