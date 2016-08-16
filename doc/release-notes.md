@@ -1,6 +1,6 @@
 ## 2016-08-16 – Multisignatar for synkrone oppdrag
 
-**Denne versjonen bryter bakoverkompabilitet ved opprettelse av synkrone oppdrag via API.** Se [teknisk](#teknisk) for mer informasjon.
+**Denne versjonen bryter bakoverkompabilitet ved henting av status for synkrone oppdrag via API.** Se [teknisk](#teknisk) for mer informasjon.
 
 ### Funksjonelt
 
@@ -8,7 +8,7 @@
 
 ### Teknisk
 
-* **Bryter bakoverkompabilitet: endret respons ved polling av status på signeringsoppdrag.** `status` i `signature` er endret fra en XML-enum til `string`. `status` kan i fremtiden få nye verdier som vil være ukjent for eksisterende klienter. Klienter som bruker forrige versjon av APIet vil oppleve feil når de mottar responser med nye enum-typer. Ved ukjent signatarstatus skal klienten forholde seg til overordnet signaturstatus, som beskrevet under. _Denne endringen påvirker bare integrasjoner som oppretter redirectoppdrag._
+* **Bryter bakoverkompabilitet: endret respons ved henting av status for synkrone signeringsoppdrag.** `status` i `signature` er endret fra en XML-enum til `string`. `status` kan i fremtiden få nye verdier som vil være ukjent for eksisterende klienter. Klienter som bruker forrige versjon av APIet vil oppleve feil når de mottar responser med nye enum-typer. Ved ukjent signatarstatus skal klienten forholde seg til overordnet signaturstatus, som beskrevet under. _Denne endringen påvirker bare integrasjoner som oppretter redirectoppdrag._
 
 ## 2016-06-22 – Polling på synkrone oppdrag
 
