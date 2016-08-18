@@ -21,8 +21,6 @@ Det finnes klientbiblioteker som forenkler integrasjonsprosessen:
 * [Klientbibliotek for Java](https://github.com/digipost/signature-api-client-java)
 * [Klientbibliotek for .NET](https://github.com/digipost/signature-api-client-dotnet)
 
-*OBS: klientbibliotekene og api-spesifikasjonen forandrer seg løpende. Se under "Releases" på GitHub for å finne siste BETA-versjon som skal fungere mot testmiljøet.*
-
 ## Manuell integrasjon
 
 **Om Scenarier:** Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
