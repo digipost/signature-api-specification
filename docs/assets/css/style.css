@@ -60,6 +60,7 @@ blockquote {
 /* Markdown table styling shamelessly stolen from GitHub 💃 Such sexy. Very wow. */
 .bs-docs-section table {
   border: 1px solid gray;
+  margin: 1em 0;
 }
 
 .bs-docs-section tr {
