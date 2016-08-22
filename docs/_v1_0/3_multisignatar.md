@@ -16,7 +16,7 @@ De ulike handlingene som avslutter et signeringsoppdrag er:
 1. Avsender kansellerer oppdraget
 1. Oppdragets utløpstidspunkt blir passert
 
-**NB!** For offentlige virksomheter vil oppdraget avsluttes _før det blir aktivert for noen signatarer_ hvis minst én mottaker ikke eksisterer i eller er reservert fra elektronisk kommunikasjon i Kontakt- og reservasjonsregisteret.
+**NB!** For offentlige virksomheter vil oppdraget avsluttes _før det blir aktivert for noen signatarer_ hvis minst én mottaker ikke eksisterer i eller er reservert fra elektronisk kommunikasjon i [Kontakt- og reservasjonsregisteret](https://samarbeid.difi.no/kontakt-og-reservasjonsregisteret).
 
 **Eksempel**
 
