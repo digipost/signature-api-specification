@@ -4,7 +4,11 @@ title: Varsling
 layout: default
 ---
 
-Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. Reglene for utsending av varsler avhenger av signeringsfristen:
+Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. 
+
+### Regler for utsending
+
+Reglene for utsending av varsler avhenger av signeringsfristen:
 
 | Signeringsfrist |     e-post     |       e-post      |        SMS        |
 |:---------------:|:--------------:|:-----------------:|:-----------------:|
@@ -20,12 +24,14 @@ Dersom det ikke finnes en e-postadresse for en signatar vil det sendes SMS isted
 
 SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fristen er så kort at det er nødvendig med umiddelbar utsending.
 
-**Kontaktinformasjon for varsling kan angis på to måter:**
+### Kontaktinformasjon
+
+Kontaktinformasjon for varsling kan angis på to måter:
 
  * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes. Overstyrt varslingsinformasjon får prioritet over Kontakt- og reservasjonsregisteret. **NB: Offentlige virksomheter kan kun overstyre varslingsinformasjonen dersom signataren mottar oppdraget i kraft av en rolle knyttet til sitt arbeid.**
  * Dersom varslingsinformasjon ikke spesifiseres, så vil tjenesten hente varslingsinfo fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
 
-**Krav til kontaktinformasjon:**
+Krav til kontaktinformasjon:
 
  * Alle signatarer må ha minst ha én av e-postadresse og mobilnummer.
  * Sending av SMS er frivillig og kan bestilles av tjenesteeieren.
