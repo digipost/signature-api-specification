@@ -12,7 +12,7 @@ Hvis det gjøres en _terminerende handling_ på et signeringsoppdrag vil oppdrag
 
 De ulike handlingene som avslutter et signeringsoppdrag er:
 
-1. Signatar avviser oppdraget
+1. En signatar avviser oppdraget
 1. Avsender kansellerer oppdraget
 1. Oppdragets utløpstidspunkt blir passert
 
