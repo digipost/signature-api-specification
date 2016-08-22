@@ -16,7 +16,7 @@ Flyten ser typisk slik ut:
 1. Avsender oppretter et oppdrag i signeringstjenesten maskinelt
 1. Sluttbruker blir sendt til signeringstjenesten og gjennomfører signeringssermonien
 1. Sluttbruker blir sendt tilbake til avsenders tjeneste
-1. Avsender laster ned [signatur](#signerte_dokumenter) og tilbyr en kopi av PAdES til sluttbruker
+1. Avsender laster ned [signatur](#signerte_dokumenter) og tilbyr en kopi av det signerte dokumentet til sluttbruker
 
 ## Asynkrone signeringsoppdrag
 
