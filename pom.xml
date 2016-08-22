@@ -67,6 +67,7 @@
                             <exclude>src/notice/license-mappings.xml</exclude>
                             <exclude>jaxb/*.xjb</exclude>
                             <exclude>doc/**</exclude>
+                            <exclude>docs/**</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
