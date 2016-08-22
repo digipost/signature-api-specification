@@ -56,3 +56,22 @@ blockquote {
   }
 
 }
+
+/* Markdown table styling shamelessly stolen from GitHub 💃 Such sexy. Very wow. */
+.bs-docs-section table {
+  border: 1px solid gray;
+}
+
+.bs-docs-section tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.bs-docs-section tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.bs-docs-section th, td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
