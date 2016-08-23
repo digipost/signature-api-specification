@@ -2,7 +2,7 @@
 
 Dette repoet inneholder informasjon om APIene til Posten signering.
 
-Dette dokumentet inneholder teknisk dokumentasjon nødvendig for å integrere med tjenesten. Se også den [funksjonelle dokumentasjonen](https://github.com/digipost/signature-api-specification/wiki) for funksjonell beskrivelse av tjenesten og [release notes](/doc/release-notes.md) for historikk over hva som er nytt i tidligere versjoner.
+Dette dokumentet inneholder teknisk dokumentasjon nødvendig for å integrere med tjenesten. Se også den [funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification) for funksjonell beskrivelse av tjenesten og [release notes](/doc/release-notes.md) for historikk over hva som er nytt i tidligere versjoner.
 
 Mappen `schema/xsd` inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
 
