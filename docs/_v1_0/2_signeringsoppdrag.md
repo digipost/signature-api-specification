@@ -83,5 +83,3 @@ _Standardverdi:_ 30 dager etter aktivering
 _Kansellering av signeringsoppdrag er bare relevant for signeringsoppdrag som signeres i signeringsportalen, dvs. asynkrone oppdrag._
 
 Et signeringsoppdrag kan på et hvilket som helst tidspunkt kanselleres av avsender, så lenge ikke oppdraget allerede er fullført. Kansellerte oppdrag blir utilgjengeliggjort for signatarer som enda ikke har signert.
-
-Hvis minst én signatar har signert på et oppdrag som senere blir kansellert kan avsender laste ned [signaturene](#signerte_dokumenter) som finnes på kanselleringstidspunktet.
