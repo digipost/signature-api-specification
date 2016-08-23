@@ -34,4 +34,4 @@ En [terminerende handling](#terminerende-handlinger) på et kjedet signeringsopp
 
 Hvis en signatar i første gruppe avviser oppdraget eller signeringsfristen går ut, vil oppdraget aldri tilgjengeliggjøres for signatarene i de senere gruppene og avsender blir varslet om at oppdraget er fullført med en feilende status. 
 
-<a name="fotnote-gruppe"><sup>1</sup></a> En gruppe signatarer er alle signatarer som har samme [`order` i APIet](https://github.com/digipost/signature-api-specification/blob/master/schema/xsd/portal.xsd#L70) og kan bestå av én eller flere signatarer som skal signere i parallell.
+<a name="fotnote-gruppe"><sup>1</sup></a> En gruppe signatarer er alle signatarer som har samme `order` i APIet og kan bestå av én eller flere signatarer som skal signere i parallell.
