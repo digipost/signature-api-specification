@@ -9,7 +9,6 @@
             </notifications>
             <signing-ceremony>
                 <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
-                <authentication-level>4</authentication-level>
             </signing-ceremony>
         </signer>
         <signer order="2">
@@ -19,7 +18,6 @@
             </notifications>
             <signing-ceremony>
                 <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
-                <authentication-level>4</authentication-level>
             </signing-ceremony>
         </signer>
         <signer order="2">
@@ -30,7 +28,6 @@
             </notifications-using-lookup>
             <signing-ceremony>
                 <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
-                <authentication-level>4</authentication-level>
             </signing-ceremony>
         </signer>
         <signer order="3">
@@ -40,14 +37,13 @@
             </notifications-using-lookup>
             <signing-ceremony>
                 <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
-                <authentication-level>4</authentication-level>
             </signing-ceremony>
         </signer>
     </signers>
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf" authentication-level="4">
         <title>Tittel</title>
         <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
         <description>Melding til signatar</description>
