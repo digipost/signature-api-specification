@@ -4,20 +4,18 @@
         <reference>123abc</reference>
         <signing-ceremony>
             <method>ELECTRONIC_SIGNATURE</method>
-            <authentication-level>3</authentication-level>
         </signing-ceremony>
     </signer>
     <signer>
         <personal-identification-number>10987654321</personal-identification-number>
         <signing-ceremony>
             <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
-            <authentication-level>4</authentication-level>
         </signing-ceremony>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf" authentication-level="4">
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>

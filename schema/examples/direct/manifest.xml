@@ -4,13 +4,12 @@
         <personal-identification-number>12345678910</personal-identification-number>
         <signing-ceremony>
             <method>ELECTRONIC_SIGNATURE</method>
-            <authentication-level>3</authentication-level>
         </signing-ceremony>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf" authentication-level="3">
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>
