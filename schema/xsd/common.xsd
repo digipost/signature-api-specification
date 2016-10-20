@@ -54,6 +54,14 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="signer-identifier">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="80"></xs:maxLength>
+            <xs:minLength value="1"></xs:minLength>
+        </xs:restriction>
+    </xs:simpleType>
+
+
     <xs:complexType name="sender">
         <xs:sequence>
             <xs:element name="organization-number" minOccurs="1" maxOccurs="1">
