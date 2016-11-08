@@ -7,12 +7,18 @@
                 <email address="signer1@example.com" />
                 <sms number="00000000" />
             </notifications>
+            <signing-ceremony>
+                <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
+            </signing-ceremony>
         </signer>
         <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
             <notifications>
                 <email address="signer2@example.com" />
             </notifications>
+            <signing-ceremony>
+                <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
+            </signing-ceremony>
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
@@ -20,18 +26,24 @@
                 <email/>
                 <sms/>
             </notifications-using-lookup>
+            <signing-ceremony>
+                <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
+            </signing-ceremony>
         </signer>
         <signer order="3">
             <personal-identification-number>02038412546</personal-identification-number>
             <notifications-using-lookup>
                 <email/>
             </notifications-using-lookup>
+            <signing-ceremony>
+                <method>ADVANCED_ELECTRONIC_SIGNATURE</method>
+            </signing-ceremony>
         </signer>
     </signers>
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf" authentication-level="4">
         <title>Tittel</title>
         <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
         <description>Melding til signatar</description>
