@@ -58,6 +58,7 @@
                     </xs:annotation>
                 </xs:element>
             </xs:choice>
+            <xs:element name="signature-method" type="signature-method" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -78,6 +79,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+            <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <xs:attribute name="href" use="required">
             <xs:simpleType>
