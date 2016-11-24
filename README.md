@@ -11,8 +11,8 @@ Mappen `schema/xsd` inneholder XSD-filer som spesifiserer de ulike objektene som
 Posten signering er laget med tanke på å håndtere 3 ulike scenarier for signering:
 
 1. **Synkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt hvis sluttbruker er i en sesjon hos tjenesteeier på tjenesteeiers nettsider. Her ønsker tjenesteeier at sluttbruker skal signere et dokument. Sluttbruker opplever signaturprosessen som en integrert del av tjenesteeiers nettsted.
-2. **Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt der det er ønskelig med signering av dokumenter uten at sluttbruker som skal signere er i en sesjon på tjenesteeierens nettside. Dette kan for eksempel være ved batchutsending av dokumenter som skal signeres, eller for å håndtere et scenario der f.eks bruker har hatt telefondialog med tjenesteeier.
-3. **Manuelle asynkrone signeringsoppdrag:** Dette scenariet er aktuelt dersom Signeringstjenesten skal benyttes av enten en mindre tjenesteeier, eller en avdeling av en større tjenesteeier der den aktuelle prosessen er manuell. Denne flyten gjennomføres utelukkende via signeringsportalen, og man bruker derfor ikke APIer for integrasjonen. Derfor ikke beskrevet nærmere i denne dokumentasjonen.
+2. **Asynkrone signeringsoppdrag med maskin-til-maskin-integrasjon:** Dette scenariet er aktuelt der det er ønskelig med signering av dokumenter uten at sluttbruker som skal signere er i en sesjon på tjenesteeierens nettside. Dette kan for eksempel være ved batchutsending av dokumenter som skal signeres, eller for å håndtere et scenario der bruker f.eks. har hatt telefondialog med tjenesteeier.
+3. **Manuelle asynkrone signeringsoppdrag:** Dette scenariet er aktuelt dersom Signeringstjenesten skal benyttes av enten en mindre tjenesteeier, eller en avdeling av en større tjenesteeier der den aktuelle prosessen er manuell. Denne flyten gjennomføres utelukkende via signeringsportalen, og man bruker derfor ikke API-er for integrasjonen. Dette er derfor ikke beskrevet nærmere i denne dokumentasjonen.
 
 ## Integrasjon med klientbiblioteker
 
@@ -23,7 +23,9 @@ Det finnes klientbiblioteker som forenkler integrasjonsprosessen:
 
 ## Manuell integrasjon
 
-**Om Scenarier:** Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
+**Om Scenarier:**
+
+Før du starter integrasjonen, er det viktig å bestemme seg for hvilket scenario som passer best til deres integrasjon. Da disse to flytene har en del viktige forskjeller er det laget to ulike sett med endepunkter du skal integrere med. Det er også en del felles funksjonalitet du uansett trenger å implementere, slik at du kan gjenbruke mye dersom dere skulle ha behov for å implementere begge flytene.
 
 **Om rot-URL:**
 
@@ -47,46 +49,46 @@ Signeringstjenesten benytter to-veis TLS for å sikre konfidensialitet og meldin
 
 #### To-veis TLS
 
-For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
+For å benytte APIene trenger du et [godkjent virksomhetssertifikat](https://www.regjeringen.no/no/dokumenter/kravspesifikasjon-for-pki-i-offentlig-se/id611085/), som beskrevet for [sikker digital post](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering).
 
 Du skal benytte sertifikat med `KeyUsage` som inkluderer `DigitalSignature`. Hvis sertifikatet har angitt `ExtendedKeyUsage` må den inkludere `clientAuth`.
 
 De fleste HTTP-klienter har innebygget støtte for toveis TLS. Du kan se eksempler på implementasjonen i våre klientbiblioteker. Signeringstjenesten støtter kun TLS 1.2 for to-veis TLS.
 
-Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til [tillitsankrene (CA-sertifikater)](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering) i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke Posten Norge AS sitt sertitikat for å identifisere seg. Ved å ha tillitsankrene i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
+Du benytter ditt eget sertifikat i `keystore` (det du skal identifisere deg med), og legger til [tillitsankrene (CA-sertifikater)](http://begrep.difi.no/SikkerDigitalPost/1.2.0/sikkerhet/sertifikathandtering) i `truststore` (det serveren skal identifisere seg med). Sertifikatet ditt vil bli brukt for å verifisere deg mot serveren, og serveren vil bruke sertifikatet til Posten Norge AS for å identifisere seg. Ved å ha tillitsankrene i `truststore` får du mesteparten av valideringen derfra (gitt at ditt språk/rammeverk håndterer dette). Det du manuelt må gjøre er å validere at sertifikatet tilhører Posten Norge AS, ved å sjekke organisasjonsnummeret som står i `Common Name`.
 
 Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalidator, som er tilgjengelig på [GitHub](https://github.com/difi/certvalidator).
 
 ##### Vanlige problemer med oppsett av to-veis TLS
 
-* Det benyttes feil trustStore for klienten. I testmiljøet må trustStore inneholde testsertifikatene, i produksjon må det være produksjonssertifikater.
+* Det benyttes feil `truststore` for klienten. I testmiljøet må `truststore` inneholde testsertifikatene, i produksjon må det være produksjonssertifikater.
 * Sertifikatet som benyttes er ikke et virksomhetssertifikat. Virksomhetssertifikater utstedes typisk av Buypass eller Commfides.
 * Klienten støtter ikke TLS v1.2. Java 6 støtter ikke TLS v1.2, i Java 7 må dette skrus på eksplisitt.
 * Sertifikatet er utstedt av Commfides SHA-1 rotsertifikat. Kun sertifikater med SHA-256 fra Commfides er støttet. Dette gjelder primært eldre sertifikater.
 
 #### Personopplysninger
 
-Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter:
+Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter i XML-en i requestene mot API-et:
 
 * `personal-identification-number` – signatarens fødselsnummer eller d-nummer
 * `title` – tittelen/emnet til dokumentet, som oppsummerer hva signaturoppdraget handler om
 * `description` – kan inneholde en personlig melding, tilleggsinformasjon til dokumentet eller beskrivelse av dokumentet
 
-Øvrige felter skal ikke inneholde sensitive personopplysninger eller personopplysninger. Eksempelvis vil referansen (`reference`) brukes utenfor en sikker kontekst (f.eks i epost-varslinger), og kan derfor ikke inneholde personopplysninger.
+Øvrige felter skal ikke inneholde sensitive personopplysninger eller personopplysninger. Eksempelvis vil referansen (`reference`) brukes utenfor en sikker kontekst (f.eks i epost-varslinger), og kan derfor ikke inneholde personopplysninger. Se for øvrig beskrivelse av API-et lenger nede.
 
 Se nærmere beskrivelse av begrepene personopplysninger og sensitive personopplysninger på [Datatilsynet sine nettsider](https://www.datatilsynet.no/personvern/personopplysninger/).
 
 ### [FELLES] Dokumentpakken
 
-Dokumentpakken i Posten signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf). Profilen er lagd for å ligne på den som er brukt for [Digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
+Dokumentpakken i Posten signering er basert på ASiC-E standarden ([Associated Signature Containers, Extended form](http://www.etsi.org/deliver/etsi_ts/102900_102999/102918/01.03.01_60/ts_102918v010301p.pdf)). Profilen er lagd for å ligne på den som er brukt for [sikker digital post](http://begrep.difi.no/SikkerDigitalPost). Les mer om [profilen som er benyttet for ASiC](doc/asic-profile.textile).
 
-Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), pluss en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
+Pakken skal inneholde dokumentet som skal signeres (en PDF eller ren tekstfil), en fil kalt `manifest.xml` som beskriver metadata for dokumentet (emner, hvem som skal signere osv.), samt en fil kalt `signatures.xml` som er signaturen over hele dokumentpakken.
 
-**Dokument:** filen er enten PDF eller en ren tekstfil, og kan maksimalt være 3 MB (3 145 728 bytes) stor. Denne filen refereres til [med det påkrevde `href`-attributtet i `document`-elementet](https://github.com/digipost/signature-api-specification/blob/master/schema/xsd/common.xsd#L120) i `manifest.xml`.
+**Dokument:** filen er enten PDF eller en ren tekstfil, og kan maksimalt være 3 MB (3 145 728 bytes) stor. Denne filen refereres til med det påkrevde `href`-attributtet i `document`-elementet i `manifest.xml`. Se eksempler for [synkrone](https://github.com/digipost/signature-api-specification/blob/master/schema/examples/direct/manifest.xml#L9) og [asynkrone](https://github.com/digipost/signature-api-specification/blob/master/schema/examples/portal/manifest.xml#L34) oppdrag.
 
 **`manifest.xml`:** Filen følger skjemaet `http://signering.posten.no/schema/v1` som finnes i dette repoet. Eksempler finnes under «Steg 1: opprette signeringsoppdraget» for de ulike integrasjonsmønstrene.
 
-**`signatures.xml`:** Filen følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`, se mappen `thirdparty` i dette repoet for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
+**`signatures.xml`:** Filen følger skjemaet `http://uri.etsi.org/2918/v1.2.1#`. Se katalogen [`thirdparty`](https://github.com/digipost/signature-api-specification/tree/master/schema/xsd/thirdparty) for kopier av de relevante standardskjemaene. Følgende er et eksempel på en komplett fil:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -172,7 +174,7 @@ Pakken skal inneholde dokumentet som skal signeres (én PDF- eller ren tekstfil)
 </XAdESSignatures>
 ```
 
-### API-flyt for Synkrone signeringsoppdrag
+### API-flyt for synkrone signeringsoppdrag
 
 Dette integrasjonsmønsteret vil passe for større tjenesteeiere som har egne portaler og nettløsninger, og som ønsker å tilby signering sømløst som en del av en prosess der brukeren allerede er innlogget i en sesjon på tjenesteeiers nettsider. Signeringsprosessen vil oppleves som en integrert del av brukerflyten på tjenesteiers sider, og brukeren blir derfor sendt tilbake til tjenesteeiers nettsider etter at signeringen er gjennomført.
 
@@ -183,7 +185,7 @@ Relevante typer for denne delen av APIet finnes i filen `direct.xsd`.
 
 #### Steg 1: opprette signeringsoppdraget
 
-Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som ett multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
+Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å opprette signeringsoppdraget. Dette kallet gjøres som en multipart-request, der den ene delen er dokumentpakken og den andre delen er metadata.
 
 * Kallet gjøres som en `HTTP POST` mot ressursen `<rot-URL>/direct/signature-jobs`
 * Dokumentpakken legges med multipart-kallet med mediatypen `application/octet-stream`. Se forrige kapittel for mer informasjon om dokumentpakken.
@@ -192,7 +194,7 @@ Flyten begynner ved at tjenesteeier gjør et bak-kanal-kall mot APIene for å op
 En del av metadataene er et sett med URLer definert i elementet `exit-urls`. Disse adressene vil bli benyttet av signeringstjenesten til å redirecte brukeren tilbake til din portal ved fullført signering. Følgende tre URLer skal oppgis:
 
 * **completion-url:** Hit sendes brukeren dersom signeringen er vellykket. Du kan da be om status for å få URLer til nedlasting av signert dokument.
-* **rejection-url:** Hit sendes brukeren dersom han selv velger å avbryte signeringen. Dette er en handling brukeren *selv valgte* å gjennomføre.
+* **rejection-url:** Hit sendes brukeren dersom hun selv velger å avbryte signeringen. Dette er en handling brukeren *selv valgte* å gjennomføre.
 * **error-url:** Hit sendes brukeren dersom det skjer noe galt under signeringen. Dette er noe brukeren *ikke* valgte å gjøre selv.
 
 Følgende er et eksempel på metadata for et signeringsoppdrag:
@@ -247,13 +249,14 @@ Som respons på dette kallet vil man få en respons definert av elementet `direc
 
 Hele dette steget gjennomføres i signeringsportalen. Du redirecter brukeren til portalen ved å benytte URLen du får som svar på opprettelsen av oppdraget. Denne linken inneholder et engangstoken generert av signeringstjenesten, og det er dette tokenet som gjør at brukeren får tilgang til å lese dokumentet og gjennomføre signeringen.
 
-**Noen ord om sikkerheten her:** For å håndtere sikkerheten i dette kallet vil dette tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjeneres logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
+**Sikkerhet i forbindelse med engangstoken:**  
+For å håndtere sikkerheten i dette kallet vil tokenet kun fungere én gang. Brukeren vil få en cookie av signeringstjenesten ved første kall, slik at en eventuell refresh ikke stopper flyten, men du kan ikke bruke denne URLen på et senere tidspunkt. Årsaken til at vi kun tillater at den brukes én gang er at URLer kan fremkomme i eventuelle mellomtjeneres logger, og de vil dermed ikke være sikre etter å ha blitt benyttet første gang.
 
 Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til din portal via URLen spesifisert av deg i `completion-url`. På slutten av denne URLen vil det legges på et query-parameter (`status_query_token`) du senere skal benytte når du spør om status.
 
 #### Steg 3: hent status
 
-Når brukeren blir sendt tilbake til din portal, så skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i Steg 1, pluss query-parameter (`status_query_token`) du fikk i Steg 2.
+Når brukeren blir sendt tilbake til din portal skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i steg 1, pluss query-parameter (`status_query_token`) du fikk i steg 2.
 
 Du skal ikke sende med noen andre data i dette kallet.
 
@@ -276,7 +279,7 @@ I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjør
 
 **XAdES** er et format som brukes til å styrke og standardisere signaturene som kommer fra e-ID-leverandørene. Formatet har støtte for langtidsvalidering, og gjør samtidig at man får ett format å forholde seg til, uavhengig av hvilken e-ID-leverandør som er brukt til signering.
 
-**PAdES** er et signaturformat som inneholder originaldokumentet, alle signaturer og all informasjon som er nødvendig for å validere signaturen. Formatet er spesifisert av ETSI, og bygger på PDF. En unik egenskap med PAdES er at dokumentet kan åpnes i en vilkårlig PDF- leser. Adobe Reader (og eventuelle andre avanserte PDF lesere) vil også kunne vise frem deler av valideringsinformasjonen slik at sluttbrukeren selv kan se at dokumentet er gyldig signert. I tillegg ligger også XAdES-dokumentet vedlagt denne PDFen.
+**PAdES** er et signaturformat som inneholder originaldokumentet, alle signaturer og all informasjon som er nødvendig for å validere signaturen. Formatet er spesifisert av ETSI, og bygger på PDF. En unik egenskap med PAdES er at dokumentet kan åpnes i en vilkårlig PDF-leser. Adobe Reader (og eventuelle andre avanserte PDF lesere) vil også kunne vise frem deler av valideringsinformasjonen slik at sluttbrukeren selv kan se at dokumentet er gyldig signert. I tillegg ligger også XAdES-dokumentet vedlagt denne PDFen.
 
 #### Steg 5: Bekrefte ferdig prosessering
 
@@ -287,7 +290,7 @@ Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at
 
 Dette integrasjonsmønsteret passer for tjenesteeiere som ønsker å opprette signeringsoppdrag i signeringstjenesten som et ledd i en flyt som ikke starter med at sluttbruker befinner seg på tjenesteeiers nettsider. Signeringsseremonien gjennomføres av sluttbruker i Signeringsportalen, og tjenesteeier vil deretter asynkront kunne polle på status og hente ned det signerte dokumentet.
 
-Dette scenariet er også utviklet med tanke på å støtte prosesser der det er behov for å innhente signaturer fra flere enn én sluttbruker på et dokument
+Dette scenariet er også utviklet med tanke på å støtte prosesser der det er behov for å innhente signaturer fra flere enn én sluttbruker på et dokument.
 
 Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
@@ -365,7 +368,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
-`availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering. 
+`availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering.
 Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første signatarene får tilgang til dokumentet til signering.
 Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signatarer vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med signatarer med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil signatarer med `order=1` få maks 4 dager fra `activation-time` til å signere. Signatarer med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle signatarer med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 signatar ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte signatarer. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
 
@@ -381,7 +384,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 
 #### Steg 2: Polling på status
 
-Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig (noe som er veldig sannsynlig).
+Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig, hvilket du sannsynligvis har.
 
 For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Du skal ikke ha med noen request-body på dette kallet.
 
@@ -435,4 +438,4 @@ Mekanikken fungerer slik at du venter en viss periode mellom hver gang du spør 
 ##### Hva med et fler-server-scenario:
 Signeringstjenestens pollingmekaniske er laget med tanke på at det skal være enkelt å gjøre pollingen fra flere servere uten at du skal måtte synkronisere pollingen på tvers av disse. Dersom du bruker flere servere uten synkronisering så vil du komme opp i situasjoner der en av serverene poller før neste poll-tid, selv om en annen server har fått beskjed om dette. Det er en helt OK oppførsel, du vil da få en HTTP respons med statusen `429 Too Many Requests` tilbake, som vil inneholde headeren `X-Next-permitted-poll-time`. Så lenge du etter det kallet respekterer poll-tiden for den serveren, så vil alt fungere bra.
 
-Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, slik at en eventuell annen server som kommer inn ikke vil få den samme statusoppdateringen. Selv om du kaller på polling-APIet på samme tid, så er det garantert at du ikke får samme oppdatering to ganger. For å håndtere at feil kan skje enten i overføringen av statusen til deres servere eller at det kan skje feil i prosesseringen på deres side, så vil en oppdatering som hentes fra køen og ikke bekreftes dukke opp igjen på køen. Pr. i dag så er det satt en venteperiode på 10 minutter før en oppdateing igjen forekommer på køen. På grunn av dette så er det essensielt at prosesseringsbekrefelse sendes som beskrevet i Steg 4.
+Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, slik at en eventuell annen server som kommer inn ikke vil få den samme statusoppdateringen. Selv om du kaller på polling-APIet på samme tid, så er det garantert at du ikke får samme oppdatering to ganger. For å håndtere at feil kan skje enten i overføringen av statusen til deres servere eller at det kan skje feil i prosesseringen på deres side, så vil en oppdatering som hentes fra køen og ikke bekreftes dukke opp igjen på køen. Pr. i dag  er det satt en venteperiode på 10 minutter før en oppdatering igjen forekommer på køen. På grunn av dette er det essensielt at prosesseringsbekrefelse sendes som beskrevet i Steg 4.
