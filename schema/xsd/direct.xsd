@@ -58,7 +58,7 @@
                     </xs:annotation>
                 </xs:element>
             </xs:choice>
-            <xs:element name="signature-method" type="signature-method" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="signature-type" type="signature-type" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -79,7 +79,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <xs:attribute name="href" use="required">
             <xs:simpleType>
@@ -136,6 +135,7 @@ Defaults to WAIT_FOR_CALLBACK if omitted.
                 <xs:element name="signer" minOccurs="1" maxOccurs="10" type="direct-signer" />
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
                 <xs:element name="document" minOccurs="1" maxOccurs="1" type="direct-document"/>
+                <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

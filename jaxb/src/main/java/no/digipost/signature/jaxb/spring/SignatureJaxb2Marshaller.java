@@ -17,54 +17,116 @@ package no.digipost.signature.jaxb.spring;
 
 import no.digipost.signature.jaxb.SignatureMarshalling;
 import no.digipost.signature.xsd.SignatureApiSchemas;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import java.util.LinkedHashSet;
+import java.util.Collections;
 import java.util.Set;
 
+import static no.digipost.signature.jaxb.spring.SpringUtils.asClassPathResources;
+
 /**
- * A Spring {@link Jaxb2Marshaller} which is configured for marshalling and unmarshalling
- * request and response messages for Posten signering. To use this marshaller, make sure you have both
+ * Various Spring {@link Jaxb2Marshaller}s which are configured for marshalling and/or unmarshalling
+ * request and response messages for the Posten signering API. To use this marshaller, make sure you have both
  * <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.springframework%20a%3Aspring-oxm">Spring OXM</a> and
  * <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3Ano.digipost.signature%20a%3Asignature-api-specification">Posten signering - API Schema</a>
  * on your classpath.
+ * <p>
+ * Instances of SignatureJaxb2Marshaller behaves as expected when managed by a Spring DI container, following the pattern of an
+ * {@link org.springframework.beans.factory.InitializingBean InitializingBean}, meaning that {@link #afterPropertiesSet()} will properly
+ * initialize after it is constructed and configured.
+ * <p>
+ * Using one of the various static factory methods for retrieving singleton instances does <em>not</em> require any call to
+ * {@link #afterPropertiesSet()}. Each factory method will ensure that the marshaller is instantiated only on the first invocation of this method,
+ * and repeated invokations will always return the same instance, which will be ready to use immediately.
+ *
+ * @see SignatureJaxb2Marshaller.ForResponsesOfAllApis
+ * @see SignatureJaxb2Marshaller.ForRequestsOfAllApis
  */
-public class SignatureJaxb2Marshaller extends Jaxb2Marshaller {
+public abstract class SignatureJaxb2Marshaller extends Jaxb2Marshaller {
+
+
 
     /**
-     * Get a singleton instance of the {@link Jaxb2Marshaller} for the Posten signering API. This method will ensure that the marshaller
-     * is instantiated only on the first invocation of this method, and repeated invokations will always return the same instance.
-     * If you have other requirements for controlling the creation of the marshaller, you can consider instantiating
-     * the {@link SignatureJaxb2Marshaller} yourself.
+     * Marshaller for creating requests for both the Direct and Portal API.
+     * This marshaller will validate if the XML generated from marshalled Java objects
+     * adheres to the API schemas.
      */
-    public static Jaxb2Marshaller marshallerSingleton() {
-        return SingletonHolder.instance;
+    public static class ForRequestsOfAllApis extends SignatureJaxb2Marshaller {
+
+        public static Jaxb2Marshaller singleton() {
+            return SingletonHolder.instance;
+        }
+
+        private static final class SingletonHolder {
+            private static final SignatureJaxb2Marshaller instance = new SignatureJaxb2Marshaller.ForRequestsOfAllApis().triggerBeanInitialized();
+        }
+
+        public ForRequestsOfAllApis() {
+            super(SignatureMarshalling.allApiRequestClasses(), asClassPathResources(SignatureApiSchemas.DIRECT_AND_PORTAL_API));
+        }
     }
 
-    private static final class SingletonHolder {
-        private static final SignatureJaxb2Marshaller instance = new SignatureJaxb2Marshaller();
-        static {
-            instance.afterPropertiesSet();
+
+    /**
+     * Marshaller (unmarshaller) for reading responses from both the Direct and Portal API.
+     * This marshaller does <em>not</em> validate the XML before attempting to unmarshal it to Java objects.
+     */
+    public static class ForResponsesOfAllApis extends SignatureJaxb2Marshaller {
+
+        public static Jaxb2Marshaller singleton() {
+            return SingletonHolder.instance;
+        }
+
+        private static final class SingletonHolder {
+            private static final SignatureJaxb2Marshaller instance = new SignatureJaxb2Marshaller.ForResponsesOfAllApis().triggerBeanInitialized();
+        }
+
+        public ForResponsesOfAllApis() {
+            super(SignatureMarshalling.allApiResponseClasses(), Collections.<Resource>emptySet());
         }
     }
 
 
 
-    private static final Resource[] ALL_SCHEMAS;
-    static {
-        Set<Resource> schemas = new LinkedHashSet<>();
-        for (String schemaResourceName : SignatureApiSchemas.DIRECT_AND_PORTAL_API) {
-            schemas.add(new ClassPathResource(schemaResourceName));
+    /**
+     * Marshaller for both the Direct and Portal API.
+     * <p><strong>
+     *  This marshaller is intended only to be used internally by Posten signering, as both
+     *  requests and responses are validated against schemas. A 3rd party client should <em>not</em>
+     *  validate responses from the API.
+     * </strong>
+     *
+     *
+     * @see SignatureJaxb2Marshaller.ForResponsesOfAllApis
+     * @see SignatureJaxb2Marshaller.ForRequestsOfAllApis
+     */
+    public static class ForAllApis extends SignatureJaxb2Marshaller {
+
+        public static Jaxb2Marshaller singleton() {
+            return SingletonHolder.instance;
         }
-        ALL_SCHEMAS = schemas.toArray(new Resource[schemas.size()]);
+
+        private static final class SingletonHolder {
+            private static final SignatureJaxb2Marshaller instance = new SignatureJaxb2Marshaller.ForAllApis().triggerBeanInitialized();
+        }
+
+        public ForAllApis() {
+            super(SignatureMarshalling.allApiClasses(), asClassPathResources(SignatureApiSchemas.DIRECT_AND_PORTAL_API));
+        }
     }
 
-    public SignatureJaxb2Marshaller() {
-        Set<Class<?>> classesToBeBound = SignatureMarshalling.directAndPortalApiClasses();
+
+
+
+    private final Set<? extends Resource> schemas;
+
+    protected SignatureJaxb2Marshaller(Set<Class<?>> classesToBeBound, Set<? extends Resource> schemasForValidation) {
+        this.schemas = schemasForValidation;
         setClassesToBeBound(classesToBeBound.toArray(new Class[classesToBeBound.size()]));
-        setSchemas(ALL_SCHEMAS);
+        if (schemas != null && !schemas.isEmpty()) {
+            setSchemas(schemas.toArray(new Resource[schemas.size()]));
+        }
     }
 
     @Override
@@ -74,8 +136,13 @@ public class SignatureJaxb2Marshaller extends Jaxb2Marshaller {
         } catch (Exception e) {
             throw new IllegalStateException("Initializing " + Jaxb2Marshaller.class.getSimpleName() + " failed because " +
                                             e.getClass().getSimpleName() + ": '" + e.getMessage() + "'. " +
-                                            "ClassesToBeBound=" + getClassesToBeBound() + ", schemas=" + ALL_SCHEMAS + ". " +
+                                            "ClassesToBeBound=" + getClassesToBeBound() + ", schemas=" + schemas + ". " +
                                             "Do you have both Spring OXM and the signature-api-specification on your classpath?");
         }
+    }
+
+    SignatureJaxb2Marshaller triggerBeanInitialized() {
+        afterPropertiesSet();
+        return this;
     }
 }

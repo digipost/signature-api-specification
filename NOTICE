@@ -17,6 +17,7 @@ This software includes third party software subject to the following licenses:
   Posten signering - API Schema under The Apache Software License, Version 2.0
   Posten signering - API Specification under The Apache Software License, Version 2.0
   SLF4J API Module under MIT License
+  SLF4J Simple Binding under MIT License
   Spring Beans under The Apache Software License, Version 2.0
   Spring Core under The Apache Software License, Version 2.0
   Spring Object/XML Marshalling under The Apache Software License, Version 2.0
