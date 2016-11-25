@@ -218,6 +218,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
 <direct-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signer>
         <personal-identification-number>12345678910</personal-identification-number>
+        <signature-type>ADVANCED_ELECTRONIC_SIGNATURE</signature-type>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>
@@ -226,8 +227,13 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>
+    <required-authentication>3</required-authentication>
 </direct-signature-job-manifest>
 ```
+
+Merk at [`signature-type`](https://digipost.github.io/signature-api-specification/v1.0/#signaturtype) spesifiseres per undertegner, hvilket vil si at det i praksis er mulig å innhente ulike typer signaturer fra ulike undertegnere i et multisignatar-case. Dette er imidlertid antatt å være et såpass sjeldent use-case at det ikke er mulig via grensesnittet i web-portalen – der spesifiseres signaturtype på jobbnivå.
+
+Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
 
@@ -324,6 +330,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     <signers>
         <signer order="1">
             <personal-identification-number>12345678910</personal-identification-number>
+            <signature-type>ADVANCED_ELECTRONIC_SIGNATURE</signature-type>
             <notifications>
                 <!-- Override contact information to be used for notifications -->
                 <email address="signer1@example.com" />
@@ -332,12 +339,14 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
         </signer>
         <signer order="2">
             <personal-identification-number>10987654321</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
             <notifications>
                 <email address="signer2@example.com" />
             </notifications>
         </signer>
         <signer order="2">
             <personal-identification-number>01013300001</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
             <notifications-using-lookup>
                 <!-- Try to send notifications in both e-mail and SMS using lookup -->
                 <email/>
@@ -346,6 +355,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
         </signer>
         <signer order="3">
             <personal-identification-number>02038412546</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
             <notifications-using-lookup>
                 <email/>
             </notifications-using-lookup>
@@ -359,6 +369,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
         <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
         <description>Melding til signatar</description>
     </document>
+    <required-authentication>4</required-authentication>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
         <available-seconds>864000</available-seconds>
