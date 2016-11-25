@@ -40,9 +40,9 @@ Ved opprettelse av signeringsoppdrag kan følgende felter oppgis:
 |-------------------------|:----------------:|:-----------------:|---|
 | Dokument                | __Obligatorisk__ | __Obligatorisk__  |   |
 | Mottaker(e)             | __Obligatorisk__ | __Obligatorisk__  |   |
-| Signaturmetode          | __Obligatorisk__ | __Obligatorisk__  | se [signeringsmetode](#signeringsmetode) |
 | Tittel                  | __Obligatorisk__ | __Obligatorisk__  |   |
-| Sikkerhetsnivå          | __Obligatorisk__ | __Obligatorisk__  | se [sikkerhetsnivå](#sikkerhetsniva) |
+| Signaturtype            | Valgfritt        | Valgfritt         | se [signaturtype](#signaturtype) |
+| Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
 | Melding til mottaker(e) | Valgfritt        | Valgfritt         |   |
 | Aktiveringstidspunkt    | _Ikke relevant_  | Valgfritt         |   |
 | Levetid                 | _Ikke relevant_  | Valgfritt         |   |
