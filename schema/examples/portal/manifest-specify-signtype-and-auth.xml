@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
+    <signers>
+        <signer order="1">
+            <personal-identification-number>12345678910</personal-identification-number>
+            <signature-type>ADVANCED_ELECTRONIC_SIGNATURE</signature-type>
+            <notifications>
+                <email address="signer1@example.com" />
+                <sms number="00000000" />
+            </notifications>
+        </signer>
+        <signer order="2">
+            <personal-identification-number>10987654321</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
+            <notifications>
+                <email address="signer2@example.com" />
+            </notifications>
+        </signer>
+        <signer order="2">
+            <personal-identification-number>01013300001</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
+            <notifications-using-lookup>
+                <email/>
+                <sms/>
+            </notifications-using-lookup>
+        </signer>
+        <signer order="3">
+            <personal-identification-number>02038412546</personal-identification-number>
+            <signature-type>AUTHENTICATED_ELECTRONIC_SIGNATURE</signature-type>
+            <notifications-using-lookup>
+                <email/>
+            </notifications-using-lookup>
+        </signer>
+    </signers>
+    <sender>
+        <organization-number>123456789</organization-number>
+    </sender>
+    <document href="document.pdf" mime="application/pdf" >
+        <title>Tittel</title>
+        <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
+        <description>Melding til signatar</description>
+    </document>
+    <required-authentication>4</required-authentication>
+    <availability>
+        <activation-time>2016-02-10T12:00:00+01:00</activation-time>
+        <available-seconds>864000</available-seconds>
+    </availability>
+</portal-signature-job-manifest>

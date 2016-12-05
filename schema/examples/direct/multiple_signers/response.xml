@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
-    <redirect-url signer="12345678910">
+    <redirect-url signer="123abc">
         https://signering.posten.no#/redirect/P1P-rdPK03Vf-z4NZb1mtDcExjpOzzVEkwal_F9FKm0
     </redirect-url>
     <redirect-url signer="10987654321">

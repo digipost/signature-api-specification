@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <direct-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signer>
-        <signer-identifier>123abc</signer-identifier>
-    </signer>
-    <signer>
-        <personal-identification-number>10987654321</personal-identification-number>
+        <personal-identification-number>12345678910</personal-identification-number>
+        <signature-type>ADVANCED_ELECTRONIC_SIGNATURE</signature-type>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
+    <document href="document.pdf" mime="application/pdf" >
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>
+    <required-authentication>3</required-authentication>
 </direct-signature-job-manifest>

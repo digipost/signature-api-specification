@@ -61,6 +61,20 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="signature-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ADVANCED_ELECTRONIC_SIGNATURE" />
+            <xs:enumeration value="AUTHENTICATED_ELECTRONIC_SIGNATURE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="authentication-level">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="3" />
+            <xs:enumeration value="4" />
+        </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:complexType name="sender">
         <xs:sequence>

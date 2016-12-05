@@ -62,6 +62,7 @@
     <xs:complexType name="portal-signer">
         <xs:sequence>
             <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:element name="signature-type" minOccurs="0" maxOccurs="1" type="signature-type"/>
             <xs:choice minOccurs="1" maxOccurs="1">
                 <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
                 <xs:element name="notifications" type="notifications" />
@@ -153,6 +154,7 @@ so three paralell signers with 1 day deadline will maximum take 1 day.
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="portal-signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
                 <xs:element name="document" minOccurs="1" maxOccurs="1" type="portal-document"/>
+                <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>
             </xs:sequence>
         </xs:complexType>
