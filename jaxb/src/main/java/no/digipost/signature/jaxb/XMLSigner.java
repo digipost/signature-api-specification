@@ -15,12 +15,10 @@
  */
 package no.digipost.signature.jaxb;
 
-import no.digipost.signature.api.xml.XMLAuthenticationLevel;
+import no.digipost.signature.api.xml.XMLSignatureType;
 
-public interface XMLManifest {
+public interface XMLSigner {
 
-	XMLDocument getDocument();
-
-	XMLAuthenticationLevel getRequiredAuthentication();
+    XMLSignatureType getSignatureType();
 
 }
