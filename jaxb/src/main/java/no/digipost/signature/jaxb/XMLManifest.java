@@ -17,10 +17,14 @@ package no.digipost.signature.jaxb;
 
 import no.digipost.signature.api.xml.XMLAuthenticationLevel;
 
+import java.util.List;
+
 public interface XMLManifest {
 
 	XMLDocument getDocument();
 
 	XMLAuthenticationLevel getRequiredAuthentication();
+
+	List<? extends XMLSigner> getSigners();
 
 }

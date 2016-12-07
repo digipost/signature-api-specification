@@ -201,6 +201,9 @@
                     <removeOldOutput>true</removeOldOutput>
                     <bindingDirectory>${project.basedir}/src/main/jaxb</bindingDirectory>
                     <args>
+                        <arg>-Xxew</arg>
+                        <arg>-Xxew:instantiate lazy</arg>
+                        <arg>-Xxew:control ${project.basedir}/src/main/jaxb/xew-control.properties</arg>
                         <arg>-XtoString</arg>
                         <arg>-Xjavadoc</arg>
                         <arg>-Xvalue-constructor</arg>
@@ -227,6 +230,11 @@
                             <groupId>org.apache.cxf.xjcplugins</groupId>
                             <artifactId>cxf-xjc-javadoc</artifactId>
                             <version>3.0.5</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>com.github.jaxb-xew-plugin</groupId>
+                            <artifactId>jaxb-xew-plugin</artifactId>
+                            <version>1.8</version>
                         </plugin>
                     </plugins>
                 </configuration>
