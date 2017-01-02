@@ -41,6 +41,8 @@ Ved opprettelse av signeringsoppdrag kan følgende felter oppgis:
 | Dokument                | __Obligatorisk__ | __Obligatorisk__  |   |
 | Mottaker(e)             | __Obligatorisk__ | __Obligatorisk__  |   |
 | Tittel                  | __Obligatorisk__ | __Obligatorisk__  |   |
+| Signaturtype            | Valgfritt        | Valgfritt         | se [signaturtype](#signaturtype) |
+| Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
 | Melding til mottaker(e) | Valgfritt        | Valgfritt         |   |
 | Aktiveringstidspunkt    | _Ikke relevant_  | Valgfritt         |   |
 | Levetid                 | _Ikke relevant_  | Valgfritt         |   |
@@ -74,7 +76,7 @@ __Oppdragets levetid__
 
 Angir hvor lenge _etter aktivering_ et signeringsoppdrag er tilgjengelig for signatar før det utløper. Kan maksimalt være 90 dager etter aktivering.
 
-For [kjedete signeringsoppdrag](#kjedet-signatur) gjelder levetiden for _hver gruppe_, slik at alle signatarer får like mye tid på seg til å signere. 
+For [kjedete signeringsoppdrag](#kjedet-signatur) gjelder levetiden for _hver gruppe_, slik at alle signatarer får like mye tid på seg til å signere.
 
 _Standardverdi:_ 30 dager etter aktivering
 
