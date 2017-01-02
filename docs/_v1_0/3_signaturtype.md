@@ -7,7 +7,9 @@ layout: default
 ### Autentisert og avansert e-signatur
 Avsender velger om den vil innhente autentisert eller avansert signatur fra mottaker. I [esignaturloven](https://lovdata.no/dokument/NL/lov/2001-06-15-81) er dette omtalt som hhv. [_elektronisk signatur_ og _avansert elektronisk signatur_](https://lovdata.no/lov/2001-06-15-81/§3).
 
-Om ingen signaturtype angis ved opprettelse av oppdraget, vil _avansert e-signatur_ innhentes som standard.
+Om ingen signaturtype angis ved opprettelse av oppdraget, vil følgende type innhentes som standard:
+- _Autentisert e-signatur_ for offentlige virksomheter
+- _Avansert e-signatur_ for private virksomheter
 
 ### Sikkerhetsnivå
 Avsender må angi hvilket sikkerhetsnivå signeringsoppdraget skal ha. Dette kan være _3_ eller _4_, og begrenser hvilke elektroniske ID-er undertegner kan bruke for å signere dokumentet, se tabellen under. Sikkerhetsnivået begrenser også hvilke innloggingsmetoder undertegner kan bruke for å se signeringsoppdraget og dets detaljer, samt begynne selve signeringen.
