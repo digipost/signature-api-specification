@@ -273,7 +273,7 @@ Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-s
 <direct-signature-job-status-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <signature-job-status>COMPLETED_SUCCESSFULLY</signature-job-status>
-    <status happened-at="2017-01-23T12:51:43+01:00">SIGNED</status>
+    <status since="2017-01-23T12:51:43+01:00">SIGNED</status>
     <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/complete</confirmation-url>
     <xades-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/xades/1</xades-url>
     <pades-url>https://api.signering.posten.no/api/{sender-identifier}/direct/signature-jobs/1/pades</pades-url>
@@ -415,7 +415,7 @@ Følgende er et eksempel på en respons der en del av signeringsoppdraget har bl
     <confirmation-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/complete</confirmation-url>
     <signatures>
         <signature>
-            <status happened-at="2017-01-23T12:51:43+01:00">SIGNED</status>
+            <status since="2017-01-23T12:51:43+01:00">SIGNED</status>
             <personal-identification-number>12345678910</personal-identification-number>
             <xades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/xades/1</xades-url>
         </signature>

@@ -267,7 +267,7 @@ Currently known values:
         The signer has signed the job.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:attribute name="happened-at" type="xs:dateTime"/>
+                <xs:attribute name="since" type="xs:dateTime" use="required"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>

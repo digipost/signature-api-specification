@@ -2,8 +2,8 @@
 <direct-signature-job-status-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <signature-job-status>COMPLETED_SUCCESSFULLY</signature-job-status>
-    <status signer="123abc" happened-at="2017-01-23T12:51:43+01:00">SIGNED</status>
-    <status signer="10987654321" happened-at="2017-01-23T12:51:43+01:00">SIGNED</status>
+    <status signer="123abc" since="2017-01-23T12:51:43+01:00">SIGNED</status>
+    <status signer="10987654321" since="2017-01-23T12:51:43+01:00">SIGNED</status>
     <confirmation-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/complete</confirmation-url>
     <xades-url signer="123abc">https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/xades/1</xades-url>
     <xades-url signer="10987654321">https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/xades/2</xades-url>
