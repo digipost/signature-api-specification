@@ -225,6 +225,7 @@ Currently known values:
                     </xs:documentation>
                 </xs:annotation>
                 <xs:attribute name="signer" type="xs:string" />
+                <xs:attribute name="since" type="xs:dateTime" use="required"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>

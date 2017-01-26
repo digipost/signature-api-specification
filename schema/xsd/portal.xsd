@@ -234,8 +234,16 @@ though the status has not changed.
 
     <xs:complexType name="signature">
         <xs:sequence>
-            <xs:element name="status" minOccurs="1" maxOccurs="1" type="xs:string">
-                <xsd:annotation>
+            <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
+            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="signature-status">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:annotation>
                     <xs:documentation>
 Textual field which describes the signer status. Note that this field might contain new, unknown statuses in the future.
 Clients should use the portal-signature-job-status element for getting the status of the entire job. Unknown signer status should be logged for later review and ignored at runtime.
@@ -258,11 +266,10 @@ Currently known values:
     * SIGNED
         The signer has signed the job.
                     </xs:documentation>
-                </xsd:annotation>
-            </xs:element>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
-            <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
-        </xs:sequence>
+                </xs:annotation>
+                <xs:attribute name="since" type="xs:dateTime" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
 
 
