@@ -16,9 +16,11 @@
 package no.digipost.signature.jaxb;
 
 import no.digipost.signature.api.xml.XMLSignatureType;
+import no.digipost.signature.api.xml.XMLSigningOnBehalfOf;
 
 public interface XMLSigner {
 
     XMLSignatureType getSignatureType();
 
+    XMLSigningOnBehalfOf getOnBehalfOf();
 }

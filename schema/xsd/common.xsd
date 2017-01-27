@@ -68,6 +68,13 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="signing-on-behalf-of">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SELF" />
+            <xs:enumeration value="OTHER" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="authentication-level">
         <xs:restriction base="xs:string">
             <xs:enumeration value="3" />
