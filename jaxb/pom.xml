@@ -268,7 +268,7 @@
     <parent>
         <groupId>no.digipost.signature</groupId>
         <artifactId>signature-api-specification-parent</artifactId>
-        <version>1.7.SIGNING-FOR-SNAPSHOT</version>
+        <version>1.7</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
