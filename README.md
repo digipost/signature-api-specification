@@ -219,7 +219,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
     <signer>
         <personal-identification-number>12345678910</personal-identification-number>
         <signature-type>ADVANCED_ELECTRONIC_SIGNATURE</signature-type>
-        <signing-on-behalf-of>SELF</signing-on-behalf-of>
+        <on-behalf-of>SELF</on-behalf-of>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>
@@ -236,7 +236,7 @@ Merk at [`signature-type`](https://digipost.github.io/signature-api-specificatio
 
 Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
-`signing-on-behalf-of` under `signer` benyttes til å angi om man signerer på vegne av seg selv eller en tredjepart. Elementet er valgfritt, og verdien `SELF` benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard. 
+*For offentlige avsendere* kan elementet `on-behalf-of` under `signer` benyttes til å angi om man signerer på vegne av seg selv eller en tredjepart. Elementet er valgfritt, og verdien `SELF` benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard.
 
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
 
@@ -383,9 +383,9 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
-Som for synkrone oppdrag kan man også inkludere feltet `signing-on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag. For asynkrone oppdrag er det imidlertid kun inkludert for kompletthet, verdien av feltet vil nemlig alltid kunne utledes fra varslingsinnstillingene. Det er derfor ikke nødvendig å oppgi.
+Som for synkrone oppdrag kan man også inkludere feltet `on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag. For asynkrone oppdrag på vegne av offentlige avsendere vil verdien av feltet alltid kunne utledes fra varslingsinnstillingene, og er derfor ikke nødvendig å oppgi.
 
-Verdien av dette feltet vil også valideres opp mot varslingsinnstillingene. Har man angitt `OTHER` kan man ikke angi `notifications-using-lookup`, ettersom man ikke kan slå opp kontaktinformasjon i Kontakt- og reservasjonsregisteret om man signerer på vegne av noen andre enn seg selv. Likledes vil man for offentlige virksomheter ikke kunne angi `SELF` og samtidig overstyre kontaktinformasjon; når man undertegner signeringsoppdrag på vegne av seg selv fra avsendere i offentlig sektor _må_ kontaktinformasjon til undertegner hentes fra KRR.
+Verdien av dette feltet vil også valideres opp mot varslingsinnstillingene. Har man angitt `OTHER` kan man ikke angi `notifications-using-lookup`, ettersom man ikke kan slå opp kontaktinformasjon i Kontakt- og reservasjonsregisteret om man signerer på vegne av noen andre enn seg selv. Videre vil man for offentlige virksomheter ikke kunne angi `SELF` og samtidig overstyre kontaktinformasjon; når man undertegner signeringsoppdrag på vegne av seg selv fra avsendere i offentlig sektor _må_ kontaktinformasjon til undertegner hentes fra KRR.
 
 For private virksomheter vil man kunne velge fritt mellom `SELF` og `OTHER`, men kan aldri angi `notifications-using-lookup` ettersom disse virksomheten ikke kan benytte KRR for kontaktinformasjonsoppslag.
 
