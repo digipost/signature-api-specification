@@ -2,6 +2,7 @@
 <direct-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signer>
         <personal-identification-number>12345678910</personal-identification-number>
+        <on-behalf-of>OTHER</on-behalf-of>
     </signer>
     <sender>
         <organization-number>123456789</organization-number>

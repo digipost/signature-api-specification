@@ -59,6 +59,7 @@
                 </xs:element>
             </xs:choice>
             <xs:element name="signature-type" type="signature-type" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="on-behalf-of" type="signing-on-behalf-of" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 

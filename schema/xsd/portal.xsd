@@ -67,6 +67,7 @@
                 <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
                 <xs:element name="notifications" type="notifications" />
             </xs:choice>
+            <xs:element name="on-behalf-of" type="signing-on-behalf-of" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
         <xs:attribute name="order" use="optional">
             <xs:annotation>
