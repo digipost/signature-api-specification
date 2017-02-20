@@ -236,7 +236,7 @@ Merk at [`signature-type`](https://digipost.github.io/signature-api-specificatio
 
 Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
-*For offentlige avsendere* kan elementet `on-behalf-of` under `signer` benyttes til å angi om man signerer på vegne av seg selv eller en tredjepart. Elementet er valgfritt, og verdien `SELF` benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard.
+*For offentlige avsendere* kan man for elementet `on-behalf-of` under `signer` sende inn verdien `OTHER` for å angi at man signerer på vegne av en tredjepart (f.eks. signering av anskaffelseskontrakt på vegne av arbeidsgiver). Elementet er valgfritt, og verdien `SELF`, altså signering på egne vegne, benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard.
 
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
 
