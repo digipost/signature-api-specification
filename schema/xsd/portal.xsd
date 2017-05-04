@@ -59,13 +59,21 @@
         </xs:choice>
     </xs:complexType>
 
+    <xs:complexType name="link-notification">
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element name="email" type="email" minOccurs="1" maxOccurs="1" />
+            <xs:element name="sms" type="sms" minOccurs="1" maxOccurs="1"/>
+        </xs:choice>
+    </xs:complexType>
+
     <xs:complexType name="portal-signer">
         <xs:sequence>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:element name="personal-identification-number" minOccurs="0" maxOccurs="1" type="personal-identification-number"/>
             <xs:element name="signature-type" minOccurs="0" maxOccurs="1" type="signature-type"/>
             <xs:choice minOccurs="1" maxOccurs="1">
                 <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
                 <xs:element name="notifications" type="notifications" />
+                <xs:element name="link-notification" type="notifications" />
             </xs:choice>
             <xs:element name="on-behalf-of" type="signing-on-behalf-of" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>

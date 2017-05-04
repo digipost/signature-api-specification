@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
+    <signers>
+        <signer>
+            <link-notification>
+                <email address="email@hotmail.com"/>
+            </link-notification>
+            <on-behalf-of>SELF</on-behalf-of>
+        </signer>
+    </signers>
+    <sender>
+        <organization-number>123456789</organization-number>
+    </sender>
+    <document href="document.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
+        <description>Melding til signatar</description>
+    </document>
+    <availability>
+        <activation-time>2016-02-10T12:00:00+01:00</activation-time>
+        <available-seconds>864000</available-seconds>
+    </availability>
+</portal-signature-job-manifest>
