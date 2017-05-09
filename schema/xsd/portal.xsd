@@ -73,7 +73,7 @@
             <xs:choice minOccurs="1" maxOccurs="1">
                 <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
                 <xs:element name="notifications" type="notifications" />
-                <xs:element name="link-notification" type="notifications" />
+                <xs:element name="link-notification" type="link-notification" />
             </xs:choice>
             <xs:element name="on-behalf-of" type="signing-on-behalf-of" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
