@@ -58,7 +58,13 @@ Tjenesten tillater maksimalt 10 signatarer pr. oppdrag.
 
 **Dokumentformater**
 
-Tjenesten støtter dokumenter av ren tekst (`.txt`) og PDF. Filen kan maksimalt være 3 MB (`3 145 728 bytes`) stor.
+Tjenesten støtter dokumenter av typen ren tekst (`.txt`) og PDF (`.pdf`). Både PDF og PDF/A aksepteres av tjenesten. Det signerte dokumentet vil være av samme type som originaldokumentet.
+Et originaldokument som er PDF/A gir et signert PAdES-dokument som er PDF/A, og et originaldokument som er PDF versjon 1.1 – 1.7 gir et signert PAdES-dokumentet som er PDF versjon 1.7.
+For PDF/A vil tjenesten alltid produsere signerte PAdES-dokumenter av typen PDF/A-3b, uavhengig av PDF/A-versjon og -konformitetsnivå (conformance level) på originaldokumentet.
+
+For arkivering av signerte dokumenter anbefaler vi å bruke originaldokumenter av typen PDF/A. Dette er et krav hvis det signerte dokumentet skal avleveres til Riksarkivet.
+
+Filen kan maksimalt være 3 MB (`3 145 728 bytes`) stor. PDF-versjoner som støttes er PDF 1.1-1.7.
 
 I [PAdESen](#signerte_dokumenter) vil dokumentet alltid presenteres i A4- og portrett-format. For best resultat anbefales det at det innsendte dokumentet også har dette formatet.
 
