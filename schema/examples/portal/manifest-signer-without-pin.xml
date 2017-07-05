@@ -3,7 +3,7 @@
     <signers>
         <signer>
             <link-notification>
-                <email address="email@hotmail.com"/>
+                <email address="email@example.com"/>
             </link-notification>
             <on-behalf-of>SELF</on-behalf-of>
         </signer>
