@@ -244,7 +244,10 @@ though the status has not changed.
     <xs:complexType name="signature">
         <xs:sequence>
             <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+                <xs:element name="identifier" minOccurs="1" maxOccurs="1" type="xs:string"/>
+            </xs:choice>
             <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
