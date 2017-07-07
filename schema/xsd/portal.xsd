@@ -277,6 +277,8 @@ Currently known values:
         The job has expired.
     * SIGNED
         The signer has signed the job.
+    * BLOCKED
+        The signer entered the wrong security code too many times. Only applicable for signers addressed by e-mail address or mobile number.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:attribute name="since" type="xs:dateTime" use="required"/>
