@@ -6,12 +6,17 @@
     <signatures>
         <signature>
             <status since="2017-01-23T12:51:43+01:00">SIGNED</status>
-            <identifier>test@example.com</identifier>
+            <identifier>
+                <email address="test@example.com" />
+            </identifier>
             <xades-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/xades/1</xades-url>
         </signature>
         <signature>
             <status since="2017-01-23T12:51:43+01:00">SIGNED</status>
-            <identifier>test@example.com;12345678</identifier>
+            <identifier>
+                <email address="test@example.com"/>
+                <sms number="12345678" />
+            </identifier>
             <xades-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/xades/2</xades-url>
         </signature>
         <pades-url>https://api.signering.posten.no/api/123456789/portal/signature-jobs/1/pades</pades-url>
