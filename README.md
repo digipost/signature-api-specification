@@ -381,6 +381,25 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
 </portal-signature-job-manifest>
 ```
 
+#### Undertegners kontaktinformasjon
+
+Et signeringsoppdrags undertegner(e) kan adresseres på kontaktinformasjon (e-postadresse og/eller mobilnummer) for virksomheter som ikke har eller ønsker å bruke fødselsnummer.
+
+Erstatt i så fall `personal-identification-number` med `identified-by-contact-information` og legg ved kontakinformasjonen i `notifications`-elementet. NB: dette kan _ikke_ kombineres med `notifications-using-lookup` og er således ikke tilgjengelig for offentlige avsendere.
+
+```xml
+<signer>
+    <identified-by-contact-information/>
+    <notifications>
+        <email address="email@example.com"/>
+    </notifications>
+</signer>
+```
+
+Les mer om adressering uten fødselsnummer i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#kontaktinfo).
+
+#### Andre attributer
+
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
 Som for synkrone oppdrag kan man også inkludere feltet `on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag. For asynkrone oppdrag på vegne av offentlige avsendere vil verdien av feltet alltid kunne utledes fra varslingsinnstillingene, og er derfor ikke nødvendig å oppgi.

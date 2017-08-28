@@ -39,7 +39,7 @@ Ved opprettelse av signeringsoppdrag kan følgende felter oppgis:
 |                         | synkrone oppdrag | asynkrone oppdrag |   |
 |-------------------------|:----------------:|:-----------------:|---|
 | Dokument                | __Obligatorisk__ | __Obligatorisk__  |   |
-| Mottaker(e)             | __Obligatorisk__ | __Obligatorisk__  |   |
+| Mottaker(e)             | __Obligatorisk__ | __Obligatorisk__  | se [undertegners kontaktinfo](#kontaktinfo) |
 | Tittel                  | __Obligatorisk__ | __Obligatorisk__  |   |
 | Signaturtype            | Valgfritt        | Valgfritt         | se [signaturtype](#signaturtype) |
 | Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
