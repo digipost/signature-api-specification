@@ -6,7 +6,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification-parent</artifactId>
-	<version>1.8-SNAPSHOT</version>
+	<version>1.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -33,6 +33,10 @@
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jasig.maven</groupId>
@@ -120,6 +124,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.0</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 	</build>
 
@@ -141,9 +162,5 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-
-    <prerequisites>
-        <maven>3.3.0</maven>
-    </prerequisites>
 
 </project>

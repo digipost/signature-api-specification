@@ -61,9 +61,12 @@
 
     <xs:complexType name="portal-signer">
         <xs:sequence>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:choice>
+                <xs:element name="personal-identification-number" type="personal-identification-number"/>
+                <xs:element name="identified-by-contact-information" type="enabled"/>
+            </xs:choice>
             <xs:element name="signature-type" minOccurs="0" maxOccurs="1" type="signature-type"/>
-            <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:choice>
                 <xs:element name="notifications-using-lookup" type="notifications-using-lookup" />
                 <xs:element name="notifications" type="notifications" />
             </xs:choice>
@@ -236,7 +239,10 @@ though the status has not changed.
     <xs:complexType name="signature">
         <xs:sequence>
             <xs:element name="status" minOccurs="1" maxOccurs="1" type="signature-status"/>
-            <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1" type="personal-identification-number"/>
+                <xs:element name="identifier" minOccurs="1" maxOccurs="1" type="notifications"/>
+            </xs:choice>
             <xs:element name="xades-url" minOccurs="0" maxOccurs="1" type="url"/>
         </xs:sequence>
     </xs:complexType>
@@ -266,6 +272,8 @@ Currently known values:
         The job has expired.
     * SIGNED
         The signer has signed the job.
+    * BLOCKED
+        The signer entered the wrong security code too many times. Only applicable for signers addressed by e-mail address or mobile number.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:attribute name="since" type="xs:dateTime" use="required"/>

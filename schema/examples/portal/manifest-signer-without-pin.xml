@@ -2,12 +2,17 @@
 <portal-signature-job-manifest xmlns="http://signering.posten.no/schema/v1">
     <signers>
         <signer>
-            <personal-identification-number>01013300001</personal-identification-number>
-            <notifications-using-lookup>
-                <email/>
-                <sms/>
-            </notifications-using-lookup>
-            <on-behalf-of>SELF</on-behalf-of>
+            <identified-by-contact-information/>
+            <notifications>
+                <email address="email@example.com"/>
+            </notifications>
+        </signer>
+        <signer>
+            <identified-by-contact-information/>
+            <notifications>
+                <email address="email@example.com"/>
+                <sms number="12345678"/>
+            </notifications>
         </signer>
     </signers>
     <sender>
