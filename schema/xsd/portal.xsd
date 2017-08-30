@@ -160,6 +160,7 @@ so three paralell signers with 1 day deadline will maximum take 1 day.
                 <xs:element name="document" minOccurs="1" maxOccurs="1" type="portal-document"/>
                 <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>
+                <xs:element name="identifier-in-signed-documents" minOccurs="0" type="identifier-in-signed-documents"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

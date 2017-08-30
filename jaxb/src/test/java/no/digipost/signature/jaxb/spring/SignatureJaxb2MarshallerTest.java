@@ -30,6 +30,7 @@ import java.util.Date;
 import static junit.framework.TestCase.assertEquals;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
+import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
 import static no.digipost.signature.api.xml.XMLStatusRetrievalMethod.WAIT_FOR_CALLBACK;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
@@ -53,13 +54,13 @@ public class SignatureJaxb2MarshallerTest {
                 .withErrorUrl("http://localhost/failed");
 
         XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null);
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, THREE);
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
         marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
 
         XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc");
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(new Date()));
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(new Date()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
     }
@@ -89,8 +90,8 @@ public class SignatureJaxb2MarshallerTest {
         XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "nonsensitive title", "Description", null, "application/pdf");
         XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Description", null, "application/pdf");
 
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, FOUR);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability());
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
         try {
             marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
