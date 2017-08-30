@@ -40,4 +40,5 @@
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
         <available-seconds>864000</available-seconds>
     </availability>
+    <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </portal-signature-job-manifest>
