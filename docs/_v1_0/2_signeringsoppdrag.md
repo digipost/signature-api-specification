@@ -44,6 +44,7 @@ Ved opprettelse av signeringsoppdrag kan følgende felter oppgis:
 | Signaturtype            | Valgfritt        | Valgfritt         | se [signaturtype](#signaturtype) |
 | Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
 | Melding til mottaker(e) | Valgfritt        | Valgfritt         |   |
+| Undertegners identifikator | Valgfritt     | Valgfritt         | se [undertegners identifikator](#undertegners-identifikator) |
 | Aktiveringstidspunkt    | _Ikke relevant_  | Valgfritt         |   |
 | Levetid                 | _Ikke relevant_  | Valgfritt         |   |
 | E-postadresse           | _Ikke relevant_  | __Obligatorisk__  | se [varsling](#varsling) |
