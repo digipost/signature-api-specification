@@ -101,4 +101,12 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="identifier-in-signed-documents">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PERSONAL_IDENTIFICATION_NUMBER_AND_NAME"/>
+            <xs:enumeration value="DATE_OF_BIRTH_AND_NAME"/>
+            <xs:enumeration value="NAME"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 </xs:schema>

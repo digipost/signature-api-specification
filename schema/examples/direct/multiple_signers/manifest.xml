@@ -13,4 +13,5 @@
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>
+    <identifier-in-signed-documents>DATE_OF_BIRTH_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>

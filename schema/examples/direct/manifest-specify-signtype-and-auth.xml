@@ -12,4 +12,5 @@
         <description>Melding til signatar</description>
     </document>
     <required-authentication>3</required-authentication>
+    <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>

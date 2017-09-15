@@ -11,4 +11,5 @@
         <title>Tittel</title>
         <description>Melding til signatar</description>
     </document>
+    <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>

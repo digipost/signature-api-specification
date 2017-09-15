@@ -229,6 +229,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
         <description>Melding til signatar</description>
     </document>
     <required-authentication>3</required-authentication>
+    <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>
 ```
 
@@ -237,6 +238,12 @@ Merk at [`signature-type`](https://digipost.github.io/signature-api-specificatio
 Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
 *For offentlige avsendere* kan man for elementet `on-behalf-of` under `signer` sende inn verdien `OTHER` for å angi at man signerer på vegne av en tredjepart (f.eks. signering av anskaffelseskontrakt på vegne av arbeidsgiver). Elementet er valgfritt, og verdien `SELF`, altså signering på egne vegne, benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard.
+
+`identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
+Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.
+Disse begrensningene og standardverdier er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator). 
+
+---
 
 Som respons på dette kallet vil man få en respons definert av elementet `direct-signature-job-response`.
 
@@ -378,6 +385,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
         <available-seconds>864000</available-seconds>
     </availability>
+    <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </portal-signature-job-manifest>
 ```
 
@@ -411,6 +419,12 @@ For private virksomheter vil man kunne velge fritt mellom `SELF` og `OTHER`, men
 `availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering.
 Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første signatarene får tilgang til dokumentet til signering.
 Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signatarer vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med signatarer med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil signatarer med `order=1` få maks 4 dager fra `activation-time` til å signere. Signatarer med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle signatarer med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 signatar ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte signatarer. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
+
+`identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
+Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.
+Disse begrensningene er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator). 
+
+---
 
 Som respons på dette kallet vil man få en respons definert av elementet `portal-signature-job-response`. Denne responsen inneholder en ID generert av signeringstjenesten. Du må lagre denne IDen i dine systemer slik at du senere kan koble resultatene du får fra polling-mekanismen til riktig oppdrag.
 
