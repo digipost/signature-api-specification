@@ -25,12 +25,12 @@
 
     <globalBindings>
         <xjc:simple/>
-        <xjc:javaType adapter="no.digipost.signature.jaxb.XSDateTimeAdapter" name="java.util.Date" xmlType="xs:dateTime"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.XSDateTimeAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
     </globalBindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct-and-portal.xsd" node="/xs:schema">
         <schemaBindings>
-            <package name="no.digipost.signature.api.xml"></package>
+            <package name="no.digipost.signature.api.xml"/>
             <nameXmlTransform>
                 <typeName prefix="XML" />
                 <anonymousTypeName prefix="XML" />
