@@ -17,24 +17,28 @@ package no.digipost.signature.jaxb;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class XSDateTimeAdapter extends XmlAdapter<String, Date> {
+public class XSDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
 
-	@Override
-	public Date unmarshal(final String value) {
-        return DatatypeConverter.parseDateTime(value).getTime();
-	}
-
-	@Override
-	public String marshal(final Date value) {
+    @Override
+    public ZonedDateTime unmarshal(final String value) {
         if (value == null) {
             return null;
         }
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(value);
-        return DatatypeConverter.printDateTime(calendar);
-	}
+        Calendar parsed = DatatypeConverter.parseDate(value);
+        return ZonedDateTime.ofInstant(parsed.toInstant(), parsed.getTimeZone().toZoneId());
+    }
+
+    @Override
+    public String marshal(final ZonedDateTime value) {
+        if (value == null) {
+            return null;
+        }
+
+        return DatatypeConverter.printDateTime(GregorianCalendar.from(value));
+    }
 
 }

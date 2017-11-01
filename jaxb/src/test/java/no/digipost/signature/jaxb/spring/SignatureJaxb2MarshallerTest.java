@@ -15,7 +15,20 @@
  */
 package no.digipost.signature.jaxb.spring;
 
-import no.digipost.signature.api.xml.*;
+import no.digipost.signature.api.xml.XMLAvailability;
+import no.digipost.signature.api.xml.XMLDirectDocument;
+import no.digipost.signature.api.xml.XMLDirectSignatureJobManifest;
+import no.digipost.signature.api.xml.XMLDirectSignatureJobRequest;
+import no.digipost.signature.api.xml.XMLDirectSignatureJobStatusResponse;
+import no.digipost.signature.api.xml.XMLDirectSigner;
+import no.digipost.signature.api.xml.XMLEnabled;
+import no.digipost.signature.api.xml.XMLExitUrls;
+import no.digipost.signature.api.xml.XMLNotificationsUsingLookup;
+import no.digipost.signature.api.xml.XMLPortalDocument;
+import no.digipost.signature.api.xml.XMLPortalSignatureJobManifest;
+import no.digipost.signature.api.xml.XMLPortalSignatureJobRequest;
+import no.digipost.signature.api.xml.XMLPortalSigner;
+import no.digipost.signature.api.xml.XMLSender;
 import org.junit.Test;
 import org.springframework.oxm.MarshallingFailureException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -24,8 +37,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
@@ -60,7 +73,7 @@ public class SignatureJaxb2MarshallerTest {
         marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
 
         XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc");
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(new Date()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
     }
