@@ -224,6 +224,10 @@ Currently known values:
     * SIGNED
         The document has been signed, and the signer has been redirected to the completion-url provided in the direct-signature-job-request's exit-urls.
         The signed document artifacts can be downloaded by following the appropriate urls in the direct-signature-job-status-response.
+    * SIGNERS_NAME_NOT_AVAILABLE
+        Indicates that the service was unable to retrieve the signer's name. This might happen because the lookup service is unavailable at the time of signing,
+        but the name can also be unavailable permanently. Senders may choose to try re-creating this signature job.
+        Only applicable for authenticated signatures where the sender requires signed documents to contain name as the signer's identifier.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:attribute name="signer" type="xs:string" />

@@ -275,6 +275,10 @@ Currently known values:
         The signer has signed the job.
     * BLOCKED
         The signer entered the wrong security code too many times. Only applicable for signers addressed by e-mail address or mobile number.
+    * SIGNERS_NAME_NOT_AVAILABLE
+        Indicates that the service was unable to retrieve the signer's name. This happens when the signer's name is permanently unavailable in the lookup service,
+        creating and signing a new signature job with the same signer will yield the same result.
+        Only applicable for authenticated signatures where the sender requires signed documents to contain name as the signer's identifier.
                     </xs:documentation>
                 </xs:annotation>
                 <xs:attribute name="since" type="xs:dateTime" use="required"/>
