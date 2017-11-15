@@ -410,7 +410,7 @@ Les mer om adressering uten fødselsnummer i [den funksjonelle dokumentasjonen](
 
 `order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
 
-Som for synkrone oppdrag kan man også inkludere feltet `on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag. For asynkrone oppdrag på vegne av offentlige avsendere vil verdien av feltet alltid kunne utledes fra varslingsinnstillingene, og er derfor ikke nødvendig å oppgi.
+Som for synkrone oppdrag kan man også inkludere feltet `on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag, bortsett fra at standardverdien er `OTHER` dersom avsender selv angir undertegners kontaktinformasjon. For asynkrone oppdrag på vegne av offentlige avsendere vil verdien av feltet alltid kunne utledes fra varslingsinnstillingene, og er derfor ikke nødvendig å oppgi.
 
 Verdien av dette feltet vil også valideres opp mot varslingsinnstillingene. Har man angitt `OTHER` kan man ikke angi `notifications-using-lookup`, ettersom man ikke kan slå opp kontaktinformasjon i Kontakt- og reservasjonsregisteret om man signerer på vegne av noen andre enn seg selv. Videre vil man for offentlige virksomheter ikke kunne angi `SELF` og samtidig overstyre kontaktinformasjon; når man undertegner signeringsoppdrag på vegne av seg selv fra avsendere i offentlig sektor _må_ kontaktinformasjon til undertegner hentes fra KRR.
 
