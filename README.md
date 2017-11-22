@@ -241,7 +241,7 @@ Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom 
 
 `identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
 Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.
-Disse begrensningene og standardverdier er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator). 
+Disse begrensningene og standardverdier er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator).
 
 ---
 
@@ -422,7 +422,7 @@ Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signa
 
 `identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
 Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.
-Disse begrensningene er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator). 
+Disse begrensningene er beskrevet i [den funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#undertegners-identifikator).
 
 ---
 
@@ -444,7 +444,7 @@ For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signa
 
 Responsen på dette kallet vil være én av to ting:
 
-1. **0 oppdateringer:** Dersom det ikke er noen oppdateringer på tvers av alle dine aktive signeringsoppdrag så vil da få en HTTP respons med statuskode `204 No Content`.
+1. **0 oppdateringer:** Dersom det ikke er noen oppdateringer på tvers av alle dine aktive signeringsoppdrag vil du få en HTTP respons med statuskode `204 No Content`.
 2. **Minst 1 oppdatering:** Dersom det er oppdateringer på dine oppdrag, så vil du få en `200 OK` med responsbody som inneholder informasjon om oppdateringen. Denne er definert av elementet `portal-signature-job-status-change-response`.
 
 Følgende er et eksempel på en respons der en del av signeringsoppdraget har blitt fullført:
