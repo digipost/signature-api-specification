@@ -66,7 +66,7 @@ public class SignatureJaxb2MarshallerTest {
                 .withRejectionUrl("http://localhost/rejected")
                 .withErrorUrl("http://localhost/failed");
 
-        XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null);
+        XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
         XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
         marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
@@ -85,7 +85,7 @@ public class SignatureJaxb2MarshallerTest {
                 .withRejectionUrl("http://localhost/rejected")
                 .withErrorUrl("http://localhost/failed");
 
-        XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK);
+        XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
 
         try {
             marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream()));
