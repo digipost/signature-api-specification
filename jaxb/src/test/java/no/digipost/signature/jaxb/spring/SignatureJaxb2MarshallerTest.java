@@ -72,7 +72,7 @@ public class SignatureJaxb2MarshallerTest {
         marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
 
-        XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc");
+        XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc", null);
         XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
