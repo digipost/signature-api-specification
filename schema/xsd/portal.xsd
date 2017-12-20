@@ -154,7 +154,7 @@ and each division has an application that create signature jobs through the API 
 independent of the other division's actions.
 
 For example, if the polling-queue element is set to 'custom-queue', status changes related to this signature job can only
-be retrieved by setting the header 'polling_queue' to 'custom-queue' on the request. If the polling-queue element is not
+be retrieved by setting the header 'Polling-Queue' to 'custom-queue' on the request. If the polling-queue element is not
 specified, the job status changes will be available on the default queue. No header is required to obtain status changes
 for the default queue.
                         </xs:documentation>
