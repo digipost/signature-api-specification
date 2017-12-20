@@ -273,7 +273,7 @@ Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til 
 
 #### Steg 3: hent status
 
-Når brukeren blir sendt tilbake til din portal skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i steg 1, pluss query-parameter (`status_query_token`) du fikk i steg 2. Hvis signeringsoppdraget er lagt på en spesifikk kø, så må også headeren `polling-queue` settes til navnet på køen.
+Når brukeren blir sendt tilbake til din portal skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i steg 1, pluss query-parameter (`status_query_token`) du fikk i steg 2. Hvis signeringsoppdraget er lagt på en spesifikk kø, så må også headeren `Polling-Queue` settes til navnet på køen.
 
 Du skal ikke sende med noen andre data i dette kallet.
 
@@ -442,7 +442,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 
 Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig, hvilket du sannsynligvis har.
 
-For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Hvis signeringsoppdraget er lagt på en spesifikk kø, så må også headeren `polling-queue` settes til navnet på køen. Du skal ikke ha med noen request-body på dette kallet.
+For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Hvis signeringsoppdraget er lagt på en spesifikk kø, så må også headeren `Polling-Queue` settes til navnet på køen. Du skal ikke ha med noen request-body på dette kallet.
 
 Responsen på dette kallet vil være én av to ting:
 
