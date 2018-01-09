@@ -300,8 +300,7 @@ I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjør
 
 #### Steg 5: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
-
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Hvis langtidslagring benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 ### API-flyt for Asynkrone signeringsoppdrag
 
@@ -480,7 +479,8 @@ Se nærmere forklaring av disse to formatene i dokumentasjonen på det synkrone 
 
 #### Steg 4: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. 
+Hvis langtidslagring benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 I tillegg vil dette kallet gjøre at du ikke lenger får informasjon om denne statusoppdateringen ved polling. Se mer informasjon om det nedenfor, i avsnittet om fler-server-scenarioet.
 
@@ -493,3 +493,11 @@ Mekanikken fungerer slik at du venter en viss periode mellom hver gang du spør 
 Signeringstjenestens pollingmekaniske er laget med tanke på at det skal være enkelt å gjøre pollingen fra flere servere uten at du skal måtte synkronisere pollingen på tvers av disse. Dersom du bruker flere servere uten synkronisering så vil du komme opp i situasjoner der en av serverene poller før neste poll-tid, selv om en annen server har fått beskjed om dette. Det er en helt OK oppførsel, du vil da få en HTTP respons med statusen `429 Too Many Requests` tilbake, som vil inneholde headeren `X-Next-permitted-poll-time`. Så lenge du etter det kallet respekterer poll-tiden for den serveren, så vil alt fungere bra.
 
 Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, slik at en eventuell annen server som kommer inn ikke vil få den samme statusoppdateringen. Selv om du kaller på polling-APIet på samme tid, så er det garantert at du ikke får samme oppdatering to ganger. For å håndtere at feil kan skje enten i overføringen av statusen til deres servere eller at det kan skje feil i prosesseringen på deres side, så vil en oppdatering som hentes fra køen og ikke bekreftes dukke opp igjen på køen. Pr. i dag  er det satt en venteperiode på 10 minutter før en oppdatering igjen forekommer på køen. På grunn av dette er det essensielt at prosesseringsbekrefelse sendes som beskrevet i Steg 4.
+
+### Tilleggstjeneste for langtidslagring
+
+Posten tilbyr en tilleggstjeneste for langtidslagring. Denne er nærmere beskrevet i den [funksjonelle dokumentasjonen](https://digipost.github.io/signature-api-specification). 
+
+Om langtidslagring er aktivert vil nedlasting av XAdES og PAdES (som beskrevet for hhv. [synkrone](#steg-4-laste-ned-pades-eller-xades) og [asynkrone](#steg-3-laste-ned-pades-eller-xades) oppgdrag) være tilgjengelig i 50 år.
+
+Benyttes ikke tilleggstjenesten for langtidslagring, slettes XAdES og PAdES 30 dager etter signering.

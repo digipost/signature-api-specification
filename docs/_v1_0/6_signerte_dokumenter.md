@@ -8,7 +8,7 @@ Tjenesten tilgjengeliggjør signaturer i to formater når et dokument har blitt 
 
 PAdES er tilgjengelig når minst én signatar har signert og vil inneholde de signaturene som er gjennomført for oppdraget i nedlastningsøyeblikket. XAdES er tilgjengelig fra det øyeblikket signataren har signert dokumentet.
 
-Alle dokumenter kan lastes ned i en periode etter at signeringsoppdraget er fullført. Levetiden er avhengig av om [dokumentarkivet](#dokumentarkiv) er aktivert for avsenderen.
+Alle dokumenter kan lastes ned i en periode etter at signeringsoppdraget er fullført. Levetiden er avhengig av om [langtidslagring](#langtidslagring) er aktivert for avsenderen.
 
 ## Undertegners identifikator
 
