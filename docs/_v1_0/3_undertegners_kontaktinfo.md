@@ -4,7 +4,7 @@ title: Undertegners kontaktinfo
 layout: default
 ---
 
-Et signeringsoppdrags undertegner(e) kan adresseres på to måter, med eller uten fødselsnummer.
+Undertegner(e) kan adresseres på to måter, med eller uten fødselsnummer.
 
 ### Adressering med fødselsnummer
 

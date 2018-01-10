@@ -70,7 +70,7 @@ Et godt tips er å benytte eller hente inspirasjon fra Difi sin sertifikatvalida
 
 Personopplysninger og sensitive personopplysninger skal kun legges i følgende felter i XML-en i requestene mot API-et:
 
-* `personal-identification-number` – signatarens fødselsnummer eller d-nummer
+* `personal-identification-number` – undertegners fødselsnummer eller d-nummer
 * `title` – tittelen/emnet til dokumentet, som oppsummerer hva signaturoppdraget handler om
 * `description` – kan inneholde en personlig melding, tilleggsinformasjon til dokumentet eller beskrivelse av dokumentet
 
@@ -226,14 +226,14 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
     </sender>
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <required-authentication>3</required-authentication>
     <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>
 ```
 
-Merk at [`signature-type`](https://digipost.github.io/signature-api-specification/v1.0/#signaturtype) spesifiseres per undertegner, hvilket vil si at det i praksis er mulig å innhente ulike typer signaturer fra ulike undertegnere i et multisignatar-case. Dette er imidlertid antatt å være et såpass sjeldent use-case at det ikke er mulig via grensesnittet i web-portalen – der spesifiseres signaturtype på jobbnivå.
+Merk at [`signature-type`](https://digipost.github.io/signature-api-specification/v1.0/#signaturtype) spesifiseres per undertegner, hvilket vil si at det i praksis er mulig å innhente ulike typer signaturer fra ulike undertegnere i et multiundertegner-case. Dette er imidlertid antatt å være et såpass sjeldent use-case at det ikke er mulig via grensesnittet i web-portalen – der spesifiseres signaturtype på jobbnivå.
 
 Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
@@ -300,8 +300,7 @@ I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjør
 
 #### Steg 5: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
-
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Hvis [langtidslagring](#tilleggstjeneste-for-langtidslagring) benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 ### API-flyt for Asynkrone signeringsoppdrag
 
@@ -312,7 +311,7 @@ Dette scenariet er også utviklet med tanke på å støtte prosesser der det er 
 Relevante typer for denne delen av APIet finnes i filen `portal.xsd`.
 
 ![Flytskjema for Asynkrone signeringsoppdrag](/doc/flytskjemaer/asynkron-maskin-til-maskin.png?raw=true "Flytskjema for Asynkrone signeringsoppdrag")
-**Flytskjema for det asynkrone scenariet:** *skjemaet viser flyten fra tjenesteeier sender inn oppdrag, starer polling, via at sluttbruker(e) signerer oppdragene, og tjenesteeier får svar på polling og kan laste ned signert versjon. Dersom du ikke sender et oppdrag til mer enn en bruker (multisignatar) kan du se bort i fra den første "steg 4"-seksjonen. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
+**Flytskjema for det asynkrone scenariet:** *skjemaet viser flyten fra tjenesteeier sender inn oppdrag, starer polling, via at sluttbruker(e) signerer oppdragene, og tjenesteeier får svar på polling og kan laste ned signert versjon. Dersom du ikke sender et oppdrag til mer enn en bruker (multiundertegner) kan du se bort i fra den første "steg 4"-seksjonen. Heltrukne linjer viser brukerflyt, mens stiplede linjer viser API-kall*
 
 #### Steg 1: opprette signeringsoppdraget
 
@@ -333,7 +332,7 @@ Følgende er et eksempel på metadata for et asynkront signeringsoppdrag:
 </portal-signature-job-request>
 ```
 
-Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signeringsoppdrag som skal signeres av fire signatarer:
+Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signeringsoppdrag som skal signeres av fire undertegnere:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -378,7 +377,7 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken for et signerings
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
         <nonsensitive-title>Sensitiv tittel</nonsensitive-title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <required-authentication>4</required-authentication>
     <availability>
@@ -408,7 +407,7 @@ Les mer om adressering uten fødselsnummer i [den funksjonelle dokumentasjonen](
 
 #### Andre attributer
 
-`order`-attributtet på `signer` brukes til å angi rekkefølgen på signatarene. I eksempelet over vil oppdraget først bli tilgjengelig for signatarene med `order="2"` når signataren med `order="1"` har signert, og for signataren med `order="3"` når begge de med `order="2"` har signert.
+`order`-attributtet på `signer` brukes til å angi rekkefølgen på undertegnerne. I eksempelet over vil oppdraget først bli tilgjengelig for undertegnerne med `order="2"` når undertegnere med `order="1"` har signert, og for undertegneren med `order="3"` når begge de med `order="2"` har signert.
 
 Som for synkrone oppdrag kan man også inkludere feltet `on-behalf-of` under `signer`. Det har samme semantikk for asynkrone som for synkrone oppdrag, bortsett fra at standardverdien er `OTHER` dersom avsender selv angir undertegners kontaktinformasjon. For asynkrone oppdrag på vegne av offentlige avsendere vil verdien av feltet alltid kunne utledes fra varslingsinnstillingene, og er derfor ikke nødvendig å oppgi.
 
@@ -417,8 +416,8 @@ Verdien av dette feltet vil også valideres opp mot varslingsinnstillingene. Har
 For private virksomheter vil man kunne velge fritt mellom `SELF` og `OTHER`, men kan aldri angi `notifications-using-lookup` ettersom disse virksomheten ikke kan benytte KRR for kontaktinformasjonsoppslag.
 
 `availability` brukes til å kontrollere tidsrommet et dokument er tilgjengelig for mottaker(e) for signering.
-Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første signatarene får tilgang til dokumentet til signering.
-Tiden angitt i `available-seconds` gjelder for alle signatarer; d.v.s alle signatarer vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med signatarer med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil signatarer med `order=1` få maks 4 dager fra `activation-time` til å signere. Signatarer med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle signatarer med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 signatar ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte signatarer. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
+Tidspunktet angitt i `activation-time` angir når jobben aktiveres, og de første undertegnerne får tilgang til dokumentet til signering.
+Tiden angitt i `available-seconds` gjelder for alle undertegnere; dvs. alle undertegnere vil ha like lang tid på seg til å signere eller avvise mottatt dokument fra det blir tilgjengelig for dem. Dette tidsrommet gjelder altså _for hvert sett med undertegnere med samme `order`_. Dersom man angir f.eks. _345600_ sekunder (4 dager) vil undertegnere med `order=1` få maks 4 dager fra `activation-time` til å signere. Undertegnere med `order=2` vil få tilgjengeliggjort dokumentet umiddelbart når _alle undertegnere med `order=1` har signert_, og de vil da få maks 4 nye dager fra _tidspunktet de fikk dokumentet tilgjengelig_. En jobb utløper og stopper dersom minst 1 undertegner ikke agerer innenfor sitt tidsrom når dokumentet er tilgjengelig. Dersom man utelater `availability` vil jobben aktiveres umiddelbart, og dokumentet vil være tilgjengelig i maks 2 592 000 sekunder (30 dager) for hvert sett med `order`-grupperte undertegnere. Jobber som angir større `available-seconds` enn 7 776 000 sekunder (90 dager) blir avvist av tjenesten.
 
 `identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
 Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.
@@ -474,13 +473,14 @@ Følgende er et eksempel på en respons der en del av signeringsoppdraget har bl
 
 I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjøre en `HTTP GET` på for å laste ned det signerte dokumentet i de to formatene.
 
-XAdES-filen laster du ned pr. signatar, mens PAdES-filen lastes ned på tvers av alle signatarer. Denne vil inneholde signeringsinformasjon for alle signatarer som frem til nå har signert på oppdraget. I de aller fleste tilfeller er det ikke aktuelt å laste ned denne før alle signatarene har statusen `SIGNED`.
+XAdES-filen laster du ned pr. undertegner, mens PAdES-filen lastes ned på tvers av alle undertegnere. Denne vil inneholde signeringsinformasjon for alle undertegnere som frem til nå har signert på oppdraget. I de aller fleste tilfeller er det ikke aktuelt å laste ned denne før alle undertegnerne har statusen `SIGNED`.
 
 Se nærmere forklaring av disse to formatene i dokumentasjonen på det synkrone scenariet.
 
 #### Steg 4: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. Avhengig av om arkivopsjonen benyttes, så vil dette enten slette oppdraget i signeringsportalen, eller markere oppdraget som ferdig og arkivert.
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. 
+Hvis [langtidslagring](#tilleggstjeneste-for-langtidslagring) benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 I tillegg vil dette kallet gjøre at du ikke lenger får informasjon om denne statusoppdateringen ved polling. Se mer informasjon om det nedenfor, i avsnittet om fler-server-scenarioet.
 
@@ -493,3 +493,11 @@ Mekanikken fungerer slik at du venter en viss periode mellom hver gang du spør 
 Signeringstjenestens pollingmekaniske er laget med tanke på at det skal være enkelt å gjøre pollingen fra flere servere uten at du skal måtte synkronisere pollingen på tvers av disse. Dersom du bruker flere servere uten synkronisering så vil du komme opp i situasjoner der en av serverene poller før neste poll-tid, selv om en annen server har fått beskjed om dette. Det er en helt OK oppførsel, du vil da få en HTTP respons med statusen `429 Too Many Requests` tilbake, som vil inneholde headeren `X-Next-permitted-poll-time`. Så lenge du etter det kallet respekterer poll-tiden for den serveren, så vil alt fungere bra.
 
 Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, slik at en eventuell annen server som kommer inn ikke vil få den samme statusoppdateringen. Selv om du kaller på polling-APIet på samme tid, så er det garantert at du ikke får samme oppdatering to ganger. For å håndtere at feil kan skje enten i overføringen av statusen til deres servere eller at det kan skje feil i prosesseringen på deres side, så vil en oppdatering som hentes fra køen og ikke bekreftes dukke opp igjen på køen. Pr. i dag  er det satt en venteperiode på 10 minutter før en oppdatering igjen forekommer på køen. På grunn av dette er det essensielt at prosesseringsbekrefelse sendes som beskrevet i Steg 4.
+
+### Tilleggstjeneste for langtidslagring
+
+Posten tilbyr en tilleggstjeneste for langtidslagring. Denne er nærmere beskrevet i den [funksjonelle dokumentasjonen](https://digipost.github.io/signature-api-specification). 
+
+Om langtidslagring er aktivert vil nedlasting av XAdES og PAdES (som beskrevet for hhv. [synkrone](#steg-4-laste-ned-pades-eller-xades) og [asynkrone](#steg-3-laste-ned-pades-eller-xades) oppdrag) være tilgjengelig i 50 år.
+
+Benyttes ikke tilleggstjenesten for langtidslagring, slettes XAdES og PAdES 30 dager etter signering.
