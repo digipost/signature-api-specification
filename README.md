@@ -208,6 +208,7 @@ Følgende er et eksempel på metadata for et signeringsoppdrag:
         <rejection-url>https://www.sender.org/rejected</rejection-url>
         <error-url>https://www.sender.org/failed</error-url>
     </exit-urls>
+    <polling-queue>custom-queue</polling-queue>
 </direct-signature-job-request>
 ```
 
@@ -274,6 +275,8 @@ Brukeren gjennomfører signeringsseremonien, og blir deretter sendt tilbake til 
 
 Når brukeren blir sendt tilbake til din portal skal du gjøre et bak-kanal-kall (`HTTP GET`) for å hente ned status. Dette gjøres ved å benytte `status-url` du fikk i steg 1, pluss query-parameter (`status_query_token`) du fikk i steg 2.
 
+Hvis signeringsoppdraget er lagt på en spesifikk kø, så må query-parameteret `polling_queue` settes til navnet på køen. Dette er kun relevant når `status-retrieval-method` er satt til `POLLING`.
+
 Du skal ikke sende med noen andre data i dette kallet.
 
 Responsen fra dette kallet er definert gjennom elementet `direct-signature-job-status-response`. Et eksempel på denne responsen ved et suksessfullt signeringsoppdrag vises under:
@@ -329,6 +332,7 @@ Følgende er et eksempel på metadata for et asynkront signeringsoppdrag:
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <portal-signature-job-request xmlns="http://signering.posten.no/schema/v1">
     <reference>123-ABC</reference>
+    <polling-queue>custom-queue</polling-queue>
 </portal-signature-job-request>
 ```
 
@@ -439,7 +443,7 @@ Som respons på dette kallet vil man få en respons definert av elementet `porta
 
 Siden dette er en asynkron flyt, så må du jevnlig spørre signeringstjenesten om det har skjedd noen endringer på noen av signeringsoppdragene for din organisasjon. Dette gjør du på tvers av alle signeringsoppdrag du har opprettet, hvis ikke ville du måtte foretatt en voldsom mengde spørringer dersom du har flere aktive signeringsoppdrag i gang samtidig, hvilket du sannsynligvis har.
 
-For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Du skal ikke ha med noen request-body på dette kallet.
+For å gjøre en polling, så gjør du en `HTTP GET` mot `<rot-URL>/portal/signature-jobs`. Hvis signeringsoppdraget er lagt på en spesifikk kø, så må også query-parameteret `polling_queue` settes til navnet på køen (f.eks. `<rot-URL>/portal/signature-jobs?polling_queue=custom-queue`). Du skal ikke ha med noen request-body på dette kallet.
 
 Responsen på dette kallet vil være én av to ting:
 
@@ -461,7 +465,7 @@ Følgende er et eksempel på en respons der en del av signeringsoppdraget har bl
             <xades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/xades/1</xades-url>
         </signature>
         <signature>
-            <status>WAITING</status>
+            <status since="2017-01-23T12:00:00+01:00">WAITING</status>
             <personal-identification-number>98765432100</personal-identification-number>
         </signature>
         <pades-url>https://api.signering.posten.no/api/{sender-identifier}/portal/signature-jobs/1/pades</pades-url>
