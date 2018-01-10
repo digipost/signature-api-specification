@@ -300,7 +300,7 @@ I forrige steg fikk du to lenker: `xades-url` og `pades-url`. Disse kan du gjør
 
 #### Steg 5: Bekrefte ferdig prosessering
 
-Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Hvis langtidslagring benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
+Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert jobben ferdig. Hvis [langtidslagring](#tilleggstjeneste-for-langtidslagring) benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 ### API-flyt for Asynkrone signeringsoppdrag
 
@@ -480,7 +480,7 @@ Se nærmere forklaring av disse to formatene i dokumentasjonen på det synkrone 
 #### Steg 4: Bekrefte ferdig prosessering
 
 Til slutt gjør du et `HTTP POST`-kall mot `confirmation-url` for å bekrefte at du har prosessert statusoppdateringen ferdig. Dersom statusen indikerer at oppdraget er helt ferdig, så vil denne bekreftelsen også bekrefte at du er ferdig med å prosessere hele oppdraget. 
-Hvis langtidslagring benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
+Hvis [langtidslagring](#tilleggstjeneste-for-langtidslagring) benyttes vil dette markere oppdraget som ferdig og lagret. I motsatt fall vil oppdraget slettes i signeringsportalen. 
 
 I tillegg vil dette kallet gjøre at du ikke lenger får informasjon om denne statusoppdateringen ved polling. Se mer informasjon om det nedenfor, i avsnittet om fler-server-scenarioet.
 
@@ -498,6 +498,6 @@ Statusoppdateringer du henter fra køen ved polling vil forsvinne fra køen, sli
 
 Posten tilbyr en tilleggstjeneste for langtidslagring. Denne er nærmere beskrevet i den [funksjonelle dokumentasjonen](https://digipost.github.io/signature-api-specification). 
 
-Om langtidslagring er aktivert vil nedlasting av XAdES og PAdES (som beskrevet for hhv. [synkrone](#steg-4-laste-ned-pades-eller-xades) og [asynkrone](#steg-3-laste-ned-pades-eller-xades) oppgdrag) være tilgjengelig i 50 år.
+Om langtidslagring er aktivert vil nedlasting av XAdES og PAdES (som beskrevet for hhv. [synkrone](#steg-4-laste-ned-pades-eller-xades) og [asynkrone](#steg-3-laste-ned-pades-eller-xades) oppdrag) være tilgjengelig i 50 år.
 
 Benyttes ikke tilleggstjenesten for langtidslagring, slettes XAdES og PAdES 30 dager etter signering.
