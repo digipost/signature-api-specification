@@ -67,7 +67,7 @@ For arkivering av signerte dokumenter anbefaler vi å bruke originaldokumenter a
 
 Filen kan maksimalt være 3 MB (`3 145 728 bytes`) stor. PDF-versjoner som støttes er PDF 1.1-1.7.
 
-I [PAdESen](#signerte_dokumenter) vil dokumentet alltid presenteres i A4- og portrett-format. For best resultat anbefales det at det innsendte dokumentet også har dette formatet.
+I [PAdES](#signerte_dokumenter) vil dokumentet alltid presenteres i A4- og portrett-format. For best resultat anbefales det at det innsendte dokumentet også har dette formatet.
 
 Passordbeskyttede dokumenter (begrenset lese- og/eller skrive-tilgang) er ikke støttet av tjenesten.
 

@@ -20,13 +20,13 @@ signeringsoppdrag som signeres mens [signatar](#signatar) allerede er pålogget 
 signeringsoppdrag som signeres i [signeringsportalen](#sign-portal).
 
 <a name="sign-portal"></a> **signeringsportal** &mdash;
-nettsted for mottakere av dokumenter til signering, altså [signatarer](#signatar). Har logger man seg inn og kan velge å enten signere eller avvise mottatte dokumenter.
+nettsted for mottakere av dokumenter til signering, altså [signatarer](#signatar). Her logger man seg inn og signerer eller avviser mottatte dokumenter.
 
 <a name="org-portal"></a> **avsenderportal** &mdash;
 nettsted for [avsendere](#avsender) hvor man kan sende ut dokumenter som skal signeres, samt administrere [signeringsoppdrag](#sign-jobb).
 
 <a name="pades"></a> <abbr title="PDF Advanced Electronic Signatures">**PAdES**</abbr> &mdash;
-PDF-fil som inneholder alle ferdige signaturer, samt originaldokumentet. En PAdES kan åpnes i en vanlig PDF-leser, og lesere som støtter det vil i tillegg vise at dokumentet er signert av de og de [signatarene](#signatar).
+PDF-fil som inneholder alle ferdige signaturer, samt originaldokumentet. En PAdES kan åpnes i en vanlig PDF-leser, og lesere som støtter det vil i tillegg vise hvilke [signatarer](#signatar) som har undertegnet dokumentet.
 
 <a name="xades"></a> <abbr title="XML Advanced Electronic Signatures">**XAdES**</abbr> &mdash;
-XML-representasjon av et dokument med digital signatur fra _en_ [signatar](#signatar).
+XML-representasjon av et dokument med digital signatur fra _én_ [signatar](#signatar).
