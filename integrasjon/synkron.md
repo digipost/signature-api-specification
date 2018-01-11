@@ -58,11 +58,17 @@ Følgende er et eksempel på `manifest.xml` fra dokumentpakken:
 </direct-signature-job-manifest>
 ```
 
+### Undertegner
+
+I dette eksempelet er fødselsnummer (`personal-identification-number`) brukt for å identifisere undertegner. Man kan også benytte en selvvalgt identifikator, som eksemplifisert i [`/schema/examples/direct/manifest-signer-without-pin.xml`](/schema/examples/direct/manifest-signer-without-pin.xml#L4).
+
 Merk at [`signature-type`](https://digipost.github.io/signature-api-specification/v1.0/#signaturtype) spesifiseres per undertegner, hvilket vil si at det i praksis er mulig å innhente ulike typer signaturer fra ulike undertegnere i et multiundertegner-case. Dette er imidlertid antatt å være et såpass sjeldent use-case at det ikke er mulig via grensesnittet i web-portalen – der spesifiseres signaturtype på jobbnivå.
 
-Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
-
 *For offentlige avsendere* kan man for elementet `on-behalf-of` under `signer` sende inn verdien `OTHER` for å angi at man signerer på vegne av en tredjepart (f.eks. signering av anskaffelseskontrakt på vegne av arbeidsgiver). Elementet er valgfritt, og verdien `SELF`, altså signering på egne vegne, benyttes om man ikke angir noe. I første omgang benyttes denne verdien kun til å deaktivere videresending av signerte dokumenter til digital postkasse; signerer man på vegne av noen andre (`OTHER`) vil videresending deaktiveres. Videresending er altså aktivert som standard.
+
+### Andre attributter
+
+Sikkerhetsnivå (`required-authentication`) spesifiseres på jobbnivå ettersom dette også er knyttet til dokumentets sensitivitetsnivå.
 
 `identifier-in-signed-documents` brukes for å angi hvordan undertegneren(e) skal identifiseres i de signerte dokumentene.
 Tillatte verdier er `PERSONAL_IDENTIFICATION_NUMBER_AND_NAME`, `DATE_OF_BIRTH_AND_NAME` og `NAME`, men ikke alle er gyldige for alle typer signeringsoppdrag og avsendere.

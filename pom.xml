@@ -70,7 +70,7 @@
                             <exclude>src/notice/NOTICE.template</exclude>
                             <exclude>src/notice/license-mappings.xml</exclude>
                             <exclude>jaxb/*.xjb</exclude>
-                            <exclude>doc/**</exclude>
+                            <exclude>integrasjon/**</exclude>
                             <exclude>docs/**</exclude>
                         </excludes>
                     </configuration>
