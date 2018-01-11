@@ -14,12 +14,11 @@ _For [asynkrone signeringsoppdrag](#asynkrone-signeringsoppdrag)_: Undertegner m
 
 _For [synkrone signeringsoppdrag](#synkrone-signeringsoppdrag)_: Avsender er ansvarlig for å sende riktig person til riktig lenke i signeringstjenesten (returneres fra tjenesten ved opprettelse av oppdraget). Undertegner kan deretter åpne og signere dokumentet med f.eks. BankID.
 
-Signaturen vil inneholde navn på undertegner og hvilken elektronisk ID som ble brukt, og du kan velge mellom å vise hele fødselsnummeret eller kun fødselsdatoen deres. (Er per 28/8 2017 kun tilgjengelig for private avsendervirksomheter når signeringsoppdraget opprettes i _avsenderportalen_).
-
+Signerte dokumenter vil inneholde navn på undertegner og hvilken elektronisk ID som ble brukt. Man kan for øvrig velge hvilken [identifikator man ønsker i signerte dokumenter](#undertegners-identifikator).
 
 ### Adressering med kontaktinfo for asynkrone oppdrag
 
-_Kun tilgjengelig for [asynkrone signeringsoppdrag](#asynkrone-signeringsoppdrag) og private avsendere_.
+_Kun tilgjengelig for private avsendere_.
 
 Denne signeringstypen krever ingen innlogging, og du trenger ikke vite undertegners fødselsnummer. I stedet sender du inn e-postadressen og/eller mobilnummeret som skal motta varsel om signeringen. Se [regler for varselutsending](#regler-for-utsending) for en oversikt over hvilke varsler som sendes til hvilke tidspunkter.
 
