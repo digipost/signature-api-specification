@@ -45,8 +45,8 @@ Ved opprettelse av signeringsoppdrag kan følgende felter angis:
 | Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
 | Melding til mottaker(e) | Valgfritt        | Valgfritt         |   |
 | Undertegners identifikator | Valgfritt     | Valgfritt         | se [undertegners identifikator](#undertegners-identifikator) |
-| Aktiveringstidspunkt    | _Ikke relevant_  | Valgfritt         |   |
-| Levetid                 | _Ikke relevant_  | Valgfritt         |   |
+| Aktiveringstidspunkt    | _Ikke overstyrbar_<sup>[1](#fotnote-aktivering)</sup> | Valgfritt | |
+| Levetid                 | _Ikke overstyrbar_<sup>[2](#fotnote-levetid)</sup> | Valgfritt | |
 | E-postadresse           | _Ikke relevant_  | __Obligatorisk__  | se [varsling](#varsling) |
 | Mobilnummer             | _Ikke relevant_  | Valgfritt         | se [varsling](#varsling) |
 | Rekkefølge              | _Ikke relevant_  | Valgfritt         | se [kjedet signatur](#kjedet-signatur) |
@@ -77,6 +77,8 @@ Angir tidspunkt for når signeringsoppdraget skal tilgjengeliggjøres for undert
 
 For [kjedete signeringsoppdrag](#kjedet-signatur) gjelder aktiveringstidspunktet for _første gruppe_.
 
+<a name="fotnote-aktivering"><sup>1</sup></a> Synkrone signeringsoppdrag blir alltid aktivert øyeblikkelig etter opprettelse
+
 _Standardverdi:_ øyeblikkelig etter opprettelse
 
 __Oppdragets levetid__
@@ -84,6 +86,8 @@ __Oppdragets levetid__
 Angir hvor lenge _etter aktivering_ et signeringsoppdrag er tilgjengelig for undertegner før det utløper. Kan maksimalt være 90 dager etter aktivering.
 
 For [kjedete signeringsoppdrag](#kjedet-signatur) gjelder levetiden for _hver gruppe_, slik at alle undertegnere får like mye tid på seg til å signere.
+
+<a name="fotnote-levetid"><sup>2</sup></a> Synkrone signeringsoppdrag har alltid 30 dagers levetid for å unngå at et dokument blir signert uhensiktsmessig lenge etter opprettelsen av oppdraget. Eventuell frist fra avsenders perspektiv må kommuniseres og håndteres i avsenders tjenester.
 
 _Standardverdi:_ 30 dager etter aktivering
 
