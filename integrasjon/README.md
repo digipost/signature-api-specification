@@ -28,3 +28,9 @@ Posten tilbyr en tilleggstjeneste for langtidslagring. Denne er nærmere beskrev
 Om langtidslagring er aktivert vil nedlasting av XAdES og PAdES (som beskrevet for hhv. [synkrone](synkron.md#steg-4-laste-ned-pades-eller-xades) og [asynkrone](asynkron.md#steg-3-laste-ned-pades-eller-xades) oppdrag) være tilgjengelig i 50 år.
 
 Benyttes ikke tilleggstjenesten for langtidslagring, slettes XAdES og PAdES 30 dager etter signering.
+
+### Sletting fra arkivet
+
+Dokumenter kan slettes fra arkivet på forespørsel. Begrensninger er dokumentert i den [funksjonelle dokumentasjonen](http://digipost.github.io/signature-api-specification/v1.0/#sletting-av-dokumenter).
+
+Når du henter en statusoppdatering (`direct-signature-job-status-response` for synkrone oppdrag, og `portal-signature-job-status-change-response` for asynkrone oppdrag) vil du få en lenke (`delete-documents-url`) du kan gjøre et `DELETE`-request til for å slette dokumentene dersom alle undertegnere har signert dokumentet. 
