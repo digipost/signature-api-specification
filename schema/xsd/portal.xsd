@@ -232,6 +232,7 @@ though the status has not changed.
                     </xs:annotation>
                 </xs:element>
                 <xs:element name="cancellation-url" minOccurs="0" maxOccurs="1" type="url"/>
+                <xs:element name="delete-documents-url" minOccurs="0" maxOccurs="1" type="url"/>
                 <xs:element name="signatures" minOccurs="1" maxOccurs="1" type="signatures"/>
             </xs:sequence>
         </xs:complexType>

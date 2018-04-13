@@ -213,6 +213,7 @@ though the status has not changed.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="delete-documents-url" minOccurs="0" maxOccurs="1" type="url"/>
                 <xs:element name="xades-url" minOccurs="0" maxOccurs="10" type="signer-specific-url"/>
                 <xs:element name="pades-url" minOccurs="0" maxOccurs="1" type="url"/>
             </xs:sequence>
