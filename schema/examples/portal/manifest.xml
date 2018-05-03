@@ -34,7 +34,7 @@
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
         <nonsensitive-title>Ikke-sensitiv tittel</nonsensitive-title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>

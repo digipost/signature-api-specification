@@ -9,7 +9,7 @@
     </sender>
     <document href="document.pdf" mime="application/pdf" >
         <title>Tittel</title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <required-authentication>3</required-authentication>
     <identifier-in-signed-documents>PERSONAL_IDENTIFICATION_NUMBER_AND_NAME</identifier-in-signed-documents>

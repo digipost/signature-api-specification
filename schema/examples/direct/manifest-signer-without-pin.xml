@@ -8,7 +8,7 @@
     </sender>
     <document href="document.pdf" mime="application/pdf">
         <title>Tittel</title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <identifier-in-signed-documents>DATE_OF_BIRTH_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>
