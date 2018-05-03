@@ -38,7 +38,7 @@
     <document href="document.pdf" mime="application/pdf" >
         <title>Tittel</title>
         <nonsensitive-title>Ikke-sensitiv tittel</nonsensitive-title>
-        <description>Melding til signatar</description>
+        <description>Melding til undertegner</description>
     </document>
     <required-authentication>4</required-authentication>
     <availability>
