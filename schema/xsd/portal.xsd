@@ -208,6 +208,7 @@ how far in the future a job can be set to expire.
     <xs:element name="portal-signature-job-response">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="cancellation-url" minOccurs="1" maxOccurs="1" type="url"/>
             </xs:sequence>
@@ -217,6 +218,7 @@ how far in the future a job can be set to expire.
     <xs:element name="portal-signature-job-status-change-response">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="1" type="portal-signature-job-status"/>
                 <xs:element name="confirmation-url" minOccurs="1" maxOccurs="1" type="url" >
