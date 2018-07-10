@@ -177,6 +177,7 @@ for the default queue.
     <xs:element name="direct-signature-job-response">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="redirect-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
                 <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
@@ -195,6 +196,7 @@ for the default queue.
     <xs:element name="direct-signature-job-status-response">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="signature-job-status" minOccurs="1" maxOccurs="1" type="direct-signature-job-status"/>
                 <xs:element name="status" minOccurs="1" maxOccurs="10" type="signer-status"/>
