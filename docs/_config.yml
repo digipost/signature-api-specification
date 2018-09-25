@@ -1,5 +1,6 @@
 # name of the software
 name: Funksjonell dokumentasjon for Posten signering.
+title: Funksjonell dokumentasjon for Posten signering.
 
 # licence of the software
 license: MIT License
@@ -60,7 +61,7 @@ analytics:
 # DON'T MODIFY
 highlight: rouge
 
-gems:
+plugins:
   - jekyll-redirect-from
 
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile']
