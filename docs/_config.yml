@@ -61,6 +61,8 @@ analytics:
 # DON'T MODIFY
 highlight: rouge
 
+github: [metadata]
+
 plugins:
   - jekyll-redirect-from
 
