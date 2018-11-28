@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>no.digipost.signature</groupId>
+        <artifactId>signature-api-specification-parent</artifactId>
+        <version>2.4-SNAPSHOT</version>
+    </parent>
+
     <name>Posten signering - API JAXB Classes</name>
 
     <artifactId>signature-api-specification-jaxb</artifactId>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-
         <xsd.directory>${project.basedir}/target/generated-resources/xsd</xsd.directory>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.jvnet.jaxb2_commons</groupId>
             <artifactId>jaxb2-basics-runtime</artifactId>
@@ -28,19 +43,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.3.4.RELEASE</version>
+            <version>5.1.2.RELEASE</version>
             <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-            <version>4.3.4.RELEASE</version>
+            <version>5.1.2.RELEASE</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -58,13 +67,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.25</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.25</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -73,23 +82,15 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
-                </plugin>
-                <plugin>
                     <groupId>org.jvnet.jaxb2.maven2</groupId>
                     <artifactId>maven-jaxb2-plugin</artifactId>
-                    <version>0.13.1</version>
+                    <version>0.14.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
-                        <generateBackupPoms>false</generateBackupPoms>
+                        <excludePackageNames>no.digipost.signature.api.xml</excludePackageNames>
+                        <detectOfflineLinks>false</detectOfflineLinks>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -99,7 +100,6 @@
                         <noticeTemplate>${project.basedir}/../src/notice/NOTICE.template</noticeTemplate>
                     </configuration>
                 </plugin>
-
             </plugins>
         </pluginManagement>
         <plugins>
@@ -124,57 +124,6 @@
                         <configuration>
                             <includeArtifactIds>signature-api-specification</includeArtifactIds>
                             <outputDirectory>${xsd.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <excludePackageNames>no.digipost.signature.api.xml.thirdparty.xmldsig</excludePackageNames>
-                    <additionalparam>-Xdoclint:-missing</additionalparam>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <includePom>true</includePom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <bannedDependencies>
-                                    <excludes>
-                                        <exclude>commons-logging</exclude>
-                                    </excludes>
-                                    <searchTransitive>true</searchTransitive>
-                                </bannedDependencies>
-                            </rules>
                         </configuration>
                     </execution>
                 </executions>
@@ -243,13 +192,5 @@
 
         </plugins>
     </build>
-
-    <parent>
-        <groupId>no.digipost.signature</groupId>
-        <artifactId>signature-api-specification-parent</artifactId>
-        <version>2.4-SNAPSHOT</version>
-    </parent>
-
-    <modelVersion>4.0.0</modelVersion>
 
 </project>
