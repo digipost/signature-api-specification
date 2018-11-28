@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>no.digipost.signature</groupId>
+        <artifactId>signature-api-specification-parent</artifactId>
+        <version>2.5-SNAPSHOT</version>
+    </parent>
+
+
     <name>Posten signering - API Schema</name>
 
 	<artifactId>signature-api-specification</artifactId>
-    <packaging>pom</packaging>
-
+    <properties>
+        <maven.main.skip>true</maven.main.skip>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.source.skip>true</maven.source.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
 
 	<build>
         <resources>
@@ -59,14 +72,6 @@
 		</pluginManagement>
 		<plugins>
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals><goal>resources</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
                 <executions>
@@ -75,44 +80,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <goals><goal>jar</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.12</version>
-                <executions>
-                    <execution>
-                        <goals><goal>attach-artifact</goal></goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>target/${project.build.finalName}.jar</file>
-                                    <type>jar</type>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 		</plugins>
 	</build>
-
-
-
-    <parent>
-        <groupId>no.digipost.signature</groupId>
-        <artifactId>signature-api-specification-parent</artifactId>
-        <version>2.4-SNAPSHOT</version>
-    </parent>
-
-    <modelVersion>4.0.0</modelVersion>
 
 </project>
