@@ -59,7 +59,7 @@ Tjenesten tillater maksimalt 10 undertegnere pr. oppdrag.
 
 **Hastighet**
 
-Tjenest tillater maksimalt 10 API-kall i sekundet. Hvis en avsender overskrider denne grensen vil API-et returnere `HTTP 429 Too Many Requests`, og avsenderen vil bli blokkert i 30 sekunder.
+Tjenesten tillater maksimalt 10 API-kall i sekundet per organisasjonsnummer. Hvis en avsender overskrider denne grensen vil API-et returnere `HTTP 429 Too Many Requests`, og avsenderen vil bli blokkert i 30 sekunder.
 
 **Dokumentformater**
 
