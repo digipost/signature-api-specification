@@ -57,6 +57,10 @@ Ved opprettelse av signeringsoppdrag kan følgende felter angis:
 
 Tjenesten tillater maksimalt 10 undertegnere pr. oppdrag.
 
+**Hastighet**
+
+Tjenesten tillater maksimalt 10 API-kall i sekundet per organisasjonsnummer. Hvis en avsender overskrider denne grensen vil API-et returnere `HTTP 429 Too Many Requests`, og avsenderen vil bli blokkert i 30 sekunder.
+
 **Dokumentformater**
 
 Tjenesten støtter dokumenter av typen ren tekst (`.txt`) og PDF (`.pdf`). Både PDF og PDF/A aksepteres av tjenesten. Det signerte dokumentet vil være av samme type som originaldokumentet.
