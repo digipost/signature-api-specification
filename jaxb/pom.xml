@@ -184,7 +184,7 @@
                         <plugin>
                             <groupId>com.github.jaxb-xew-plugin</groupId>
                             <artifactId>jaxb-xew-plugin</artifactId>
-                            <version>1.8</version>
+                            <version>1.10</version>
                         </plugin>
                     </plugins>
                 </configuration>
