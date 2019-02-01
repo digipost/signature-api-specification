@@ -179,7 +179,7 @@
                         <plugin>
                             <groupId>org.apache.cxf.xjcplugins</groupId>
                             <artifactId>cxf-xjc-javadoc</artifactId>
-                            <version>3.0.5</version>
+                            <version>3.3.0</version>
                         </plugin>
                         <plugin>
                             <groupId>com.github.jaxb-xew-plugin</groupId>
