@@ -14,7 +14,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification-parent</artifactId>
-	<version>2.5-SNAPSHOT</version>
+	<version>2.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
