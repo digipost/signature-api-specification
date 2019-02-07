@@ -30,3 +30,8 @@ Det finnes klientbiblioteker som forenkler integrasjonsprosessen. Vi anbefaler b
 ## Manuell integrasjon
 
 Dokumentasjon av manuell integrasjon finner du beskrevet i vår [integrasjonsguide](/integrasjon).
+
+
+## Releasing (kun for medlemmer av Digipost organisasjonen)
+
+Se docs/systemer/open-source-biblioteker.md
