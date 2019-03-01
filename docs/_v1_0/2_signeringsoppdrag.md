@@ -4,34 +4,6 @@ title: Signeringsoppdrag
 layout: default
 ---
 
-Et signeringsoppdrag (ev. signeringsjobb) er en jobb som inneholder et dokument som skal signeres, og kan adresseres til en eller flere undertegnere som skal signere. Tjenesten tilbyr to ulike typer signeringsoppdrag hvor _måten de signeres på_ er den vesentlige forskjellen.
-
-## Synkrone signeringsoppdrag
-
-Et synkront oppdrag signeres når undertegner allerede er pålogget i avsenders system. Disse oppdragene passer for avsendere som ønsker at sluttbrukerne skal oppleve signeringsprosessen som en integrert del av deres nettsted.
-
-Flyten ser typisk slik ut:
-
-1. Undertegner er innlogget i avsenders tjeneste, og utfører en prosess der, f.eks. utfylling av et skjema.
-1. Avsender oppretter et oppdrag i signeringstjenesten maskinelt
-1. Undertegner blir sendt til signeringstjenesten og gjennomfører signeringssermonien
-1. Undertegner blir sendt tilbake til avsenders tjeneste
-1. Avsender laster ned [signatur](#signerte_dokumenter) og tilbyr en kopi av det signerte dokumentet til undertegner
-
-## Asynkrone signeringsoppdrag
-
-Et asynkront oppdrag signeres i Postens signeringsportal.
-
-Flyten ser typisk slik ut:
-
-1. Avsender oppretter et oppdrag maskinelt eller i avsenderportalen
-1. Signeringstjenesten varsler undertegner på e-post (og ev. SMS om spesifiert ved [opprettelse](#opprette-signeringsoppdrag)
-1. Undertegner logger inn på signeringsportalen og gjennomfører signeringssermonien
-1. Undertegner laster ned [signert kopi](#signerte_dokumenter) av dokumentet
-1. Undertegner logger ut av signeringsportalen
-1. Avsender laster ned [signatur](#signerte_dokumenter)
-
-
 ## Opprette signeringsoppdrag
 
 Ved opprettelse av signeringsoppdrag kan følgende felter angis:
