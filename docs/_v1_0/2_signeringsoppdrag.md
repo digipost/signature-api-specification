@@ -6,23 +6,6 @@ layout: default
 
 ## Opprette signeringsoppdrag
 
-Ved opprettelse av signeringsoppdrag kan følgende felter angis:
-
-|                         | synkrone oppdrag | asynkrone oppdrag |   |
-|-------------------------|:----------------:|:-----------------:|---|
-| Dokument                | __Obligatorisk__ | __Obligatorisk__  |   |
-| Undertegner(e)          | __Obligatorisk__ | __Obligatorisk__  | se [undertegners kontaktinfo](#kontaktinfo) |
-| Tittel                  | __Obligatorisk__ | __Obligatorisk__  |   |
-| Signaturtype            | Valgfritt        | Valgfritt         | se [signaturtype](#signaturtype) |
-| Sikkerhetsnivå          | Valgfritt        | Valgfritt         | se [sikkerhetsnivå](#sikkerhetsniv) |
-| Melding til mottaker(e) | Valgfritt        | Valgfritt         |   |
-| Undertegners identifikator | Valgfritt     | Valgfritt         | se [undertegners identifikator](#undertegners-identifikator) |
-| Aktiveringstidspunkt    | _Ikke overstyrbar_<sup>[1](#fotnote-aktivering)</sup> | Valgfritt | |
-| Levetid                 | _Ikke overstyrbar_<sup>[2](#fotnote-levetid)</sup> | Valgfritt | |
-| E-postadresse           | _Ikke relevant_  | __Obligatorisk__  | se [varsling](#varsling) |
-| Mobilnummer             | _Ikke relevant_  | Valgfritt         | se [varsling](#varsling) |
-| Rekkefølge              | _Ikke relevant_  | Valgfritt         | se [kjedet signatur](#kjedet-signatur) |
-
 #### Begrensninger
 
 **Antall undertegnere**
