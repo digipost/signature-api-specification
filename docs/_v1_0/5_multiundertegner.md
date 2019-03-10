@@ -22,16 +22,3 @@ De ulike handlingene som avslutter et signeringsoppdrag er:
 
 Avsender oppretter et oppdrag med tre undertegnere. __Undertegner 1__ signerer, __undertegner 2__ avviser. Dersom __undertegner 3__ logger inn i signeringsportalen etter at __undertegner 2__ har avvist, vil hun _ikke_ se signeringsoppdraget og vil ikke ha mulighet til å signere.
 
-## Kjedet signatur
-
-_Kjedet signatur er bare relevant for signeringsoppdrag som signeres i signeringsportalen, dvs. asynkrone oppdrag._
-
-Avsender kan spesifisere rekkefølgen et signeringsoppdrag skal bli tilgjengeliggjort for undertegnerne. Når alle undertegnerne i en gruppe<sup>[1](#fotnote-gruppe)</sup> har signert vil oppdraget bli tilgjengelig for neste gruppe undertegnere.
-
-**Terminerende handlinger for kjedete signeringsoppdrag**
-
-En [terminerende handling](#terminerende-handlinger) på et kjedet signeringsoppdrag vil føre til at oppdraget avsluttes for alle undertegnere som enda ikke har signert, inkludert de undertegnere som ikke har fått oppdraget tilgjengeliggjort enda.
-
-Hvis en undertegner i første gruppe avviser oppdraget eller signeringsfristen går ut, vil oppdraget aldri tilgjengeliggjøres for undertegnerne i de senere gruppene og avsender blir varslet om at oppdraget er fullført med en feilende status. 
-
-<a name="fotnote-gruppe"><sup>1</sup></a> En gruppe undertegnere er alle som har samme `order` i APIet og kan bestå av én eller flere undertegnere som skal signere i parallell.
