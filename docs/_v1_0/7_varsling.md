@@ -8,22 +8,6 @@ Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post.
 
 ### Regler for utsending
 
-Reglene for utsending av varsler avhenger av signeringsfristen:
-
-| Signeringsfrist |     e-post     |       e-post      |        SMS        |
-|:---------------:|:--------------:|:-----------------:|:-----------------:|
-| 0-24 timer      | Ved aktivering |         -         | Ved aktivering    |
-| 2-3 dager       | Ved aktivering | 1 dag før frist   | 1 dag før frist   |
-| 4-5 dager       | Ved aktivering | 2 dager før frist | 1 dag før frist   |
-| 6-9 dager       | Ved aktivering | 3 dager før frist | 2 dager før frist |
-| 10 dager +      | Ved aktivering | 5 dager før frist | 2 dager før frist |
-
-<!-- Tabellen er generert vha. http://www.tablesgenerator.com/markdown_tables -->
-
-Dersom det ikke finnes en e-postadresse for en undertegner vil det sendes SMS istedet for e-post ved aktivering.
-
-SMS sendes ikke mellom 22 og 08, med mindre oppdraget opprettes på natten og fristen er så kort at det er nødvendig med umiddelbar utsending.
-
 ### Kontaktinformasjon
 
 Kontaktinformasjon for varsling kan angis på to måter:
