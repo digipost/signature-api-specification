@@ -4,24 +4,6 @@ title: Varsling
 layout: default
 ---
 
-Signeringstjenesten tilbyr varsel og oppdrag til signering på SMS og e-post. 
-
-### Regler for utsending
-
-### Kontaktinformasjon
-
-Kontaktinformasjon for varsling kan angis på to måter:
-
- * Dersom tjenesteeier spesifiserer varslingsinformasjon ved opprettelse av oppdraget vil denne brukes. Overstyrt varslingsinformasjon får prioritet over Kontakt- og reservasjonsregisteret. **NB: Offentlige virksomheter kan kun overstyre varslingsinformasjonen dersom undertegner mottar oppdraget i kraft av en rolle knyttet til sitt arbeid.**
- * Dersom varslingsinformasjon ikke spesifiseres, vil tjenesten hente varslingsinfo fra Kontakt- og reservasjonsregisteret. Dette er kun tilgjengelig for offentlige virksomheter.
-
-Krav til kontaktinformasjon:
-
- * Alle undertegnere må ha minst ha én av e-postadresse og mobilnummer.
- * Sending av SMS er frivillig og kan bestilles av tjenesteeieren.
- * Dersom en undertegner har mobilnummer og ikke e-postadresse vil det alltid bli sendt SMS.
- * Tjenesten støtter kun norske mobilnumre. Oppdrag med overstyrt kontaktinformasjon med utenlandsk mobilnummer vil bli avvist, mens utenlandske mobilnumre fra Kontakt- og reservasjonsregisteret vil bli ignorert.
-
 ### Bruk av Kontakt- og reservasjonsregisteret
 
 Signeringstjenesten gjør oppslag mot Kontakt- og reservasjonsregisteret ved opprettelse av oppdrag for alle offentlige virksomheter for undertegnere uten overstyrt kontaktinformasjon. Hvis undertegnere er reservert mot digital kommunikasjon vil oppdraget bli avvist og påfølgende uthenting av status for oppdraget vil gi en feil med informasjon om hvilke undertegnere som er reservert. Undertegnere med overstyrt kontaktinformasjon bli ikke sjekket for reservasjon.
