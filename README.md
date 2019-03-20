@@ -10,7 +10,7 @@ Mappen [`schema/xsd`](/schema/xsd) inneholder XSD-filer som spesifiserer de ulik
 
 Det finnes klientbiblioteker som forenkler integrasjonsprosessen. Vi anbefaler bruk av disse der det er mulig.
 
-[Dokumentasjon for Posten signering](signering-docs.rtfd.io)
+[Dokumentasjon for Posten signering](https://signering-docs.rtfd.io)
 
 ## Manuell integrasjon
 
