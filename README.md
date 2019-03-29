@@ -1,20 +1,13 @@
 # Posten signering – API spesifikasjon
 
-Her finner du informasjon om APIene til Posten signering.
-
-Dette dokumentet inneholder teknisk dokumentasjon nødvendig for å integrere med tjenesten. Se [release notes](/integrasjon/release-notes.md) for historikk over hva som er nytt i tidligere versjoner.
-
-Mappen [`schema/xsd`](/schema/xsd) inneholder XSD-filer som spesifiserer de ulike objektene som sendes og mottas av APIet.
-
 ## Integrasjon med klientbiblioteker
 
-Det finnes klientbiblioteker som forenkler integrasjonsprosessen. Vi anbefaler bruk av disse der det er mulig.
+Det finnes klientbiblioteker som forenkler integrasjonsprosessen for C# og Java. Vi anbefaler bruk av disse siden du slipper å forholde deg direkte til kryptering, signering og pakking av data som sendes. For mer informasjon, se [Dokumentasjon for Posten signering](https://signering-docs.rtfd.io)
 
-[Dokumentasjon for Posten signering](https://signering-docs.rtfd.io)
 
-## Manuell integrasjon
+## Egen API-integrasjon
 
-Dokumentasjon av manuell integrasjon finner du beskrevet i vår [integrasjonsguide](/integrasjon).
+I dette repoet finner du API-spesifikasjonen for API-et til [Posten Signering](http://www.signering.posten.no). Hvordan denne skal brukes og implementeres finner du i [Dokumentasjon for Posten signering](https://signering-docs.rtfd.io).
 
 ## Releasing (kun for medlemmer av Digipost organisasjonen)
 
