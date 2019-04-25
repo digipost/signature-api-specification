@@ -185,6 +185,8 @@ for the default queue.
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="signer-specific-url" type="signer-specific-url" />
+
     <xs:complexType name="signer-specific-url">
         <xs:simpleContent>
             <xs:extension base="url">
