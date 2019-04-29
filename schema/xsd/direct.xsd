@@ -181,6 +181,7 @@ for the default queue.
                 <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
                 <xs:element name="redirect-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
                 <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
+                <xs:element name="signing-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
