@@ -174,19 +174,36 @@ for the default queue.
     </xs:simpleType>
 
 
-    <xs:element name="direct-signature-job-response">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
-                <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
-                <xs:element name="redirect-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
-                <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
-                <xs:element name="signing-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" />
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="direct-signature-job-response" type="direct-signature-job-response" />
 
-    <xs:element name="signer-specific-url" type="signer-specific-url" />
+    <xs:complexType name="direct-signature-job-response">
+        <xs:sequence>
+            <xs:element name="reference" minOccurs="0" maxOccurs="1" type="signature-job-reference"/>
+            <xs:element name="signature-job-id" minOccurs="1" maxOccurs="1" type="signature-job-id"/>
+            <xs:element name="redirect-url" minOccurs="1" maxOccurs="10" type="signer-specific-url" >
+                <xs:annotation>
+                    <xs:documentation>DEPRECATED. Redirect-URL is part of each signer.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
+            <xs:element name="signer" minOccurs="1" maxOccurs="10" type="direct-signer-response" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:element name="direct-signer-response" type="direct-signer-response" />
+
+    <xs:complexType name="direct-signer-response">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="signer-identifier" minOccurs="1" maxOccurs="1"
+                            type="signer-identifier"/>
+                <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
+                            type="personal-identification-number"/>
+            </xs:choice>
+            <xs:element name="redirect-url" type="url"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="signer-specific-url">
         <xs:simpleContent>

@@ -19,9 +19,12 @@
 <bindings version="2.1"
           xmlns="http://java.sun.com/xml/ns/jaxb"
           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
-          extensionBindingPrefixes="xjc">
+          xmlns:annox="http://annox.dev.java.net"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+          extensionBindingPrefixes="xjc annox">
 
     <globalBindings>
         <xjc:simple/>
@@ -78,6 +81,9 @@
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='direct-signer']">
             <inheritance:implements>no.digipost.signature.jaxb.XMLSigner</inheritance:implements>
+        </bindings>
+        <bindings node="//xs:complexType[@name='direct-signature-job-response']/*/xs:element[@name='redirect-url']">
+            <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
         </bindings>
     </bindings>
 

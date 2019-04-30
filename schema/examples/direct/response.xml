@@ -5,5 +5,8 @@
         https://signering.posten.no#/redirect/421e7ac38da1f81150cfae8a053cef62f9e7433ffd9395e5805e820980653657
     </redirect-url>
     <status-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/status</status-url>
-    <signing-url signer="12345678910">https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/1/signing-url</signing-url>
+    <signer>
+        <personal-identification-number>12345678910</personal-identification-number>
+        <redirect-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/1/redirect-url</redirect-url>
+    </signer>
 </direct-signature-job-response>

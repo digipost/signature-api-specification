@@ -8,10 +8,13 @@
         https://signering.posten.no#/redirect/cwYjoZOX5jOc1BACfTdhuIPjWr4BzZ234PqHOgJj03o
     </redirect-url>
     <status-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/status</status-url>
-    <signing-url signer="123abc">
-        https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/1/signing-url
-    </signing-url>
-    <signing-url signer="10987654321">
-        https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/2/signing-url
-    </signing-url>
+    <signer>
+        <personal-identification-number>10987654321</personal-identification-number>
+        <redirect-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/1</redirect-url>
+    </signer>
+    <signer>
+        <signer-identifier>123abc</signer-identifier>
+        <redirect-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/2</redirect-url>
+    </signer>
+
 </direct-signature-job-response>
