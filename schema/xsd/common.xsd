@@ -48,6 +48,16 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:complexType name="accessible-by-url" abstract="true">
+        <xs:attribute name="href" type="url" use="required" >
+            <xs:annotation>
+                <xs:documentation>The URL for this entity.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="empty-element" final="#all" />
+
     <xs:simpleType name="personal-identification-number">
         <xs:restriction base="xs:string">
             <xs:pattern value="[0-9]{11}"/>

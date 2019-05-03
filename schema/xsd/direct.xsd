@@ -185,7 +185,7 @@ for the default queue.
                     <xs:documentation>DEPRECATED. Redirect-URL is part of each signer.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url"/>
+            <xs:element name="status-url" minOccurs="0" maxOccurs="1" type="url" />
             <xs:element name="signer" minOccurs="1" maxOccurs="10" type="direct-signer-response" />
         </xs:sequence>
     </xs:complexType>
@@ -194,16 +194,39 @@ for the default queue.
     <xs:element name="direct-signer-response" type="direct-signer-response" />
 
     <xs:complexType name="direct-signer-response">
-        <xs:sequence>
-            <xs:choice>
-                <xs:element name="signer-identifier" minOccurs="1" maxOccurs="1"
-                            type="signer-identifier"/>
-                <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
-                            type="personal-identification-number"/>
-            </xs:choice>
-            <xs:element name="redirect-url" type="url"/>
-        </xs:sequence>
+        <xs:complexContent>
+            <xs:extension base="accessible-by-url">
+                <xs:sequence>
+                    <xs:choice>
+                        <xs:element name="signer-identifier" minOccurs="1" maxOccurs="1"
+                                    type="signer-identifier" />
+                        <xs:element name="personal-identification-number" minOccurs="1" maxOccurs="1"
+                                    type="personal-identification-number" />
+                    </xs:choice>
+                    <xs:element name="redirect-url" type="url" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The signer's browser should be redirected here to the signing. This URL can only be used once, and
+                                a request for a new URL must be made to for instance retry a failing document signing.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
+
+    <xs:element name="direct-signer-update-request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="empty-element">
+                    <xs:annotation>
+                        <xs:documentation>The presence of this element specifies you want to update the redirect-url for the signer.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:complexType name="signer-specific-url">
         <xs:simpleContent>
