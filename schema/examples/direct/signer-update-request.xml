@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+    This request is posted to a URL for the specific signer you want to update.
+    The URL is found in the href attribute for each signer in the response received
+    when creating the direct signature job.
+ -->
+<direct-signer-update-request xmlns="http://signering.posten.no/schema/v1">
+    <!-- For now, the only supported property to update is the redirect-url.
+         This is typically done if something fails when a signer attempts to sign,
+         and a new redirect-url is needed for retrying to sign. -->
+    <redirect-url />
+</direct-signer-update-request>
