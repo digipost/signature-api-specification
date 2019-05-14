@@ -206,8 +206,9 @@ for the default queue.
                     <xs:element name="redirect-url" type="url" minOccurs="1" maxOccurs="1">
                         <xs:annotation>
                             <xs:documentation>
-                                The signer's browser should be redirected here to the signing. This URL can only be used once, and
-                                a request for a new URL must be made to for instance retry a failing document signing.
+                                The signer's browser should be redirected here to sign the document. This URL can only
+                                be used once, and a request for a new URL must be made to for instance retry a failing
+                                document signing.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:element>
