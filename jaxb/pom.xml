@@ -49,13 +49,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.1.5.RELEASE</version>
+            <version>5.1.7.RELEASE</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-            <version>5.1.5.RELEASE</version>
+            <version>5.1.7.RELEASE</version>
             <optional>true</optional>
         </dependency>
         <dependency>
