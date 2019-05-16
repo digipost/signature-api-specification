@@ -15,7 +15,7 @@
  */
 package no.digipost.signature.xsd;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -23,10 +23,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static java.lang.reflect.Modifier.isStatic;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 public class SignatureApiSchemasTest {
 
