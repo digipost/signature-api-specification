@@ -119,6 +119,7 @@
                     <configuration>
                         <excludePackageNames>no.digipost.signature.api.xml</excludePackageNames>
                         <detectOfflineLinks>false</detectOfflineLinks>
+                        <doclint>all,-missing,-html</doclint>
                     </configuration>
                 </plugin>
                 <plugin>
