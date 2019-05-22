@@ -2,10 +2,20 @@
 <direct-signature-job-response xmlns="http://signering.posten.no/schema/v1">
     <signature-job-id>1</signature-job-id>
     <redirect-url signer="123abc">
+        <!-- This element is deprecated -->
         https://signering.posten.no#/redirect/P1P-rdPK03Vf-z4NZb1mtDcExjpOzzVEkwal_F9FKm0
     </redirect-url>
     <redirect-url signer="10987654321">
+        <!-- This element is deprecated -->
         https://signering.posten.no#/redirect/cwYjoZOX5jOc1BACfTdhuIPjWr4BzZ234PqHOgJj03o
     </redirect-url>
     <status-url>https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/status</status-url>
+    <signer href="https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/1">
+        <personal-identification-number>10987654321</personal-identification-number>
+        <redirect-url>https://signering.posten.no#/redirect/cwYjoZOX5jOc1BACfTdhuIPjWr4BzZ234PqHOgJj03o</redirect-url>
+    </signer>
+    <signer href="https://api.signering.posten.no/api/123456789/direct/signature-jobs/1/signers/2">
+        <signer-identifier>123abc</signer-identifier>
+        <redirect-url>https://signering.posten.no#/redirect/P1P-rdPK03Vf-z4NZb1mtDcExjpOzzVEkwal_F9FKm0</redirect-url>
+    </signer>
 </direct-signature-job-response>

@@ -19,6 +19,8 @@ import no.digipost.signature.api.xml.XMLDirectSignatureJobManifest;
 import no.digipost.signature.api.xml.XMLDirectSignatureJobRequest;
 import no.digipost.signature.api.xml.XMLDirectSignatureJobResponse;
 import no.digipost.signature.api.xml.XMLDirectSignatureJobStatusResponse;
+import no.digipost.signature.api.xml.XMLDirectSignerResponse;
+import no.digipost.signature.api.xml.XMLDirectSignerUpdateRequest;
 import no.digipost.signature.api.xml.XMLError;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobManifest;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobRequest;
@@ -72,14 +74,14 @@ public final class SignatureMarshalling {
      * All classes necessary for a {@code JAXBContext} to handle marshalling <em>requests</em> to the Direct API.
      */
     public static Set<Class<?>> directApiJaxbClassesForRequests() {
-        return unionOf(commonJaxbClassesForRequests(), XMLDirectSignatureJobRequest.class, XMLDirectSignatureJobManifest.class);
+        return unionOf(commonJaxbClassesForRequests(), XMLDirectSignatureJobRequest.class, XMLDirectSignerUpdateRequest.class, XMLDirectSignatureJobManifest.class);
     }
 
     /**
      * All classes necessary for a {@code JAXBContext} to handle unmarshalling <em>responses</em> from the Direct API.
      */
     public static Set<Class<?>> directApiJaxbClassesForResponses() {
-        return unionOf(commonJaxbClassesForResponses(), XMLDirectSignatureJobResponse.class, XMLDirectSignatureJobStatusResponse.class);
+        return unionOf(commonJaxbClassesForResponses(), XMLDirectSignatureJobResponse.class, XMLDirectSignerResponse.class, XMLDirectSignatureJobStatusResponse.class);
     }
 
     /**

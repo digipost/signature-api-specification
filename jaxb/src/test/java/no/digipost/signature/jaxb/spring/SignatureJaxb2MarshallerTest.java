@@ -29,26 +29,30 @@ import no.digipost.signature.api.xml.XMLPortalSignatureJobManifest;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobRequest;
 import no.digipost.signature.api.xml.XMLPortalSigner;
 import no.digipost.signature.api.xml.XMLSender;
-import org.junit.Test;
+import no.digipost.signature.api.xml.XMLSignerStatus;
+import org.junit.jupiter.api.Test;
 import org.springframework.oxm.MarshallingFailureException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
-import static junit.framework.TestCase.assertEquals;
+import static co.unruly.matchers.Java8Matchers.where;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
 import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
 import static no.digipost.signature.api.xml.XMLStatusRetrievalMethod.WAIT_FOR_CALLBACK;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SignatureJaxb2MarshallerTest {
 
@@ -87,12 +91,10 @@ public class SignatureJaxb2MarshallerTest {
 
         XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
 
-        try {
-            marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream()));
-            fail("Should have failed with XSD-validation error due to completion-url being empty.");
-        } catch (MarshallingFailureException e) {
-            assertThat(e.getMessage(), allOf(containsString("completion-url"), containsString("is expected")));
-        }
+        MarshallingFailureException thrown = assertThrows(MarshallingFailureException.class,
+                () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream())));
+
+        assertThat(thrown.getMessage(), allOf(containsString("completion-url"), containsString("is expected")));
     }
 
     @Test
@@ -106,13 +108,16 @@ public class SignatureJaxb2MarshallerTest {
         XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
-        try {
-            marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
-            marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
-            fail("Should have failed with XSD-validation error due to href-attribute on document element being empty.");
-        } catch (MarshallingFailureException e) {
-            assertThat(e.getMessage(), allOf(containsString("href"), containsString("must appear")));
-        }
+
+        MarshallingFailureException directManifestMarshallingFailure =
+                assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream())));
+
+        MarshallingFailureException portalManifestMarshallingFailure =
+                assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream())));
+
+        assertThat(directManifestMarshallingFailure, where(Exception::getMessage, allOf(containsString("href"), containsString("must appear"))));
+        assertThat(portalManifestMarshallingFailure, where(Exception::getMessage, allOf(containsString("signature-type"), containsString("notifications-using-lookup"), containsString("notifications"))));
+
     }
 
     @Test
@@ -123,8 +128,8 @@ public class SignatureJaxb2MarshallerTest {
                     .unmarshal(new StreamSource(getClass().getResourceAsStream("/xml/direct_signature_job_response_with_unexpected_element.xml")));
         }
 
-        assertEquals(1, unmarshalled.getSignatureJobId());
-        assertEquals("SIGNED", unmarshalled.getStatuses().get(0).getValue());
+        assertThat(unmarshalled, where(XMLDirectSignatureJobStatusResponse::getSignatureJobId, is(1L)));
+        assertThat(unmarshalled.getStatuses(), contains(where(XMLSignerStatus::getValue, is("SIGNED"))));
     }
 
 }

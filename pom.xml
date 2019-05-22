@@ -6,7 +6,7 @@
     <parent>
         <groupId>no.digipost</groupId>
         <artifactId>digipost-open-super-pom</artifactId>
-        <version>2</version>
+        <version>3</version>
     </parent>
 
     <name>Posten signering - API Specification</name>
@@ -37,7 +37,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-help-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -49,7 +49,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.8.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
@@ -101,8 +101,8 @@
                 </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>3.0</version>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>3.0</version>
                     <configuration>
                         <header>src/license-header.txt</header>
                         <strictCheck>true</strictCheck>
@@ -118,7 +118,7 @@
                             <exclude>xsd/catalog.xml</exclude>
                             <exclude>examples/**/*</exclude>
                             <exclude>NOTICE</exclude>
-                            <exclude>LICENSE</exclude>
+                            <exclude>**/LICENSE</exclude>
                             <exclude>src/notice/NOTICE.template</exclude>
                             <exclude>src/notice/license-mappings.xml</exclude>
                             <exclude>jaxb/*.xjb</exclude>
@@ -131,7 +131,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
