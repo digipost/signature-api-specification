@@ -23,12 +23,14 @@
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
           xmlns:annox="http://annox.dev.java.net"
-          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+          xmlns:sign="http://signering.posten.no/schema/v1"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb https://raw.githubusercontent.com/eclipse-ee4j/jaxb-api/2.3.2/bindingschema.xsd"
           extensionBindingPrefixes="xjc annox">
 
     <globalBindings>
         <xjc:simple/>
-        <xjc:javaType adapter="no.digipost.signature.jaxb.XSDateTimeAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.DateTimeXmlAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.UriXmlAdapter" name="java.net.URI" xmlType="sign:url"/>
     </globalBindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct-and-portal.xsd" node="/xs:schema">
