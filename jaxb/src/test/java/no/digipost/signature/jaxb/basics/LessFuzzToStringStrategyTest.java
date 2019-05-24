@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.api.xml;
+package no.digipost.signature.jaxb.basics;
 
-import no.digipost.signature.jaxb.basics.LessFuzzToStringStrategy;
+import no.digipost.signature.api.xml.XMLSms;
 import org.junit.jupiter.api.Test;
 
 import static co.unruly.matchers.Java8Matchers.where;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class LessFuzzToStringStrategyTest {
 
     @Test
-    void lessFuzzToStringSTrategyIsActivated() {
+    void lessFuzzToStringStrategyIsActivated() {
 
         XMLSms smsExample = new XMLSms("98219472");
 
