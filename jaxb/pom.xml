@@ -184,6 +184,7 @@
                         <arg>-Xxew:instantiate lazy</arg>
                         <arg>-Xxew:control ${project.basedir}/src/main/jaxb/xew-control.properties</arg>
                         <arg>-XtoString</arg>
+                        <arg>-XtoString-toStringStrategyClass=no.digipost.signature.jaxb.basics.LessFuzzToStringStrategy</arg>
                         <arg>-Xjavadoc</arg>
                         <arg>-Xvalue-constructor</arg>
                         <arg>-Xfluent-api</arg>
