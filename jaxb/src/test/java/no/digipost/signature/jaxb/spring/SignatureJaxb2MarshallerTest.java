@@ -47,12 +47,14 @@ import static co.unruly.matchers.Java8Matchers.where;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
 import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
+import static no.digipost.signature.api.xml.XMLDirectSignerStatusValue.SIGNED;
 import static no.digipost.signature.api.xml.XMLStatusRetrievalMethod.WAIT_FOR_CALLBACK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SignatureJaxb2MarshallerTest {
@@ -130,7 +132,7 @@ public class SignatureJaxb2MarshallerTest {
         }
 
         assertThat(unmarshalled, where(XMLDirectSignatureJobStatusResponse::getSignatureJobId, is(1L)));
-        assertThat(unmarshalled.getStatuses(), contains(where(XMLSignerStatus::getValue, is("SIGNED"))));
+        assertThat(unmarshalled.getStatuses(), contains(where(XMLSignerStatus::getValue, sameInstance(SIGNED))));
     }
 
 }

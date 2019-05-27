@@ -15,20 +15,20 @@
  */
 package no.digipost.signature.jaxb.adapter;
 
+import no.digipost.signature.api.xml.XMLDirectSignerStatusValue;
+
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import java.net.URI;
-
-public final class UriXmlAdapter extends XmlAdapter<String, URI> {
+public final class XMLDirectSignerStatusValueXmlAdapter extends XmlAdapter<String, XMLDirectSignerStatusValue> {
 
     @Override
-    public URI unmarshal(String uriString) {
-        return URI.create(uriString);
+    public XMLDirectSignerStatusValue unmarshal(String statusString) {
+        return XMLDirectSignerStatusValue.of(statusString);
     }
 
     @Override
-    public String marshal(URI uri) {
-        return uri.toASCIIString();
+    public String marshal(XMLDirectSignerStatusValue status) {
+        return status.asString();
     }
 
 }

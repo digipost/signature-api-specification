@@ -31,6 +31,8 @@
         <xjc:simple/>
         <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.DateTimeXmlAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
         <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.UriXmlAdapter" name="java.net.URI" xmlType="sign:url"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.XMLDirectSignerStatusValueXmlAdapter" name="no.digipost.signature.api.xml.XMLDirectSignerStatusValue" xmlType="sign:direct-signer-status-value" />
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.XMLPortalSignatureStatusValueXmlAdapter" name="no.digipost.signature.api.xml.XMLPortalSignatureStatusValue" xmlType="sign:portal-signature-status-value" />
     </globalBindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct-and-portal.xsd" node="/xs:schema">
