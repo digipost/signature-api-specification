@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.jaxb;
+package no.digipost.signature.jaxb.adapter;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class XSDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
+public final class DateTimeXmlAdapter extends XmlAdapter<String, ZonedDateTime> {
 
     @Override
     public ZonedDateTime unmarshal(final String value) {

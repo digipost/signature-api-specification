@@ -13,13 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.jaxb;
+package no.digipost.signature.jaxb.adapter;
 
-public interface XMLDocument {
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-	String getTitle();
-	String getDescription();
-	String getHref();
-	String getMime();
+import java.net.URI;
+
+public final class UriXmlAdapter extends XmlAdapter<String, URI> {
+
+    @Override
+    public URI unmarshal(String uriString) {
+        return URI.create(uriString);
+    }
+
+    @Override
+    public String marshal(URI uri) {
+        return uri.toASCIIString();
+    }
 
 }

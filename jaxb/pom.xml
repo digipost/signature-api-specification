@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.5.0-M1</version>
+                <version>5.5.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -91,6 +91,18 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>3.1.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.digipost</groupId>
+            <artifactId>digg</artifactId>
+            <version>0.19</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -184,6 +196,7 @@
                         <arg>-Xxew:instantiate lazy</arg>
                         <arg>-Xxew:control ${project.basedir}/src/main/jaxb/xew-control.properties</arg>
                         <arg>-XtoString</arg>
+                        <arg>-XtoString-toStringStrategyClass=no.digipost.signature.jaxb.basics.LessFuzzToStringStrategy</arg>
                         <arg>-Xjavadoc</arg>
                         <arg>-Xvalue-constructor</arg>
                         <arg>-Xfluent-api</arg>

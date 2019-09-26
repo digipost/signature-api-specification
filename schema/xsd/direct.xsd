@@ -268,9 +268,17 @@ though the status has not changed.
 
     <xs:complexType name="signer-status">
         <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:annotation>
-                    <xs:documentation>
+            <xs:extension base="direct-signer-status-value">
+                <xs:attribute name="signer" type="xs:string" />
+                <xs:attribute name="since" type="xs:dateTime" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="direct-signer-status-value">
+        <xs:restriction base="xs:string" >
+            <xs:annotation>
+                <xs:documentation>
 Textual field which describes the signer status. Note that this field might contain new, unknown statuses in the future.
 Clients should use the direct-signature-job-status element for getting the status of the entire job. Unknown signer status should be logged for later review and ignored at runtime.
 
@@ -294,13 +302,10 @@ Currently known values:
         The job has reached a state where the status of this signature is not applicable.
         This includes (but is not limited to) the case where a signer rejects to sign, and thus ending the job in a failed state.
         Any remaining (previously WAITING) signatures are marked as NOT_APPLICABLE.
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:attribute name="signer" type="xs:string" />
-                <xs:attribute name="since" type="xs:dateTime" use="required"/>
-            </xs:extension>
-        </xs:simpleContent>
-    </xs:complexType>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:restriction>
+    </xs:simpleType>
 
     <xs:simpleType name="direct-signature-job-status">
         <xs:restriction base="xs:string">

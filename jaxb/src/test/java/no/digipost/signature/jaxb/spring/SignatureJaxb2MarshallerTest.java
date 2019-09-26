@@ -39,6 +39,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
@@ -46,12 +47,14 @@ import static co.unruly.matchers.Java8Matchers.where;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
 import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
+import static no.digipost.signature.api.xml.XMLDirectSignerStatusValue.SIGNED;
 import static no.digipost.signature.api.xml.XMLStatusRetrievalMethod.WAIT_FOR_CALLBACK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SignatureJaxb2MarshallerTest {
@@ -66,9 +69,9 @@ public class SignatureJaxb2MarshallerTest {
         XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "Non-sensitive title", "Message", "document.pdf", "application/pdf");
         XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Message", "document.pdf", "application/pdf");
         XMLExitUrls exitUrls = new XMLExitUrls()
-                .withCompletionUrl("http://localhost/signed")
-                .withRejectionUrl("http://localhost/rejected")
-                .withErrorUrl("http://localhost/failed");
+                .withCompletionUrl(URI.create("http://localhost/signed"))
+                .withRejectionUrl(URI.create("http://localhost/rejected"))
+                .withErrorUrl(URI.create("http://localhost/failed"));
 
         XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
         XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
@@ -86,8 +89,8 @@ public class SignatureJaxb2MarshallerTest {
     public void invalid_signature_job_request_causes_exceptions() {
         XMLExitUrls exitUrls = new XMLExitUrls()
                 .withCompletionUrl(null)
-                .withRejectionUrl("http://localhost/rejected")
-                .withErrorUrl("http://localhost/failed");
+                .withRejectionUrl(URI.create("http://localhost/rejected"))
+                .withErrorUrl(URI.create("http://localhost/failed"));
 
         XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
 
@@ -129,7 +132,7 @@ public class SignatureJaxb2MarshallerTest {
         }
 
         assertThat(unmarshalled, where(XMLDirectSignatureJobStatusResponse::getSignatureJobId, is(1L)));
-        assertThat(unmarshalled.getStatuses(), contains(where(XMLSignerStatus::getValue, is("SIGNED"))));
+        assertThat(unmarshalled.getStatuses(), contains(where(XMLSignerStatus::getValue, sameInstance(SIGNED))));
     }
 
 }
