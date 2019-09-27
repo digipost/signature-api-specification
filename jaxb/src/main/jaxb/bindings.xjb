@@ -23,12 +23,16 @@
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
           xmlns:annox="http://annox.dev.java.net"
-          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+          xmlns:sign="http://signering.posten.no/schema/v1"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb https://raw.githubusercontent.com/eclipse-ee4j/jaxb-api/2.3.2/bindingschema.xsd"
           extensionBindingPrefixes="xjc annox">
 
     <globalBindings>
         <xjc:simple/>
-        <xjc:javaType adapter="no.digipost.signature.jaxb.XSDateTimeAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.DateTimeXmlAdapter" name="java.time.ZonedDateTime" xmlType="xs:dateTime"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.UriXmlAdapter" name="java.net.URI" xmlType="sign:url"/>
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.XMLDirectSignerStatusValueXmlAdapter" name="no.digipost.signature.api.xml.XMLDirectSignerStatusValue" xmlType="sign:direct-signer-status-value" />
+        <xjc:javaType adapter="no.digipost.signature.jaxb.adapter.XMLPortalSignatureStatusValueXmlAdapter" name="no.digipost.signature.api.xml.XMLPortalSignatureStatusValue" xmlType="sign:portal-signature-status-value" />
     </globalBindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct-and-portal.xsd" node="/xs:schema">
@@ -53,34 +57,34 @@
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:element[@name='portal-signature-job-manifest']/xs:complexType">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLManifest</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
         </bindings>
     </bindings>
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
         <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLManifest</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
         </bindings>
     </bindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='portal-document']">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLDocument</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
         </bindings>
     </bindings>
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='direct-document']">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLDocument</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
         </bindings>
     </bindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='portal-signer']">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLSigner</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
         </bindings>
     </bindings>
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='direct-signer']">
-            <inheritance:implements>no.digipost.signature.jaxb.XMLSigner</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
         </bindings>
         <bindings node="//xs:complexType[@name='direct-signature-job-response']/*/xs:element[@name='redirect-url']">
             <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>

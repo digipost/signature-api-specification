@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.jaxb;
+package no.digipost.signature.api.xml;
 
 import no.digipost.signature.api.xml.XMLSignatureType;
 import no.digipost.signature.api.xml.XMLSigningOnBehalfOf;

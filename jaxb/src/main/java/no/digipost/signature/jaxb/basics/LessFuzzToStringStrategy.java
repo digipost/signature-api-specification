@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.jaxb;
+package no.digipost.signature.jaxb.basics;
 
-import no.digipost.signature.api.xml.XMLAuthenticationLevel;
+import org.jvnet.jaxb2_commons.lang.DefaultToStringStrategy;
 
-import java.util.List;
+public class LessFuzzToStringStrategy extends DefaultToStringStrategy {
 
-public interface XMLManifest {
+    @Override
+    public boolean isUseIdentityHashCode() {
+        return false;
+    }
 
-	XMLDocument getDocument();
-
-	XMLAuthenticationLevel getRequiredAuthentication();
-
-	List<? extends XMLSigner> getSigners();
+    @Override
+    protected void appendClassName(StringBuilder toString, Object object) {
+        if (object != null) {
+            toString.append(object.getClass().getSimpleName());
+        }
+    }
 
 }
