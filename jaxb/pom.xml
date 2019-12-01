@@ -101,7 +101,7 @@
         <dependency>
             <groupId>no.digipost</groupId>
             <artifactId>digg</artifactId>
-            <version>0.20</version>
+            <version>0.21</version>
             <scope>test</scope>
         </dependency>
         <dependency>
