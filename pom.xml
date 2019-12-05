@@ -6,7 +6,7 @@
     <parent>
         <groupId>no.digipost</groupId>
         <artifactId>digipost-open-super-pom</artifactId>
-        <version>3</version>
+        <version>6</version>
     </parent>
 
     <name>Posten signering - API Specification</name>
@@ -14,7 +14,7 @@
 
     <groupId>no.digipost.signature</groupId>
 	<artifactId>signature-api-specification-parent</artifactId>
-	<version>2.8-SNAPSHOT</version>
+	<version>LOCAL-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -124,6 +124,7 @@
                             <exclude>jaxb/*.xjb</exclude>
                             <exclude>integrasjon/**</exclude>
                             <exclude>docs/**</exclude>
+                            <exclude>.github/**/*.yml</exclude>
                             <exclude>.java-version</exclude>
                             <exclude>.mvn/maven.config</exclude>
                         </excludes>

@@ -9,6 +9,3 @@ Det finnes klientbiblioteker som forenkler integrasjonsprosessen for C# og Java.
 
 I dette repoet finner du API-spesifikasjonen for API-et til [Posten Signering](http://www.signering.posten.no). Hvordan denne skal brukes og implementeres finner du i [Dokumentasjon for Posten signering](https://signering-docs.rtfd.io).
 
-## Releasing (kun for medlemmer av Digipost organisasjonen)
-
-Se docs/systemer/open-source-biblioteker.md
