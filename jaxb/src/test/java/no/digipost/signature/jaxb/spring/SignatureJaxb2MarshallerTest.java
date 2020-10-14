@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static co.unruly.matchers.Java8Matchers.where;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
@@ -74,13 +75,13 @@ public class SignatureJaxb2MarshallerTest {
                 .withErrorUrl(URI.create("http://localhost/failed"));
 
         XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Collections.singletonList(directSigner), sender, Collections.singletonList(directDocument), THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
         marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
 
         XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc", null);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Collections.singletonList(portalSigner), sender, Collections.singletonList(portalDocument), FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
     }
@@ -108,8 +109,8 @@ public class SignatureJaxb2MarshallerTest {
         XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "nonsensitive title", "Description", null, "application/pdf");
         XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Description", null, "application/pdf");
 
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, portalDocument, FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, Collections.singletonList(directDocument), FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, Collections.singletonList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
 
         MarshallingFailureException directManifestMarshallingFailure =

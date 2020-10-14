@@ -15,13 +15,11 @@
  */
 package no.digipost.signature.api.xml;
 
-import no.digipost.signature.api.xml.XMLAuthenticationLevel;
-
 import java.util.List;
 
 public interface XMLManifest {
 
-	XMLDocument getDocument();
+	List<? extends XMLDocument> getDocuments();
 
 	XMLAuthenticationLevel getRequiredAuthentication();
 

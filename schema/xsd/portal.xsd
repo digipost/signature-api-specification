@@ -171,7 +171,7 @@ for the default queue.
             <xs:sequence>
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="portal-signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
-                <xs:element name="document" minOccurs="1" maxOccurs="1" type="portal-document"/>
+                <xs:element name="document" minOccurs="1" maxOccurs="10" type="portal-document"/>
                 <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>
                 <xs:element name="identifier-in-signed-documents" minOccurs="0" type="identifier-in-signed-documents"/>

@@ -36,6 +36,11 @@
         <nonsensitive-title>Ikke-sensitiv tittel</nonsensitive-title>
         <description>Melding til undertegner</description>
     </document>
+    <document href="document2.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <nonsensitive-title>Ikke-sensitiv tittel</nonsensitive-title>
+        <description>Melding til undertegner</description>
+    </document>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
         <available-seconds>864000</available-seconds>
