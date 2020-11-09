@@ -15,9 +15,6 @@
  */
 package no.digipost.signature.api.xml;
 
-import no.digipost.signature.api.xml.XMLSignatureType;
-import no.digipost.signature.api.xml.XMLSigningOnBehalfOf;
-
 public interface XMLSigner {
 
     XMLSignatureType getSignatureType();
