@@ -13,13 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.api.xml;
+package no.digipost.signature.jaxb.adapter;
 
-public interface XMLDocument {
+import no.digipost.signature.api.xml.XMLHref;
 
-	String getTitle();
-	String getDescription();
-	XMLHref getHref();
-	String getMime();
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+public final class HrefXmlAdapter extends XmlAdapter<String, XMLHref> {
+
+    @Override
+    public XMLHref unmarshal(String hrefString) {
+        return hrefString != null ? XMLHref.of(hrefString) : null;
+    }
+
+    @Override
+    public String marshal(XMLHref href) {
+        return href != null ? href.asUrlEncodedString() : null;
+    }
 
 }

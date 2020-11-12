@@ -23,6 +23,7 @@ import no.digipost.signature.api.xml.XMLDirectSignatureJobStatusResponse;
 import no.digipost.signature.api.xml.XMLDirectSigner;
 import no.digipost.signature.api.xml.XMLEnabled;
 import no.digipost.signature.api.xml.XMLExitUrls;
+import no.digipost.signature.api.xml.XMLHref;
 import no.digipost.signature.api.xml.XMLNotificationsUsingLookup;
 import no.digipost.signature.api.xml.XMLPortalDocument;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobManifest;
@@ -47,8 +48,8 @@ import java.util.Collections;
 import static co.unruly.matchers.Java8Matchers.where;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
-import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
 import static no.digipost.signature.api.xml.XMLDirectSignerStatusValue.SIGNED;
+import static no.digipost.signature.api.xml.XMLIdentifierInSignedDocuments.PERSONAL_IDENTIFICATION_NUMBER_AND_NAME;
 import static no.digipost.signature.api.xml.XMLStatusRetrievalMethod.WAIT_FOR_CALLBACK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -67,8 +68,8 @@ public class SignatureJaxb2MarshallerTest {
         XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
         XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910").withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
         XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
-        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "Non-sensitive title", "Message", "document.pdf", "application/pdf");
-        XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Message", "document.pdf", "application/pdf");
+        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "Non-sensitive title", "Message", XMLHref.of("document.pdf"), "application/pdf");
+        XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Message", XMLHref.of("document.pdf"), "application/pdf");
         XMLExitUrls exitUrls = new XMLExitUrls()
                 .withCompletionUrl(URI.create("http://localhost/signed"))
                 .withRejectionUrl(URI.create("http://localhost/rejected"))

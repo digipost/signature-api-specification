@@ -61,6 +61,11 @@
         </bindings>
         <bindings node="//xs:complexType[@name='portal-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
         </bindings>
         <bindings node="//xs:complexType[@name='portal-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
@@ -73,6 +78,11 @@
         </bindings>
         <bindings node="//xs:complexType[@name='direct-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
         </bindings>
         <bindings node="//xs:complexType[@name='direct-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
