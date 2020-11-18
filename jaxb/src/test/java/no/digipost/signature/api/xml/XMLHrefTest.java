@@ -18,9 +18,13 @@ package no.digipost.signature.api.xml;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
+import java.net.URLDecoder;
+
 import static co.unruly.matchers.Java8Matchers.where;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class XMLHrefTest {
 
@@ -45,5 +49,15 @@ class XMLHrefTest {
     void producesUrlEncodedHrefString() {
         assertThat(XMLHref.of("http://url.com"), where(XMLHref::asUrlEncodedString, is("http%3A%2F%2Furl.com")));
     }
+
+    @Test
+    void handlesNonEncodedHrefsWithCharactersThatWouldBeIllegallyEncoded() {
+        String nonEncodedWithIllegalCharacters = "% B";
+        assertDoesNotThrow(() -> XMLHref.of(nonEncodedWithIllegalCharacters));
+
+        assertThrows(IllegalArgumentException.class, () -> URLDecoder.decode(nonEncodedWithIllegalCharacters, "UTF-8"),
+                "sanity check that the string is actually a non-encoded String which would not make sense to decode");
+    }
+
 
 }

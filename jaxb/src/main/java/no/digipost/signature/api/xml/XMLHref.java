@@ -20,9 +20,6 @@ import no.digipost.signature.jaxb.adapter.HrefXmlAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 
@@ -38,11 +35,7 @@ public final class XMLHref {
     }
 
     public static XMLHref of(String href) {
-        try {
-            return new XMLHref(URLDecoder.decode(href, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+        return new XMLHref(UrlEncoding.decodeIfEncoded(href));
     }
 
 
@@ -53,11 +46,7 @@ public final class XMLHref {
     }
 
     public String asUrlEncodedString() {
-        try {
-            return URLEncoder.encode(href, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+        return UrlEncoding.encode(href);
     }
 
     public String asString() {
