@@ -18,6 +18,7 @@ package no.digipost.signature.api.xml;
 public interface XMLDocument {
 
 	String getTitle();
+	String getDescription();
 	XMLHref getHref();
 	String getMime();
 
