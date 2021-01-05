@@ -171,6 +171,29 @@ for the default queue.
             <xs:sequence>
                 <xs:element name="signers" minOccurs="1" maxOccurs="1" type="portal-signers"/>
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
+                <xs:element name="title" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="80"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="nonsensitive-title" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="80"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="description" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="220"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="document" minOccurs="1" maxOccurs="unbounded" type="portal-document"/>
                 <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>

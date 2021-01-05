@@ -68,21 +68,21 @@ public class SignatureJaxb2MarshallerTest {
         XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
         XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910").withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
         XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
-        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "Non-sensitive title", "Message", XMLHref.of("document.pdf"), "application/pdf");
-        XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Message", XMLHref.of("document.pdf"), "application/pdf");
+        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", null, null, XMLHref.of("document.pdf"), "application/pdf");
+        XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, XMLHref.of("document.pdf"), "application/pdf");
         XMLExitUrls exitUrls = new XMLExitUrls()
                 .withCompletionUrl(URI.create("http://localhost/signed"))
                 .withRejectionUrl(URI.create("http://localhost/rejected"))
                 .withErrorUrl(URI.create("http://localhost/failed"));
 
         XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Collections.singletonList(directSigner), sender, Collections.singletonList(directDocument), THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Collections.singletonList(directSigner), sender, "Title", "Message", Collections.singletonList(directDocument), THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
         marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
 
         XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc", null);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Collections.singletonList(portalSigner), sender, Collections.singletonList(portalDocument), FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Collections.singletonList(portalSigner), sender, "Title", "Non-sensitive title", "Message", Collections.singletonList(portalDocument), FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
     }
@@ -107,11 +107,11 @@ public class SignatureJaxb2MarshallerTest {
         XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
         XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910");
         XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
-        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", "nonsensitive title", "Description", null, "application/pdf");
-        XMLDirectDocument directDocument = new XMLDirectDocument("Title", "Description", null, "application/pdf");
+        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", null, null, null, "application/pdf");
+        XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, null, "application/pdf");
 
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, Collections.singletonList(directDocument), FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, Collections.singletonList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(Arrays.asList(directSigner), sender, "Title", "Description", Collections.singletonList(directDocument), FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(Arrays.asList(portalSigner), sender, "Title", "nonsensitive title", "Description", Collections.singletonList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
 
         MarshallingFailureException directManifestMarshallingFailure =

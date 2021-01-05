@@ -19,10 +19,14 @@ import java.util.List;
 
 public interface XMLManifest {
 
-	List<? extends XMLDocument> getDocuments();
+    String getTitle();
 
-	XMLAuthenticationLevel getRequiredAuthentication();
+    String getDescription();
 
-	List<? extends XMLSigner> getSigners();
+    List<? extends XMLDocument> getDocuments();
+
+    XMLAuthenticationLevel getRequiredAuthentication();
+
+    List<? extends XMLSigner> getSigners();
 
 }

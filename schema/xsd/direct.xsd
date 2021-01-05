@@ -150,6 +150,21 @@ for the default queue.
             <xs:sequence>
                 <xs:element name="signer" minOccurs="1" maxOccurs="10" type="direct-signer" />
                 <xs:element name="sender" minOccurs="1" maxOccurs="1" type="sender"/>
+                <xs:element name="title" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="80"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="description" minOccurs="0" maxOccurs="1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="220"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="document" minOccurs="1" maxOccurs="unbounded" type="direct-document"/>
                 <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="identifier-in-signed-documents" minOccurs="0" type="identifier-in-signed-documents"/>
