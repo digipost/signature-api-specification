@@ -13,12 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.api.xml;
+package no.digipost.signature.api.xml.legacy;
 
-public interface XMLDocument {
+import no.digipost.signature.api.xml.XMLDocument;
 
-	String getTitle();
-	XMLHref getHref();
-	String getMime();
+@Deprecated
+public interface XMLLegacyDocument extends XMLDocument {
+
+    String getDescription();
+
+    default String getNonsensitiveTitle() {
+        return null;
+    }
 
 }
