@@ -145,7 +145,7 @@ public class SignatureJaxb2MarshallerTest {
         XMLDirectSignatureJobStatusResponse unmarshalled;
         try (InputStream responseWithUnknownElement = getClass().getResourceAsStream("/xml/direct_signature_job_response_with_unexpected_element.xml")) {
             unmarshalled = (XMLDirectSignatureJobStatusResponse) SignatureJaxb2Marshaller.ForResponsesOfAllApis.singleton()
-                    .unmarshal(new StreamSource(getClass().getResourceAsStream("/xml/direct_signature_job_response_with_unexpected_element.xml")));
+                    .unmarshal(new StreamSource(responseWithUnknownElement));
         }
 
         assertThat(unmarshalled, where(XMLDirectSignatureJobStatusResponse::getSignatureJobId, is(1L)));
