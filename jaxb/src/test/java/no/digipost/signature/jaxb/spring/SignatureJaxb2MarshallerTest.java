@@ -24,6 +24,7 @@ import no.digipost.signature.api.xml.XMLDirectSigner;
 import no.digipost.signature.api.xml.XMLEnabled;
 import no.digipost.signature.api.xml.XMLExitUrls;
 import no.digipost.signature.api.xml.XMLHref;
+import no.digipost.signature.api.xml.XMLLegacyPortalDocument;
 import no.digipost.signature.api.xml.XMLNotificationsUsingLookup;
 import no.digipost.signature.api.xml.XMLPortalDocument;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobManifest;
@@ -39,8 +40,10 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import static co.unruly.matchers.Java8Matchers.where;
@@ -61,6 +64,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SignatureJaxb2MarshallerTest {
 
     private final Jaxb2Marshaller marshaller = SignatureJaxb2Marshaller.ForAllApis.singleton();
+    private final MarshallingMatchers marshalling = new MarshallingMatchers(marshaller);
 
     @Test
     public void valid_objects_can_be_marshalled() {
@@ -84,6 +88,18 @@ public class SignatureJaxb2MarshallerTest {
         XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(asList(portalSigner), sender, null, "Title", "Non-sensitive title", "Message", asList(portalDocument), FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
         marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
         marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
+    }
+
+    @Test
+    void marshalling_and_unmarshall_legacy_portal_manifest() throws IOException {
+        XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
+        XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910").withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
+        XMLLegacyPortalDocument legacyDocument = new XMLLegacyPortalDocument("title", "non-sensitive title", "description", XMLHref.of("document.pdf"), "application/pdf");
+
+        XMLPortalSignatureJobManifest legacyManifest = new XMLPortalSignatureJobManifest(asList(portalSigner), sender, legacyDocument, null, null, null, null, FOUR,
+                new XMLAvailability().withActivationTime(ZonedDateTime.now(ZoneId.of("GMT"))), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+        assertThat(legacyManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
     }
 
     @Test
