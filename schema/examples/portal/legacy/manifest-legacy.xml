@@ -31,20 +31,11 @@
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <title>Required job title</title>
-    <nonsensitive-title>Optional non-sensitive job title</nonsensitive-title>
-    <description>
-        Optional description of the job. May be a summary of the document to be signed,
-        or any message one wish to communicate when the signer is going to sign the document.
-    </description>
-    <documents>
-        <document href="document.pdf" mime="application/pdf">
-            <title>First document</title>
-        </document>
-        <document href="document2.pdf" mime="application/pdf">
-            <title>Second document</title>
-        </document>
-    </documents>
+    <document href="document.pdf" mime="application/pdf">
+        <title>Tittel</title>
+        <nonsensitive-title>Ikke-sensitiv tittel</nonsensitive-title>
+        <description>Melding til undertegner</description>
+    </document>
     <availability>
         <activation-time>2016-02-10T12:00:00+01:00</activation-time>
         <available-seconds>864000</available-seconds>
