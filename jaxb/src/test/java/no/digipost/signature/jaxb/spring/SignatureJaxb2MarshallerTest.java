@@ -47,6 +47,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import static co.unruly.matchers.Java8Matchers.where;
+import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.Arrays.asList;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
@@ -132,7 +133,7 @@ class SignatureJaxb2MarshallerTest {
         final XMLPortalSigner portalSigner = new XMLPortalSigner()
                 .withPersonalIdentificationNumber("12345678910")
                 .withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
-        final XMLAvailability availability = new XMLAvailability().withActivationTime(ZonedDateTime.now(ZoneId.of("GMT")));
+        final XMLAvailability availability = new XMLAvailability().withActivationTime(ZonedDateTime.now(ZoneId.of("GMT")).truncatedTo(MILLIS));
 
 
         @Test
