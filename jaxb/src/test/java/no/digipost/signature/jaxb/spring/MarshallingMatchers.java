@@ -18,6 +18,7 @@ package no.digipost.signature.jaxb.spring;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
+import org.javers.core.Javers;
 import org.javers.core.diff.Diff;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.xml.transform.StringSource;
@@ -31,10 +32,13 @@ import static no.digipost.DiggExceptions.exceptionNameAndMessage;
 import static org.javers.core.JaversBuilder.javers;
 
 final class MarshallingMatchers {
+
     private final Jaxb2Marshaller marshaller;
+    private final Javers javers;
 
     public MarshallingMatchers(Jaxb2Marshaller marshaller) {
         this.marshaller = marshaller;
+        this.javers = javers().build();
     }
 
 
@@ -69,7 +73,7 @@ final class MarshallingMatchers {
                             return false;
                     }
 
-                    Diff diff = javers().build().compare(unmarshalled, item);
+                    Diff diff = javers.compare(unmarshalled, item);
                     if (!diff.hasChanges()) {
                         return true;
                     } else {

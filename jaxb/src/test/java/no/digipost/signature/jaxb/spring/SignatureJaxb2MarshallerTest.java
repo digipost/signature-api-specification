@@ -32,6 +32,7 @@ import no.digipost.signature.api.xml.XMLPortalSignatureJobRequest;
 import no.digipost.signature.api.xml.XMLPortalSigner;
 import no.digipost.signature.api.xml.XMLSender;
 import no.digipost.signature.api.xml.XMLSignerStatus;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.oxm.MarshallingFailureException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -40,7 +41,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZoneId;
@@ -61,87 +61,124 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SignatureJaxb2MarshallerTest {
+class SignatureJaxb2MarshallerTest {
 
-    private final Jaxb2Marshaller marshaller = SignatureJaxb2Marshaller.ForAllApis.singleton();
-    private final MarshallingMatchers marshalling = new MarshallingMatchers(marshaller);
-
-    @Test
-    public void valid_objects_can_be_marshalled() {
-        XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
-        XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910").withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
-        XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
-        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", XMLHref.of("document.pdf"), "application/pdf");
-        XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, XMLHref.of("document.pdf"), "application/pdf");
-        XMLExitUrls exitUrls = new XMLExitUrls()
-                .withCompletionUrl(URI.create("http://localhost/signed"))
-                .withRejectionUrl(URI.create("http://localhost/rejected"))
-                .withErrorUrl(URI.create("http://localhost/failed"));
-
-        XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-
-        marshaller.marshal(directJob, new StreamResult(new ByteArrayOutputStream()));
-        marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()));
-
-        XMLPortalSignatureJobRequest portalJob = new XMLPortalSignatureJobRequest("123abc", null);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(asList(portalSigner), sender, null, "Title", "Non-sensitive title", "Message", asList(portalDocument), FOUR, new XMLAvailability().withActivationTime(ZonedDateTime.now()), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-        marshaller.marshal(portalJob, new StreamResult(new ByteArrayOutputStream()));
-        marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()));
-    }
-
-    @Test
-    void marshalling_and_unmarshall_legacy_portal_manifest() throws IOException {
-        XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
-        XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910").withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
-        XMLLegacyPortalDocument legacyDocument = new XMLLegacyPortalDocument("title", "non-sensitive title", "description", XMLHref.of("document.pdf"), "application/pdf");
-
-        XMLPortalSignatureJobManifest legacyManifest = new XMLPortalSignatureJobManifest(asList(portalSigner), sender, legacyDocument, null, null, null, null, FOUR,
-                new XMLAvailability().withActivationTime(ZonedDateTime.now(ZoneId.of("GMT"))), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-
-        assertThat(legacyManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
-    }
-
-    @Test
-    public void invalid_signature_job_request_causes_exceptions() {
-        XMLExitUrls exitUrls = new XMLExitUrls()
-                .withCompletionUrl(null)
-                .withRejectionUrl(URI.create("http://localhost/rejected"))
-                .withErrorUrl(URI.create("http://localhost/failed"));
-
-        XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
-
-        MarshallingFailureException thrown = assertThrows(MarshallingFailureException.class,
-                () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream())));
-
-        assertThat(thrown.getMessage(), allOf(containsString("completion-url"), containsString("is expected")));
-    }
-
-    @Test
-    public void invalid_manifest_causes_exceptions() {
-        XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
-        XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910");
-        XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
-        XMLPortalDocument portalDocument = new XMLPortalDocument("Title", null, "application/pdf");
-        XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, null, "application/pdf");
-
-        XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
-        XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(asList(portalSigner), sender, null, "Title", "nonsensitive title", "Description", asList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+    private static final Jaxb2Marshaller marshaller = SignatureJaxb2Marshaller.ForAllApis.singleton();
+    private static final MarshallingMatchers marshalling = new MarshallingMatchers(marshaller);
 
 
-        MarshallingFailureException directManifestMarshallingFailure =
-                assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream())));
+    private final XMLSender sender = new XMLSender().withOrganizationNumber("123456789");
 
-        MarshallingFailureException portalManifestMarshallingFailure =
-                assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream())));
 
-        assertThat(directManifestMarshallingFailure, where(Exception::getMessage, allOf(containsString("href"), containsString("must appear"))));
-        assertThat(portalManifestMarshallingFailure, where(Exception::getMessage, allOf(containsString("signature-type"), containsString("notifications-using-lookup"), containsString("notifications"))));
+    @Nested
+    class DirectApi {
+
+        final XMLDirectSigner directSigner = new XMLDirectSigner().withPersonalIdentificationNumber("12345678910");
+
+        @Test
+        void directjob_is_marshalled() {
+            XMLExitUrls exitUrls = new XMLExitUrls()
+                    .withCompletionUrl(URI.create("http://localhost/signed"))
+                    .withRejectionUrl(URI.create("http://localhost/rejected"))
+                    .withErrorUrl(URI.create("http://localhost/failed"));
+            XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
+
+            assertThat(directJob, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+        @Test
+        void direct_manifest_is_marshalled() {
+            XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, XMLHref.of("document.pdf"), "application/pdf");
+            XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(
+                    asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+            assertThat(directManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+        @Test
+        void invalid_manifest_causes_exceptions() {
+            XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, null, "application/pdf");
+            XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(
+                    asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+
+            MarshallingFailureException marshallingFailure =
+                    assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream())));
+
+            assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("href"), containsString("must appear"))));
+        }
+
+        @Test
+        void invalid_signature_job_request_causes_exceptions() {
+            XMLExitUrls exitUrls = new XMLExitUrls()
+                    .withCompletionUrl(null)
+                    .withRejectionUrl(URI.create("http://localhost/rejected"))
+                    .withErrorUrl(URI.create("http://localhost/failed"));
+
+            XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
+
+            MarshallingFailureException thrown = assertThrows(MarshallingFailureException.class,
+                    () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream())));
+
+            assertThat(thrown, where(Exception::getMessage, allOf(containsString("completion-url"), containsString("is expected"))));
+        }
 
     }
 
+
+    @Nested
+    class PortalApi {
+
+        final XMLPortalSigner portalSigner = new XMLPortalSigner()
+                .withPersonalIdentificationNumber("12345678910")
+                .withNotificationsUsingLookup(new XMLNotificationsUsingLookup().withEmail(new XMLEnabled()));
+        final XMLAvailability availability = new XMLAvailability().withActivationTime(ZonedDateTime.now(ZoneId.of("GMT")));
+
+
+        @Test
+        void portaljob_is_marshalled() {
+            assertThat(new XMLPortalSignatureJobRequest("123abc", null), marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+        @Test
+        void portal_manifest_is_marshalled() {
+            XMLPortalDocument portalDocument = new XMLPortalDocument("Title", XMLHref.of("document.pdf"), "application/pdf");
+
+            XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(
+                    asList(portalSigner), sender, null, "Title", "Non-sensitive title", "Description", asList(portalDocument), FOUR, availability, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+            assertThat(portalManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+
+        @Test
+        void legacy_portal_manifest_is_marshalled() {
+            XMLLegacyPortalDocument legacyDocument = new XMLLegacyPortalDocument("Title", "Non-sensitive title", "Description", XMLHref.of("document.pdf"), "application/pdf");
+
+            XMLPortalSignatureJobManifest legacyManifest = new XMLPortalSignatureJobManifest(
+                    asList(portalSigner), sender, legacyDocument, null, null, null, null, FOUR, availability, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+            assertThat(legacyManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+        @Test
+        public void invalid_manifest_causes_exceptions() {
+            XMLPortalSigner portalSigner = new XMLPortalSigner().withPersonalIdentificationNumber("12345678910");
+            XMLPortalDocument portalDocument = new XMLPortalDocument("Title", null, "application/pdf");
+            XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(
+                    asList(portalSigner), sender, null, "Title", "nonsensitive title", "Description", asList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+            MarshallingFailureException marshallingFailure =
+                    assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream())));
+
+            assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("signature-type"), containsString("notifications-using-lookup"), containsString("notifications"))));
+        }
+
+    }
+
+
+
     @Test
-    public void response_unmarshaller_ignores_unexpected_elements_in_response() throws Exception {
+    void response_unmarshaller_ignores_unexpected_elements_in_response() throws Exception {
         XMLDirectSignatureJobStatusResponse unmarshalled;
         try (InputStream responseWithUnknownElement = getClass().getResourceAsStream("/xml/direct_signature_job_response_with_unexpected_element.xml")) {
             unmarshalled = (XMLDirectSignatureJobStatusResponse) SignatureJaxb2Marshaller.ForResponsesOfAllApis.singleton()
