@@ -15,14 +15,22 @@
  */
 package no.digipost.signature.api.xml;
 
+import no.digipost.signature.api.xml.legacy.XMLLegacyDocument;
+
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public interface XMLManifest {
 
-	List<? extends XMLDocument> getDocuments();
+    JobInformation getJobInformation();
 
-	XMLAuthenticationLevel getRequiredAuthentication();
+    List<? extends XMLDocument> getDocumentsToSign();
 
-	List<? extends XMLSigner> getSigners();
+    @Deprecated
+    XMLLegacyDocument getDocument();
+
+    XMLAuthenticationLevel getRequiredAuthentication();
+
+    List<? extends XMLSigner> getSigners();
 
 }

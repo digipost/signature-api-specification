@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Build with Maven
-        run: mvn -B package --no-transfer-progress --file pom.xml
+        run: mvn -B verify --show-version --no-transfer-progress
 
   deploy:
     runs-on: ubuntu-latest
