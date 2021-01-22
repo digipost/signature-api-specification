@@ -14,6 +14,7 @@
 
     <properties>
         <xsd.directory>${project.basedir}/target/generated-resources/xsd</xsd.directory>
+        <previous.version>set_with_-Dprevious.version=X.Y</previous.version>
     </properties>
 
     <dependencyManagement>
@@ -157,6 +158,32 @@
                     <artifactId>maven-notice-plugin</artifactId>
                     <configuration>
                         <noticeTemplate>${project.basedir}/../src/notice/NOTICE.template</noticeTemplate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.siom79.japicmp</groupId>
+                    <artifactId>japicmp-maven-plugin</artifactId>
+                    <version>0.15.2</version>
+                    <configuration>
+                        <oldVersion>
+                            <dependency>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>${project.artifactId}</artifactId>
+                                <version>${previous.version}</version>
+                            </dependency>
+                        </oldVersion>
+                        <newVersion>
+                            <file>
+                                <path>${project.build.directory}/${project.build.finalName}.${project.packaging}</path>
+                            </file>
+                        </newVersion>
+                        <parameter>
+                            <onlyModified>true</onlyModified>
+                            <onlyBinaryIncompatible>true</onlyBinaryIncompatible>
+                            <includes>
+                                <include>no.digipost.signature</include>
+                            </includes>
+                        </parameter>
                     </configuration>
                 </plugin>
             </plugins>
