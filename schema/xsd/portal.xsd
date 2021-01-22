@@ -190,7 +190,14 @@ for the default queue.
                             </xs:complexType>
                         </xs:element>
                     </xs:sequence>
-                    <xs:element name="document" minOccurs="1" maxOccurs="1" type="legacy-portal-document"/>
+                    <xs:element name="document" minOccurs="1" maxOccurs="1" type="legacy-portal-document" >
+                        <xs:annotation>
+                            <xs:documentation>
+                                DEPRECATED. The preferred way is to specify title, non-sensitive title,
+                                and description directly on the manifest, and only set a title for each document.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:choice>
                 <xs:element name="required-authentication" type="authentication-level" minOccurs="0" maxOccurs="1" />
                 <xs:element name="availability" minOccurs="0" maxOccurs="1" type="availability"/>
