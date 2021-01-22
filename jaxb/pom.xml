@@ -14,7 +14,7 @@
 
     <properties>
         <xsd.directory>${project.basedir}/target/generated-resources/xsd</xsd.directory>
-        <previous.version>set_with_-Dprevious.version=X.Y</previous.version>
+        <project.previousVersion>set_with_-Dproject.previousVersion=X.Y</project.previousVersion>
     </properties>
 
     <dependencyManagement>
@@ -169,7 +169,7 @@
                             <dependency>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>${project.artifactId}</artifactId>
-                                <version>${previous.version}</version>
+                                <version>${project.previousVersion}</version>
                             </dependency>
                         </oldVersion>
                         <newVersion>
