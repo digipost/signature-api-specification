@@ -172,7 +172,7 @@ for the default queue.
                     <xs:element name="document" minOccurs="1" maxOccurs="1" type="legacy-direct-document" >
                         <xs:annotation>
                             <xs:documentation>
-                                DEPRECATED. The preferred way is to specify title, non-sensitive title,
+                                DEPRECATED. The preferred way is to specify title
                                 and description directly on the manifest, and only set a title for each document.
                             </xs:documentation>
                         </xs:annotation>
