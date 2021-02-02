@@ -161,7 +161,7 @@ for the default queue.
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="document" minOccurs="1" maxOccurs="1" type="direct-document">
+                        <xs:element name="documents" minOccurs="1" maxOccurs="1" type="direct-document">
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="document" minOccurs="1" maxOccurs="unbounded" type="direct-document"/>
