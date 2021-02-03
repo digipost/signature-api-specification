@@ -87,11 +87,10 @@
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
         <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
             <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
-            <inheritance:implements>no.digipost.signature.api.xml.SingleDocumentManifest</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.MultipleDocumentsManifestWithLegacySingleDocumentSupport</inheritance:implements>
         </bindings>
         <bindings node="//xs:complexType[@name='direct-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
-            <inheritance:implements>no.digipost.signature.api.xml.legacy.XMLLegacyDocument</inheritance:implements>
             <bindings node="xs:attribute[@name='href']">
                 <property>
                     <baseType name="no.digipost.signature.api.xml.XMLHref" />
@@ -103,6 +102,17 @@
         </bindings>
         <bindings node="//xs:complexType[@name='direct-signature-job-response']/*/xs:element[@name='redirect-url']">
             <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
+        </bindings>
+    </bindings>
+
+    <bindings schemaLocation="../../../target/generated-resources/xsd/direct-legacy.xsd" node="/xs:schema">
+        <bindings node="//xs:complexType[@name='legacy-direct-document']">
+            <inheritance:implements>no.digipost.signature.api.xml.legacy.XMLLegacyDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
         </bindings>
     </bindings>
 

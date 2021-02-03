@@ -24,6 +24,7 @@ import no.digipost.signature.api.xml.XMLDirectSigner;
 import no.digipost.signature.api.xml.XMLEnabled;
 import no.digipost.signature.api.xml.XMLExitUrls;
 import no.digipost.signature.api.xml.XMLHref;
+import no.digipost.signature.api.xml.XMLLegacyDirectDocument;
 import no.digipost.signature.api.xml.XMLLegacyPortalDocument;
 import no.digipost.signature.api.xml.XMLNotificationsUsingLookup;
 import no.digipost.signature.api.xml.XMLPortalDocument;
@@ -89,18 +90,27 @@ class SignatureJaxb2MarshallerTest {
 
         @Test
         void direct_manifest_is_marshalled() {
-            XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, XMLHref.of("document.pdf"), "application/pdf");
+            XMLDirectDocument directDocument = new XMLDirectDocument("Document title", XMLHref.of("document.pdf"), "application/pdf");
             XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(
-                    asList(directSigner), sender, directDocument, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+                    asList(directSigner), sender, null, "Title", "Description", asList(directDocument), THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
             assertThat(directManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
         }
 
         @Test
+        void legacy_direct_manifest_is_marshalled() {
+            XMLLegacyDirectDocument legacyDocument = new XMLLegacyDirectDocument("Title", "description", XMLHref.of("document.pdf"), "application/pdf");
+            XMLDirectSignatureJobManifest legacyManifest = new XMLDirectSignatureJobManifest(
+                    asList(directSigner), sender, legacyDocument, null, null, null, THREE, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+
+            assertThat(legacyManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
+        }
+
+        @Test
         void invalid_manifest_causes_exceptions() {
-            XMLDirectDocument directDocument = new XMLDirectDocument("Title", null, null, "application/pdf");
+            XMLDirectDocument directDocument = new XMLDirectDocument("Document title", null, "application/pdf");
             XMLDirectSignatureJobManifest directManifest = new XMLDirectSignatureJobManifest(
-                    asList(directSigner), sender, directDocument, FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
+                    asList(directSigner), sender, null, "Title", null, asList(directDocument), FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
 
             MarshallingFailureException marshallingFailure =

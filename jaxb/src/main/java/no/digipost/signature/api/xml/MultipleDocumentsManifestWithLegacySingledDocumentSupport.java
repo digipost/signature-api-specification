@@ -45,6 +45,8 @@ interface MultipleDocumentsManifestWithLegacySingleDocumentSupport extends XMLMa
 
     String getDescription();
 
-    String getNonsensitiveTitle();
+    default String getNonsensitiveTitle() {
+        return null;
+    }
 
 }

@@ -28,8 +28,8 @@ import static org.hamcrest.Matchers.is;
 class XMLDirectSignatureJobTest {
 
     @Test
-    void adaptSingularDocumentManifestToMultipleDocumentApi() {
-        XMLDirectDocument document = new XMLDirectDocument("title", "description", XMLHref.of("href"), "application/pdf");
+    void adaptLegacySingularDocumentManifestToMultipleDocumentsApi() {
+        XMLLegacyDirectDocument document = new XMLLegacyDirectDocument("title", "description", XMLHref.of("href"), "application/pdf");
         XMLDirectSignatureJobManifest manifest = new XMLDirectSignatureJobManifest().withDocument(document);
         assertThat(manifest, where(XMLManifest::getDocumentsToSign, Matchers.contains(document)));
         assertThat(manifest.getJobInformation(), where(JobInformation::getTitle, both(is("title")).and(is(manifest.getDocument().getTitle()))));
