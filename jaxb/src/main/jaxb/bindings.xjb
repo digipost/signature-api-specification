@@ -60,6 +60,9 @@
             <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
             <inheritance:implements>no.digipost.signature.api.xml.MultipleDocumentsManifestWithLegacySingleDocumentSupport</inheritance:implements>
         </bindings>
+        <bindings node="//xs:choice/xs:element[@name='document']">
+            <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
+        </bindings>
         <bindings node="//xs:complexType[@name='portal-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
             <bindings node="xs:attribute[@name='href']">
@@ -88,6 +91,9 @@
         <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
             <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
             <inheritance:implements>no.digipost.signature.api.xml.MultipleDocumentsManifestWithLegacySingleDocumentSupport</inheritance:implements>
+        </bindings>
+        <bindings node="//xs:choice/xs:element[@name='document']">
+            <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
         </bindings>
         <bindings node="//xs:complexType[@name='direct-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
