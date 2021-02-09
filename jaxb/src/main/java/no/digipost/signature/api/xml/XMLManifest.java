@@ -17,7 +17,6 @@ package no.digipost.signature.api.xml;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public interface XMLManifest {
 
     JobInformation getJobInformation();

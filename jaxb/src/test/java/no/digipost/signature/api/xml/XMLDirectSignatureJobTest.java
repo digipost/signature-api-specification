@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.is;
 class XMLDirectSignatureJobTest {
 
     @Test
+    @SuppressWarnings("deprecation")
     void adaptLegacySingularDocumentManifestToMultipleDocumentsApi() {
         XMLLegacyDirectDocument document = new XMLLegacyDirectDocument("title", "description", XMLHref.of("href"), "application/pdf");
         XMLDirectSignatureJobManifest manifest = new XMLDirectSignatureJobManifest().withDocument(document);

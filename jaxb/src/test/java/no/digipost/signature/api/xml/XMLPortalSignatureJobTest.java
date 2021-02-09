@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.nullValue;
 class XMLPortalSignatureJobTest {
 
     @Test
+    @SuppressWarnings("deprecation")
     void viewLegacySingularDocumentManifestAsMultipleDocumentsManifest() {
         XMLLegacyPortalDocument document = new XMLLegacyPortalDocument("title", "non-sensitive title", "description", XMLHref.of("href"), "application/pdf");
         XMLPortalSignatureJobManifest manifest = new XMLPortalSignatureJobManifest().withDocument(document);
@@ -38,6 +39,7 @@ class XMLPortalSignatureJobTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     void multipleDocumentsManifest() {
         XMLPortalDocument document = new XMLPortalDocument("document title", XMLHref.of("href"), "application/pdf");
         XMLPortalSignatureJobManifest manifest = new XMLPortalSignatureJobManifest()

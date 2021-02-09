@@ -15,8 +15,6 @@
  */
 package no.digipost.signature.api.xml;
 
-import no.digipost.signature.api.xml.legacy.XMLLegacyDocument;
-
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -36,12 +34,12 @@ interface MultipleDocumentsManifestWithLegacySingleDocumentSupport extends XMLMa
 
     @Override
     default List<? extends XMLDocument> getDocumentsToSign() {
-        @SuppressWarnings("deprecation")
         XMLDocument singleDocument = getDocument();
         return singleDocument != null ? asList(singleDocument) : getDocuments();
     }
 
-    XMLLegacyDocument getDocument();
+    @SuppressWarnings("deprecation")
+    no.digipost.signature.api.xml.legacy.XMLLegacyDocument getDocument();
 
     List<? extends XMLDocument> getDocuments();
 
