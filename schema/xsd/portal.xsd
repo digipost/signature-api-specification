@@ -185,7 +185,7 @@ for the default queue.
                         <xs:element name="documents" minOccurs="1" maxOccurs="1">
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="document" minOccurs="1" maxOccurs="unbounded" type="portal-document"/>
+                                    <xs:element name="document" minOccurs="1" maxOccurs="20" type="portal-document"/>
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
