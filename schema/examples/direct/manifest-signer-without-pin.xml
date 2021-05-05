@@ -6,9 +6,12 @@
     <sender>
         <organization-number>123456789</organization-number>
     </sender>
-    <document href="document.pdf" mime="application/pdf">
-        <title>Tittel</title>
-        <description>Melding til undertegner</description>
-    </document>
+    <title>Tittel på oppdrag</title>
+    <description>Melding til undertegner</description>
+    <documents>
+        <document href="document.pdf" mime="application/pdf">
+            <title>Tittel på dokument</title>
+        </document>
+    </documents>
     <identifier-in-signed-documents>DATE_OF_BIRTH_AND_NAME</identifier-in-signed-documents>
 </direct-signature-job-manifest>
