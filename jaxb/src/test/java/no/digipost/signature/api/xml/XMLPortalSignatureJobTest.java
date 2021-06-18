@@ -18,8 +18,8 @@ package no.digipost.signature.api.xml;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static co.unruly.matchers.Java8Matchers.where;
-import static co.unruly.matchers.OptionalMatchers.contains;
+import static uk.co.probablyfine.matchers.Java8Matchers.where;
+import static uk.co.probablyfine.matchers.OptionalMatchers.contains;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.is;

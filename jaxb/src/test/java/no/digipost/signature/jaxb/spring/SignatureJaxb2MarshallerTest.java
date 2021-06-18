@@ -47,7 +47,7 @@ import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import static co.unruly.matchers.Java8Matchers.where;
+import static uk.co.probablyfine.matchers.Java8Matchers.where;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.Arrays.asList;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
