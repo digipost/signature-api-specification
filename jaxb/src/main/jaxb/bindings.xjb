@@ -70,6 +70,9 @@
                     <baseType name="no.digipost.signature.api.xml.XMLHref" />
                 </property>
             </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
         </bindings>
         <bindings node="//xs:complexType[@name='portal-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
@@ -83,6 +86,9 @@
                 <property>
                     <baseType name="no.digipost.signature.api.xml.XMLHref" />
                 </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
             </bindings>
         </bindings>
     </bindings>
@@ -102,6 +108,9 @@
                     <baseType name="no.digipost.signature.api.xml.XMLHref" />
                 </property>
             </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
         </bindings>
         <bindings node="//xs:complexType[@name='direct-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
@@ -118,6 +127,9 @@
                 <property>
                     <baseType name="no.digipost.signature.api.xml.XMLHref" />
                 </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
             </bindings>
         </bindings>
     </bindings>

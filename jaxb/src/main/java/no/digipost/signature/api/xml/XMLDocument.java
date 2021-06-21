@@ -19,6 +19,6 @@ public interface XMLDocument {
 
 	String getTitle();
 	XMLHref getHref();
-	String getMime();
+	String getMediaType();
 
 }
