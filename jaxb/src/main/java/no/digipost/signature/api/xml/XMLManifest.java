@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) Posten Norge AS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,16 @@
  */
 package no.digipost.signature.api.xml;
 
-import no.digipost.signature.api.xml.XMLAuthenticationLevel;
-
 import java.util.List;
 
 public interface XMLManifest {
 
-	XMLDocument getDocument();
+    JobInformation getJobInformation();
 
-	XMLAuthenticationLevel getRequiredAuthentication();
+    List<? extends XMLDocument> getDocumentsToSign();
 
-	List<? extends XMLSigner> getSigners();
+    XMLAuthenticationLevel getRequiredAuthentication();
+
+    List<? extends XMLSigner> getSigners();
 
 }

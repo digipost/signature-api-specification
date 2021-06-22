@@ -58,31 +58,60 @@
     <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:element[@name='portal-signature-job-manifest']/xs:complexType">
             <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.MultipleDocumentsManifestWithLegacySingleDocumentSupport</inheritance:implements>
         </bindings>
-    </bindings>
-    <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
-        <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
-            <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
+        <bindings node="//xs:choice/xs:element[@name='document']">
+            <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
         </bindings>
-    </bindings>
-
-    <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='portal-document']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
         </bindings>
-    </bindings>
-    <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
-        <bindings node="//xs:complexType[@name='direct-document']">
-            <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
-        </bindings>
-    </bindings>
-
-    <bindings schemaLocation="../../../target/generated-resources/xsd/portal.xsd" node="/xs:schema">
         <bindings node="//xs:complexType[@name='portal-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
         </bindings>
     </bindings>
+
+    <bindings schemaLocation="../../../target/generated-resources/xsd/portal-legacy.xsd" node="/xs:schema">
+        <bindings node="//xs:complexType[@name='legacy-portal-document']">
+            <inheritance:implements>no.digipost.signature.api.xml.legacy.XMLLegacyDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
+        </bindings>
+    </bindings>
+
     <bindings schemaLocation="../../../target/generated-resources/xsd/direct.xsd" node="/xs:schema">
+        <bindings node="//xs:element[@name='direct-signature-job-manifest']/xs:complexType">
+            <inheritance:implements>no.digipost.signature.api.xml.XMLManifest</inheritance:implements>
+            <inheritance:implements>no.digipost.signature.api.xml.MultipleDocumentsManifestWithLegacySingleDocumentSupport</inheritance:implements>
+        </bindings>
+        <bindings node="//xs:choice/xs:element[@name='document']">
+            <annox:annotateProperty>@java.lang.Deprecated</annox:annotateProperty>
+        </bindings>
+        <bindings node="//xs:complexType[@name='direct-document']">
+            <inheritance:implements>no.digipost.signature.api.xml.XMLDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
+        </bindings>
         <bindings node="//xs:complexType[@name='direct-signer']">
             <inheritance:implements>no.digipost.signature.api.xml.XMLSigner</inheritance:implements>
         </bindings>
@@ -91,6 +120,19 @@
         </bindings>
     </bindings>
 
+    <bindings schemaLocation="../../../target/generated-resources/xsd/direct-legacy.xsd" node="/xs:schema">
+        <bindings node="//xs:complexType[@name='legacy-direct-document']">
+            <inheritance:implements>no.digipost.signature.api.xml.legacy.XMLLegacyDocument</inheritance:implements>
+            <bindings node="xs:attribute[@name='href']">
+                <property>
+                    <baseType name="no.digipost.signature.api.xml.XMLHref" />
+                </property>
+            </bindings>
+            <bindings node="xs:attribute[@name='mime']">
+                <property name="mediaType" />
+            </bindings>
+        </bindings>
+    </bindings>
 
     <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/ts_102918v010201.xsd" node="/xs:schema">
         <schemaBindings>

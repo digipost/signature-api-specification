@@ -15,20 +15,20 @@
  */
 package no.digipost.signature.jaxb.adapter;
 
+import no.digipost.signature.api.xml.XMLHref;
+
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import java.net.URI;
-
-public final class UriXmlAdapter extends XmlAdapter<String, URI> {
+public final class HrefXmlAdapter extends XmlAdapter<String, XMLHref> {
 
     @Override
-    public URI unmarshal(String uriString) {
-        return URI.create(uriString);
+    public XMLHref unmarshal(String hrefString) {
+        return hrefString != null ? XMLHref.of(hrefString) : null;
     }
 
     @Override
-    public String marshal(URI uri) {
-        return uri.toASCIIString();
+    public String marshal(XMLHref href) {
+        return href != null ? href.asUrlEncodedString() : null;
     }
 
 }

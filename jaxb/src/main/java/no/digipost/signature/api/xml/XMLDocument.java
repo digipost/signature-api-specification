@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) Posten Norge AS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,7 @@ package no.digipost.signature.api.xml;
 public interface XMLDocument {
 
 	String getTitle();
-	String getDescription();
-	String getHref();
-	String getMime();
+	XMLHref getHref();
+	String getMediaType();
 
 }

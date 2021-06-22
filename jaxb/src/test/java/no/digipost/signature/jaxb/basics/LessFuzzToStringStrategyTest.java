@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) Posten Norge AS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ package no.digipost.signature.jaxb.basics;
 import no.digipost.signature.api.xml.XMLSms;
 import org.junit.jupiter.api.Test;
 
-import static co.unruly.matchers.Java8Matchers.where;
+import static uk.co.probablyfine.matchers.Java8Matchers.where;
 import static java.lang.Integer.toHexString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) Posten Norge AS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 package no.digipost.signature.api.xml;
-
-import no.digipost.signature.api.xml.XMLSignatureType;
-import no.digipost.signature.api.xml.XMLSigningOnBehalfOf;
 
 public interface XMLSigner {
 

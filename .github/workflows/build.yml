@@ -36,7 +36,6 @@ jobs:
             TAG=${GITHUB_REF#refs/heads/}-SNAPSHOT
           fi
           echo ::set-output name=version::${TAG//\//-}
-
   deploy_snapshot:
     if: startsWith(github.ref, 'refs/heads/')
     needs: makeversion

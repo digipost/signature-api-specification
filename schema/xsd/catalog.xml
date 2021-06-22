@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog http://www.oasis-open.org/committees/entity/release/1.1/catalog.xsd">
+         xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog https://www.oasis-open.org/committees/entity/release/1.1/catalog.xsd">
 
     <public publicId="http://www.w3.org/2000/09/xmldsig#" uri="thirdparty/xmldsig-core-schema.xsd"/>
 

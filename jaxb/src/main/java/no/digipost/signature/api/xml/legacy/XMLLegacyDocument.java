@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.digipost.signature.jaxb.adapter;
+package no.digipost.signature.api.xml.legacy;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import no.digipost.signature.api.xml.XMLDocument;
 
-import java.net.URI;
+@Deprecated
+public interface XMLLegacyDocument extends XMLDocument {
 
-public final class UriXmlAdapter extends XmlAdapter<String, URI> {
+    String getDescription();
 
-    @Override
-    public URI unmarshal(String uriString) {
-        return URI.create(uriString);
-    }
-
-    @Override
-    public String marshal(URI uri) {
-        return uri.toASCIIString();
+    default String getNonsensitiveTitle() {
+        return null;
     }
 
 }

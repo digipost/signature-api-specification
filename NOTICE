@@ -8,8 +8,8 @@ Licensed under Apache 2 - http://www.apache.org/licenses/LICENSE-2.0.html
 
 This software includes third party software subject to the following licenses:
 
-  jakarta.xml.bind-api under Eclipse Distribution License - v 1.0
-  JavaBeans Activation Framework API jar under EDL 1.0
+  Jakarta Activation API jar under EDL 1.0
+  Jakarta XML Binding API under Eclipse Distribution License - v 1.0
   JAXB2 Basics - Runtime under BSD-Style License
   Posten signering - API JAXB Classes under The Apache Software License, Version 2.0
   Posten signering - API Schema under The Apache Software License, Version 2.0

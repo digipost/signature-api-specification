@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) Posten Norge AS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.stream.Stream;
 
-import static co.unruly.matchers.Java8Matchers.where;
+import static uk.co.probablyfine.matchers.Java8Matchers.where;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static no.digipost.DiggExceptions.mayThrow;
