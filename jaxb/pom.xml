@@ -107,13 +107,13 @@
         <dependency>
             <groupId>org.javers</groupId>
             <artifactId>javers-core</artifactId>
-            <version>6.2.1</version>
+            <version>6.2.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>no.digipost</groupId>
             <artifactId>digg</artifactId>
-            <version>0.29</version>
+            <version>0.30</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -146,7 +146,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.0</version>
                     <configuration>
                         <excludePackageNames>no.digipost.signature.api.xml.*</excludePackageNames>
                         <detectOfflineLinks>false</detectOfflineLinks>
