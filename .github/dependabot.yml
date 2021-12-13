@@ -1,0 +1,28 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: com.github.jaxb-xew-plugin:jaxb-xew-plugin
+    versions:
+    - "< 1.12, >= 1.11.a"
+  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics
+    versions:
+    - "< 1.11.2, >= 1.11.1.a"
+  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics
+    versions:
+    - "< 1.11.2, >= 1.11.1-PUBLISHED-BY-MISTAKE.a"
+  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics-runtime
+    versions:
+    - "< 1.11.2, >= 1.11.1.a"
+  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics-runtime
+    versions:
+    - "< 1.11.2, >= 1.11.1-PUBLISHED-BY-MISTAKE.a"
+  - dependency-name: jakarta.xml.bind:jakarta.xml.bind-api
+    update-types: ["version-update:semver-major"]
+  - dependency-name: org.glassfish.jaxb:jaxb-runtime
+    update-types: ["version-update:semver-major"]
