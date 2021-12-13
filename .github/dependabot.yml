@@ -22,14 +22,7 @@ updates:
   - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics-runtime
     versions:
     - "< 1.11.2, >= 1.11.1-PUBLISHED-BY-MISTAKE.a"
-  - dependency-name: org.springframework:spring-oxm
-    versions:
-    - 5.3.2
-    - 5.3.3
-  - dependency-name: nl.jqno.equalsverifier:equalsverifier
-    versions:
-    - "3.5"
-    - 3.5.2
-  - dependency-name: org.junit:junit-bom
-    versions:
-    - 5.7.0
+  - dependency-name: jakarta.xml.bind:jakarta.xml.bind-api
+    update-types: ["version-update:semver-major"]
+  - dependency-name: org.glassfish.jaxb:jaxb-runtime
+    update-types: ["version-update:semver-major"]
