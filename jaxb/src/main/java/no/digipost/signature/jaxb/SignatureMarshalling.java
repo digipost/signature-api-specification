@@ -28,7 +28,6 @@ import no.digipost.signature.api.xml.XMLPortalSignatureJobResponse;
 import no.digipost.signature.api.xml.XMLPortalSignatureJobStatusChangeResponse;
 import no.digipost.signature.api.xml.thirdparty.asice.XAdESSignatures;
 import no.digipost.signature.api.xml.thirdparty.xades.QualifyingProperties;
-import no.digipost.signature.jaxb.spring.SignatureJaxb2Marshaller;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -42,8 +41,6 @@ import static java.util.Collections.unmodifiableSet;
  * Different sets of classes to be bound by a {@link javax.xml.bind.JAXBContext JAXB context} in order to
  * create marshallers and unmarshallers. All the sets are immutable.
  * <p>
- * If you use Spring, there are ready preconfigured {@link org.springframework.oxm.jaxb.Jaxb2Marshaller}s
- * available in {@link SignatureJaxb2Marshaller}.
  */
 public final class SignatureMarshalling {
 

@@ -33,10 +33,9 @@ import no.digipost.signature.api.xml.XMLPortalSignatureJobRequest;
 import no.digipost.signature.api.xml.XMLPortalSigner;
 import no.digipost.signature.api.xml.XMLSender;
 import no.digipost.signature.api.xml.XMLSignerStatus;
+import no.digipost.signature.jaxb.JaxbMarshaller;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.oxm.MarshallingFailureException;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -63,9 +62,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SignatureJaxb2MarshallerTest {
+class JaxbMarshallerTest {
 
-    private static final Jaxb2Marshaller marshaller = SignatureJaxb2Marshaller.ForAllApis.singleton();
+    private static final JaxbMarshaller marshaller = JaxbMarshaller.ForAllApis.singleton();
     private static final MarshallingMatchers marshalling = new MarshallingMatchers(marshaller);
 
 
@@ -113,8 +112,8 @@ class SignatureJaxb2MarshallerTest {
                     asList(directSigner), sender, null, "Title", null, asList(directDocument), FOUR, PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
 
-            MarshallingFailureException marshallingFailure =
-                    assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream())));
+            RuntimeException marshallingFailure =
+                    assertThrows(RuntimeException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
 
             assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("href"), containsString("must appear"))));
         }
@@ -128,8 +127,8 @@ class SignatureJaxb2MarshallerTest {
 
             XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
 
-            MarshallingFailureException thrown = assertThrows(MarshallingFailureException.class,
-                    () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream())));
+            RuntimeException thrown = assertThrows(RuntimeException.class,
+                    () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
 
             assertThat(thrown, where(Exception::getMessage, allOf(containsString("completion-url"), containsString("is expected"))));
         }
@@ -178,8 +177,8 @@ class SignatureJaxb2MarshallerTest {
             XMLPortalSignatureJobManifest portalManifest = new XMLPortalSignatureJobManifest(
                     asList(portalSigner), sender, null, "Title", "nonsensitive title", "Description", asList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
-            MarshallingFailureException marshallingFailure =
-                    assertThrows(MarshallingFailureException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream())));
+            RuntimeException marshallingFailure =
+                    assertThrows(RuntimeException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
 
             assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("signature-type"), containsString("notifications-using-lookup"), containsString("notifications"))));
         }
@@ -192,8 +191,8 @@ class SignatureJaxb2MarshallerTest {
     void response_unmarshaller_ignores_unexpected_elements_in_response() throws Exception {
         XMLDirectSignatureJobStatusResponse unmarshalled;
         try (InputStream responseWithUnknownElement = getClass().getResourceAsStream("/xml/direct_signature_job_response_with_unexpected_element.xml")) {
-            unmarshalled = (XMLDirectSignatureJobStatusResponse) SignatureJaxb2Marshaller.ForResponsesOfAllApis.singleton()
-                    .unmarshal(new StreamSource(responseWithUnknownElement));
+            unmarshalled = JaxbMarshaller.ForResponsesOfAllApis.singleton().unmarshal(
+                    new StreamSource(responseWithUnknownElement).getInputStream(), XMLDirectSignatureJobStatusResponse.class);
         }
 
         assertThat(unmarshalled, where(XMLDirectSignatureJobStatusResponse::getSignatureJobId, is(1L)));

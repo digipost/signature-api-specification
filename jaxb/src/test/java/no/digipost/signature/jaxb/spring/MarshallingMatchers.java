@@ -15,17 +15,17 @@
  */
 package no.digipost.signature.jaxb.spring;
 
+import no.digipost.signature.jaxb.JaxbMarshaller;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.javers.core.Javers;
 import org.javers.core.diff.Diff;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.xml.transform.StringSource;
 
-import javax.xml.transform.stream.StreamResult;
-
-import java.io.CharArrayWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static no.digipost.DiggBase.friendlyName;
 import static no.digipost.DiggExceptions.exceptionNameAndMessage;
@@ -33,10 +33,10 @@ import static org.javers.core.JaversBuilder.javers;
 
 final class MarshallingMatchers {
 
-    private final Jaxb2Marshaller marshaller;
+    private final JaxbMarshaller marshaller;
     private final Javers javers;
 
-    public MarshallingMatchers(Jaxb2Marshaller marshaller) {
+    public MarshallingMatchers(JaxbMarshaller marshaller) {
         this.marshaller = marshaller;
         this.javers = javers().build();
     }
@@ -52,9 +52,9 @@ final class MarshallingMatchers {
 
             @Override
             protected boolean matchesSafely(T item, Description mismatchDescription) {
-                try (CharArrayWriter xmlWriter = new CharArrayWriter())  {
+                try (ByteArrayOutputStream xmlWriter = new ByteArrayOutputStream())  {
                     try {
-                        marshaller.marshal(item, new StreamResult(xmlWriter));
+                        marshaller.marshal(item, xmlWriter);
                     } catch (Exception e) {
                         mismatchDescription
                             .appendText("Unable to marshall ").appendValue(item).appendText(" to XML, because ")
@@ -63,8 +63,8 @@ final class MarshallingMatchers {
                     }
                     String xml = xmlWriter.toString();
                     Object unmarshalled;
-                    try {
-                        unmarshalled = marshaller.unmarshal(new StringSource(xml));
+                    try(InputStream in = new ByteArrayInputStream(xml.getBytes())) {
+                        unmarshalled = marshaller.unmarshal(in, item.getClass());
                     } catch (Exception e) {
                         mismatchDescription
                             .appendValue(item).appendText(" marshalled successfully to XML:\n").appendText(xml)
@@ -83,6 +83,8 @@ final class MarshallingMatchers {
                             .appendText(" differed from the expected object:\n").appendValue(diff);
                         return false;
                     }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
 
