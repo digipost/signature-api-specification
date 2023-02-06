@@ -17,7 +17,6 @@ package no.digipost.signature.jaxb;
 
 import no.digipost.signature.xsd.SignatureApiSchemas;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import javax.xml.XMLConstants;
@@ -25,7 +24,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
@@ -158,7 +156,7 @@ public abstract class JaxbMarshaller {
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(schemaSources);
             return schema;
-        } catch (SAXException | ParserConfigurationException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Could not create schema from resources [" + String.join(", ", resources) + "]", e);
         }
     }
