@@ -15,6 +15,7 @@
  */
 package no.digipost.signature.jaxb.spring;
 
+import no.digipost.DiggExceptions;
 import no.digipost.signature.jaxb.JaxbMarshaller;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -27,8 +28,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static java.util.stream.Collectors.joining;
 import static no.digipost.DiggBase.friendlyName;
-import static no.digipost.DiggExceptions.exceptionNameAndMessage;
+import static no.digipost.DiggExceptions.causalChainOf;
 import static org.javers.core.JaversBuilder.javers;
 
 final class MarshallingMatchers {
@@ -58,7 +60,9 @@ final class MarshallingMatchers {
                     } catch (Exception e) {
                         mismatchDescription
                             .appendText("Unable to marshall ").appendValue(item).appendText(" to XML, because ")
-                            .appendText(exceptionNameAndMessage(e));
+                            .appendText(causalChainOf(e)
+                                .map(DiggExceptions::exceptionNameAndMessage)
+                                .collect(joining(", caused by ")));
                         return false;
                     }
                     String xml = xmlWriter.toString();
@@ -69,7 +73,10 @@ final class MarshallingMatchers {
                         mismatchDescription
                             .appendValue(item).appendText(" marshalled successfully to XML:\n").appendText(xml)
                             .appendText("\nbut was unable to unmarshall back to ").appendText(friendlyName(item.getClass()))
-                            .appendText(", because ").appendText(exceptionNameAndMessage(e));
+                            .appendText(", because ")
+                            .appendText(causalChainOf(e)
+                                .map(DiggExceptions::exceptionNameAndMessage)
+                                .collect(joining(", caused by ")));
                             return false;
                     }
 
