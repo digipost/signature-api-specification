@@ -57,7 +57,7 @@ public abstract class JaxbMarshaller {
      * This marshaller will validate if the XML generated from marshalled Java objects
      * adheres to the API schemas.
      */
-     static class ForRequestsOfAllApis extends JaxbMarshaller {
+     public static class ForRequestsOfAllApis extends JaxbMarshaller {
 
         public static JaxbMarshaller singleton() {
             return SingletonHolder.instance;
