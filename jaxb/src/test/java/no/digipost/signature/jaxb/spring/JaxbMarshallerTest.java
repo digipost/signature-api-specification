@@ -37,7 +37,6 @@ import no.digipost.signature.jaxb.JaxbMarshaller;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import java.io.ByteArrayOutputStream;
@@ -46,7 +45,6 @@ import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import static uk.co.probablyfine.matchers.Java8Matchers.where;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.Arrays.asList;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
@@ -61,6 +59,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static uk.co.probablyfine.matchers.Java8Matchers.where;
 
 class JaxbMarshallerTest {
 
@@ -113,7 +112,7 @@ class JaxbMarshallerTest {
 
 
             RuntimeException marshallingFailure =
-                    assertThrows(RuntimeException.class, () -> marshaller.marshal(directManifest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
+                    assertThrows(RuntimeException.class, () -> marshaller.marshal(directManifest, new ByteArrayOutputStream()));
 
             assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("href"), containsString("must appear"))));
         }
@@ -128,7 +127,7 @@ class JaxbMarshallerTest {
             XMLDirectSignatureJobRequest signatureJobRequest = new XMLDirectSignatureJobRequest("123abc", exitUrls, WAIT_FOR_CALLBACK, null);
 
             RuntimeException thrown = assertThrows(RuntimeException.class,
-                    () -> marshaller.marshal(signatureJobRequest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
+                    () -> marshaller.marshal(signatureJobRequest, new ByteArrayOutputStream()));
 
             assertThat(thrown, where(Exception::getMessage, allOf(containsString("completion-url"), containsString("is expected"))));
         }
@@ -178,7 +177,7 @@ class JaxbMarshallerTest {
                     asList(portalSigner), sender, null, "Title", "nonsensitive title", "Description", asList(portalDocument) , FOUR, new XMLAvailability(), PERSONAL_IDENTIFICATION_NUMBER_AND_NAME);
 
             RuntimeException marshallingFailure =
-                    assertThrows(RuntimeException.class, () -> marshaller.marshal(portalManifest, new StreamResult(new ByteArrayOutputStream()).getOutputStream()));
+                    assertThrows(RuntimeException.class, () -> marshaller.marshal(portalManifest, new ByteArrayOutputStream()));
 
             assertThat(marshallingFailure, where(Exception::getMessage, allOf(containsString("signature-type"), containsString("notifications-using-lookup"), containsString("notifications"))));
         }

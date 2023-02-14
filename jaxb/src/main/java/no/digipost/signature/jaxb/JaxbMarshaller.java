@@ -50,7 +50,7 @@ import static java.util.stream.Collectors.joining;
  * @see JaxbMarshaller.ForResponsesOfAllApis
  * @see JaxbMarshaller.ForRequestsOfAllApis
  */
-public abstract class JaxbMarshaller {
+public class JaxbMarshaller {
 
     /**
      * Marshaller for creating requests for both the Direct and Portal API.
@@ -173,13 +173,13 @@ public abstract class JaxbMarshaller {
     private final JAXBContext jaxbContext;
     private final Optional<Schema> schema;
 
-    JaxbMarshaller(Set<Class<?>> classes, Set<String> schemaResources) {
+    public JaxbMarshaller(Set<Class<?>> classes, Set<String> schemaResources) {
         this.jaxbContext = initContext(classes);
         this.schema = Optional.ofNullable(schemaResources).filter(s -> !s.isEmpty()).map(JaxbMarshaller::createSchema);
     }
 
-    JaxbMarshaller(Set<Class<?>> classes) {
-      this(classes, null);
+    public JaxbMarshaller(Set<Class<?>> classes) {
+        this(classes, null);
     }
 
     public void marshal(Object object, OutputStream outputStream){
@@ -200,6 +200,10 @@ public abstract class JaxbMarshaller {
         } catch (Exception e) {
             throw new SignatureMarshalException("Failed unmarshalling XML to " + type.getName(), e);
         }
+    }
+
+    public <T> T unmarshal(byte[] bytes, Class<T> type) {
+        return unmarshal(new ByteArrayInputStream(bytes), type);
     }
 
 }
