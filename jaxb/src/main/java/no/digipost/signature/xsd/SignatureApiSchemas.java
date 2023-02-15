@@ -34,7 +34,7 @@ public final class SignatureApiSchemas {
 
     public static final String DIRECT_AND_PORTAL_SCHEMA = "/direct-and-portal.xsd";
     public static final String DIRECT_ONLY_SCHEMA = "/direct.xsd";
-    public static final String PORTAL_ONLY_SCHEMA = "/direct.xsd";
+    public static final String PORTAL_ONLY_SCHEMA = "/portal.xsd";
 
     public static final String XMLDSIG_SCHEMA = "/thirdparty/xmldsig-core-schema.xsd";
     public static final String XADES_SCHEMA = "/thirdparty/XAdES.xsd";
@@ -53,6 +53,6 @@ public final class SignatureApiSchemas {
     /**
      * The schemas for the Portal API
      */
-    public static final Set<String> PORTAL_API = unmodifiableSet(new LinkedHashSet<>(asList(DIRECT_ONLY_SCHEMA, XMLDSIG_SCHEMA, XADES_SCHEMA, ASICE_SCHEMA)));
+    public static final Set<String> PORTAL_API = unmodifiableSet(new LinkedHashSet<>(asList(PORTAL_ONLY_SCHEMA, XMLDSIG_SCHEMA, XADES_SCHEMA, ASICE_SCHEMA)));
 
 }

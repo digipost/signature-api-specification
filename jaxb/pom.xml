@@ -22,14 +22,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.8.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>5.3.13</version>
+                <version>5.9.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,7 +38,7 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.5</version>
+            <version>2.3.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -58,16 +51,6 @@
             <artifactId>signature-api-specification</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -101,37 +84,31 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.8</version>
+            <version>3.13.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.javers</groupId>
             <artifactId>javers-core</artifactId>
-            <version>6.5.3</version>
+            <version>6.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>no.digipost</groupId>
             <artifactId>digg</artifactId>
-            <version>0.30</version>
+            <version>0.33</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.32</version>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.32</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ws</groupId>
-            <artifactId>spring-xml</artifactId>
-            <version>3.1.1</version>
+            <version>2.0.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -146,7 +123,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.4.1</version>
                     <configuration>
                         <excludePackageNames>no.digipost.signature.api.xml.*</excludePackageNames>
                         <detectOfflineLinks>false</detectOfflineLinks>
@@ -163,7 +140,7 @@
                 <plugin>
                     <groupId>com.github.siom79.japicmp</groupId>
                     <artifactId>japicmp-maven-plugin</artifactId>
-                    <version>0.15.4</version>
+                    <version>0.17.1</version>
                     <configuration>
                         <oldVersion>
                             <dependency>
@@ -228,7 +205,7 @@
                     <dependency>
                         <groupId>org.glassfish.jaxb</groupId>
                         <artifactId>jaxb-runtime</artifactId>
-                        <version>2.3.5</version>
+                        <version>2.3.6</version>
                     </dependency>
                 </dependencies>
                 <configuration>
