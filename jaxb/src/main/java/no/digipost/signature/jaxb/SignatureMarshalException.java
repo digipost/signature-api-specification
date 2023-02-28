@@ -21,6 +21,16 @@ import static java.util.stream.Collectors.joining;
 
 public class SignatureMarshalException extends RuntimeException {
 
+    public static SignatureMarshalException failedUnmarshal(Class<?> target, Throwable cause) {
+        return new SignatureMarshalException("Failed unmarshalling XML to " + target.getName(), cause);
+    }
+
+    public static SignatureMarshalException failedMarshal(Object objectFailingToMarshal, Throwable cause) {
+        return new SignatureMarshalException(
+                "Failed marshalling " + (objectFailingToMarshal != null ? objectFailingToMarshal.getClass().getName() : "null") + " to XML",
+                cause);
+    }
+
     public SignatureMarshalException(String message, Throwable cause) {
         super(message + (cause != null ? ", because " + messageIncludingCauses(cause) : ""), cause);
     }

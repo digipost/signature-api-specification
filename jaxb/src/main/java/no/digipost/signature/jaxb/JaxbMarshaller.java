@@ -43,6 +43,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.joining;
 
@@ -182,23 +183,48 @@ public class JaxbMarshaller {
         this(classes, null);
     }
 
-    public void marshal(Object object, OutputStream outputStream){
+    public String marshalToString(Object object) {
+        return marshalToResult(object, xml -> xml.toString(UTF_8.name()));
+    }
+
+    public byte[] marshalToBytes(Object object) {
+        return marshalToResult(object, ByteArrayOutputStream::toByteArray);
+    }
+
+    @FunctionalInterface
+    private interface ThrowingFunction<T, R> {
+        R apply(T t) throws Exception;
+    }
+
+    private <R> R marshalToResult(Object object, ThrowingFunction<? super ByteArrayOutputStream, ? extends R> outputStreamMapper) {
+        try (ByteArrayOutputStream xmlOutputStream = new ByteArrayOutputStream(128)) {
+            marshal(object, xmlOutputStream);
+            return outputStreamMapper.apply(xmlOutputStream);
+        } catch (SignatureMarshalException marshalException) {
+            throw marshalException;
+        } catch (Exception e) {
+            throw SignatureMarshalException.failedMarshal(object, e);
+        }
+    }
+
+
+    public void marshal(Object object, OutputStream outputStream) {
         try {
             Marshaller marshaller = jaxbContext.createMarshaller();
             schema.ifPresent(marshaller::setSchema);
             marshaller.marshal(object, outputStream);
         } catch (Exception e) {
-            throw new SignatureMarshalException("Failed marshalling " + (object != null ? object.getClass().getName() : "null") + " to XML", e);
+            throw SignatureMarshalException.failedMarshal(object, e);
         }
     }
 
-    public <T> T unmarshal(InputStream inputStream, Class<T> type){
+    public <T> T unmarshal(InputStream inputStream, Class<T> type) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             schema.ifPresent(unmarshaller::setSchema);
             return type.cast(unmarshaller.unmarshal(inputStream));
         } catch (Exception e) {
-            throw new SignatureMarshalException("Failed unmarshalling XML to " + type.getName(), e);
+            throw SignatureMarshalException.failedUnmarshal(type, e);
         }
     }
 
