@@ -23,11 +23,10 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.javers.core.Javers;
 import org.javers.core.diff.Diff;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 import static no.digipost.DiggBase.friendlyName;
 import static no.digipost.DiggExceptions.causalChainOf;
@@ -55,8 +54,9 @@ final class MarshallingMatchers {
             @Override
             protected boolean matchesSafely(T item, Description mismatchDescription) {
                 try (ByteArrayOutputStream xmlWriter = new ByteArrayOutputStream())  {
+                    String xml;
                     try {
-                        marshaller.marshal(item, xmlWriter);
+                        xml = marshaller.marshalToString(item);
                     } catch (Exception e) {
                         mismatchDescription
                             .appendText("Unable to marshall ").appendValue(item).appendText(" to XML, because ")
@@ -65,10 +65,9 @@ final class MarshallingMatchers {
                                 .collect(joining(", caused by ")));
                         return false;
                     }
-                    String xml = xmlWriter.toString();
                     Object unmarshalled;
-                    try(InputStream in = new ByteArrayInputStream(xml.getBytes())) {
-                        unmarshalled = marshaller.unmarshal(in, item.getClass());
+                    try {
+                        unmarshalled = marshaller.unmarshal(xml.getBytes(UTF_8), item.getClass());
                     } catch (Exception e) {
                         mismatchDescription
                             .appendValue(item).appendText(" marshalled successfully to XML:\n").appendText(xml)
