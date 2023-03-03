@@ -62,7 +62,12 @@
                             <bannedDependencies>
                                 <excludes>
                                     <exclude>commons-logging</exclude>
-                                    <exclude>com.sun.xml.bind</exclude>
+                                    <!--
+                                        Excluding the newer Jakarta artifacts for JAXB to enable
+                                        the JAXB facilities in this library to live alongside
+                                        Jakarta JAXB in any dependee using this library.
+                                    -->
+                                    <exclude>jakarta.xml.bind</exclude>
                                 </excludes>
                                 <searchTransitive>true</searchTransitive>
                             </bannedDependencies>
@@ -89,11 +94,6 @@
                             <groupId>org.glassfish.jaxb</groupId>
                             <artifactId>jaxb-runtime</artifactId>
                             <version>2.3.8</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>jakarta.xml.bind</groupId>
-                            <artifactId>jakarta.xml.bind-api</artifactId>
-                            <version>2.3.3</version>
                         </dependency>
                     </dependencies>
                 </plugin>
