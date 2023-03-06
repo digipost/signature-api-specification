@@ -21,9 +21,9 @@ import javax.xml.bind.JAXBException;
 
 import java.util.Map;
 
-public class StaticJAXBContextFactory {
+public class StaticOldJaxb2ContextFactory {
 
-    static JAXBContextFactory factory = new ComSunXmlBindJAXBContextFactory();
+    static JAXBContextFactory factory = new OldJaxb2ContextFactory();
 
     public static JAXBContext createContext(Class<?>[] classesToBeBound, Map<String, ?> properties) throws JAXBException {
         return factory.createContext(classesToBeBound, properties);

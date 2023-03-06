@@ -36,13 +36,13 @@ class JaxbContextFactoryResolveTest {
 
     @Test
     void resolvesStaticJAXBContextFactory() throws JAXBException {
-        JAXBContextFactory realFactory = StaticJAXBContextFactory.factory;
+        JAXBContextFactory realFactory = StaticOldJaxb2ContextFactory.factory;
         JAXBContextFactory spiedFactory = spy(realFactory);
         try {
-            StaticJAXBContextFactory.factory = spiedFactory;
+            StaticOldJaxb2ContextFactory.factory = spiedFactory;
             JAXBContext.newInstance(jaxbClasses);
         } finally {
-            StaticJAXBContextFactory.factory = realFactory;
+            StaticOldJaxb2ContextFactory.factory = realFactory;
         }
         verify(spiedFactory).createContext(same(jaxbClasses), any());
     }

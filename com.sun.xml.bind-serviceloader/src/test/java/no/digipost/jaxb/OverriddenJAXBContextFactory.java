@@ -29,7 +29,7 @@ public class OverriddenJAXBContextFactory {
 
     public static JAXBContext createContext(Class<?>[] classesToBeBound, Map<String, ?> properties) throws JAXBException {
         invocationCounters.forEach(AtomicInteger::incrementAndGet);
-        return StaticJAXBContextFactory.createContext(classesToBeBound, properties);
+        return StaticOldJaxb2ContextFactory.createContext(classesToBeBound, properties);
     }
 
     public static AtomicInteger countInteractionsIn(AtomicInteger count) {

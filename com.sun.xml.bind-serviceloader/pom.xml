@@ -8,7 +8,7 @@
         <version>LOCAL-SNAPSHOT</version>
     </parent>
 
-    <name>Posten signering - API com.sun.xml.bind JAXB Service Loader</name>
+    <name>Digipost com.sun.xml.bind JAXB Service Loader</name>
 
     <artifactId>signature-api-specification-com.sun.xml.bind-serviceloader</artifactId>
 
@@ -60,13 +60,14 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.6</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.36</version>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>2.0.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
