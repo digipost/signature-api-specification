@@ -14,6 +14,8 @@ This software includes third party software subject to the following licenses:
   JAXB2 Basics - Runtime under BSD-Style License
   Old JAXB Core under CDDL+GPL License
   Old JAXB Runtime under Eclipse Distribution License - v 1.0
+  Posten signering - API com.sun.xml.bind JAXB Service Loader under The Apache Software License, Version 2.0
   Posten signering - API JAXB Classes under The Apache Software License, Version 2.0
+  SLF4J API Module under MIT License
 
 

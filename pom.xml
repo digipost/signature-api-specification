@@ -19,6 +19,7 @@
 
     <modules>
         <module>schema</module>
+        <module>com.sun.xml.bind-serviceloader</module>
         <module>jaxb</module>
     </modules>
 
