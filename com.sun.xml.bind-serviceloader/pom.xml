@@ -10,7 +10,8 @@
 
     <name>Digipost com.sun.xml.bind JAXB Service Loader</name>
 
-    <artifactId>signature-api-specification-com.sun.xml.bind-serviceloader</artifactId>
+    <groupId>no.digipost</groupId>
+    <artifactId>com.sun.xml.bind-serviceloader</artifactId>
 
     <properties>
         <project.previousVersion>set_with_-Dproject.previousVersion=X.Y</project.previousVersion>
