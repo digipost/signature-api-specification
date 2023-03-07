@@ -40,7 +40,6 @@ import static java.util.Collections.unmodifiableSet;
 /**
  * Different sets of classes to be bound by a {@link javax.xml.bind.JAXBContext JAXB context} in order to
  * create marshallers and unmarshallers. All the sets are immutable.
- * <p>
  */
 public final class SignatureMarshalling {
 
