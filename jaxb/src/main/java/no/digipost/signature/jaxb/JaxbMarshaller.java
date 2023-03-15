@@ -16,6 +16,7 @@
 package no.digipost.signature.jaxb;
 
 import no.digipost.signature.xsd.SignatureApiSchemas;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -27,6 +28,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -191,10 +193,16 @@ public class JaxbMarshaller {
         return marshalToResult(object, ByteArrayOutputStream::toByteArray);
     }
 
-    @FunctionalInterface
-    private interface ThrowingFunction<T, R> {
-        R apply(T t) throws Exception;
+    public Document marshalToDomDocument(Object object) {
+        DOMResult domResult = new DOMResult();
+        doWithMarshaller(object, (o, marshaller) -> marshaller.marshal(o, domResult));
+        return (Document) domResult.getNode();
     }
+
+    public void marshal(Object object, OutputStream outputStream) {
+        doWithMarshaller(object, (o, marshaller) -> marshaller.marshal(o, outputStream));
+    }
+
 
     private <R> R marshalToResult(Object object, ThrowingFunction<? super ByteArrayOutputStream, ? extends R> outputStreamMapper) {
         try (ByteArrayOutputStream xmlOutputStream = new ByteArrayOutputStream(128)) {
@@ -207,29 +215,43 @@ public class JaxbMarshaller {
         }
     }
 
+    @FunctionalInterface
+    private interface ThrowingFunction<T, R> {
+        R apply(T t) throws Exception;
+    }
 
-    public void marshal(Object object, OutputStream outputStream) {
+    @FunctionalInterface
+    private interface ThrowingBiConsumer<T, S> {
+        void accept(T t, S s) throws Exception;
+    }
+
+    private <T> void doWithMarshaller(T object, ThrowingBiConsumer<? super T, ? super Marshaller> operation) {
         try {
             Marshaller marshaller = jaxbContext.createMarshaller();
             schema.ifPresent(marshaller::setSchema);
-            marshaller.marshal(object, outputStream);
+            operation.accept(object, marshaller);
         } catch (Exception e) {
             throw SignatureMarshalException.failedMarshal(object, e);
         }
     }
 
+
     public <T> T unmarshal(InputStream inputStream, Class<T> type) {
-        try {
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            schema.ifPresent(unmarshaller::setSchema);
-            return type.cast(unmarshaller.unmarshal(inputStream));
-        } catch (Exception e) {
-            throw SignatureMarshalException.failedUnmarshal(type, e);
-        }
+        return unmarshal(unmarshaller -> unmarshaller.unmarshal(inputStream), type);
     }
 
     public <T> T unmarshal(byte[] bytes, Class<T> type) {
         return unmarshal(new ByteArrayInputStream(bytes), type);
+    }
+
+    private <T> T unmarshal(ThrowingFunction<? super Unmarshaller, ?> operation, Class<T> type) {
+        try {
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            schema.ifPresent(unmarshaller::setSchema);
+            return type.cast(operation.apply(unmarshaller));
+        } catch (Exception e) {
+            throw SignatureMarshalException.failedUnmarshal(type, e);
+        }
     }
 
 }
