@@ -134,20 +134,4 @@
         </bindings>
     </bindings>
 
-    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/ts_102918v010201.xsd" node="/xs:schema">
-        <schemaBindings>
-            <package name="no.digipost.signature.api.xml.thirdparty.asice" />
-        </schemaBindings>
-    </bindings>
-    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/XAdES.xsd" node="/xs:schema">
-        <schemaBindings>
-            <package name="no.digipost.signature.api.xml.thirdparty.xades" />
-        </schemaBindings>
-    </bindings>
-    <bindings schemaLocation="../../../target/generated-resources/xsd/thirdparty/xmldsig-core-schema.xsd" node="/xs:schema">
-        <schemaBindings>
-            <package name="no.digipost.signature.api.xml.thirdparty.xmldsig" />
-        </schemaBindings>
-    </bindings>
-
 </bindings>
