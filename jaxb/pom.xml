@@ -30,7 +30,8 @@
     <artifactId>signature-api-specification-jaxb</artifactId>
 
     <properties>
-        <xsd.directory>${project.basedir}/target/generated-resources/xsd</xsd.directory>
+        <xsd.directory>${project.build.directory}/generated-resources/xsd</xsd.directory>
+        <xjc.build.directory>${project.build.directory}/generated-sources/xjc</xjc.build.directory>
     </properties>
 
     <dependencyManagement>
@@ -38,7 +39,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.9.2</version>
+                <version>5.10.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -63,9 +64,9 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <groupId>org.jvnet.jaxb</groupId>
             <artifactId>jaxb2-basics-runtime</artifactId>
-            <version>0.12.0</version>
+            <version>2.0.9</version>
         </dependency>
         <dependency>
             <groupId>no.digipost.signature</groupId>
@@ -105,13 +106,13 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.14</version>
+            <version>3.15.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.javers</groupId>
             <artifactId>javers-core</artifactId>
-            <version>6.9.1</version>
+            <version>6.14.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -123,13 +124,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.6</version>
+            <version>2.0.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.6</version>
+            <version>2.0.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -144,9 +145,51 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.jvnet.jaxb2.maven2</groupId>
-                    <artifactId>maven-jaxb2-plugin</artifactId>
-                    <version>0.14.0</version>
+                    <groupId>org.jvnet.jaxb</groupId>
+                    <artifactId>jaxb-maven-plugin</artifactId>
+                    <version>2.0.9</version>
+                    <configuration>
+                        <specVersion>2.3</specVersion>
+                        <schemaDirectory>${xsd.directory}</schemaDirectory>
+                        <catalog>${xsd.directory}/catalog.xml</catalog>
+                        <strict>false</strict>
+                        <extension>true</extension>
+                        <bindingDirectory>${project.basedir}/src/main/jaxb</bindingDirectory>
+                        <args>
+                            <arg>-Xxew</arg>
+                            <arg>-Xxew:instantiate lazy</arg>
+                            <arg>-Xxew:control ${project.basedir}/src/main/jaxb/xew-control.properties</arg>
+                            <arg>-XtoString</arg>
+                            <arg>-XtoString-toStringStrategyClass=no.digipost.signature.jaxb.basics.LessFuzzToStringStrategy</arg>
+                            <arg>-Xjavadoc</arg>
+                            <arg>-Xvalue-constructor</arg>
+                            <arg>-Xfluent-api</arg>
+                            <arg>-Xinheritance</arg>
+                            <arg>-Xannotate</arg>
+                        </args>
+                        <plugins>
+                            <plugin>
+                                <groupId>org.jvnet.jaxb</groupId>
+                                <artifactId>jaxb2-basics</artifactId>
+                                <version>2.0.9</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.jvnet.jaxb</groupId>
+                                <artifactId>jaxb-basics-annotate</artifactId>
+                                <version>2.0.9</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.cxf.xjcplugins</groupId>
+                                <artifactId>cxf-xjc-javadoc</artifactId>
+                                <version>3.3.2</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>com.github.jaxb-xew-plugin</groupId>
+                                <artifactId>jaxb-xew-plugin</artifactId>
+                                <version>1.11</version>
+                            </plugin>
+                        </plugins>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -176,79 +219,100 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
+                <groupId>org.jvnet.jaxb</groupId>
+                <artifactId>jaxb-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>xmldsig</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <configuration>
+                            <bindingIncludes>bindings-xmldsig.xjb</bindingIncludes>
+                            <generateDirectory>${xjc.build.directory}/xmldsig</generateDirectory>
+                            <schemaIncludes>
+                                <include>thirdparty/xmldsig-core-schema.xsd</include>
+                            </schemaIncludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>xades</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <bindingIncludes>bindings-xades.xjb</bindingIncludes>
+                            <generateDirectory>${xjc.build.directory}/xades</generateDirectory>
+                            <schemaIncludes>
+                                <include>thirdparty/XAdES.xsd</include>
+                            </schemaIncludes>
+                            <args combine.children="append">
+                                <arg>-b</arg>
+                                <arg>${xjc.build.directory}/xmldsig/META-INF/sun-jaxb.episode</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>asice</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <bindingIncludes>bindings-ts_102918v010201.xjb</bindingIncludes>
+                            <generateDirectory>${xjc.build.directory}/asice</generateDirectory>
+                            <schemaIncludes>
+                                <include>thirdparty/ts_102918v010201.xsd</include>
+                            </schemaIncludes>
+                            <args combine.children="append">
+                                <arg>-b</arg>
+                                <arg>${xjc.build.directory}/xmldsig/META-INF/sun-jaxb.episode</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>sign</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <bindingIncludes>bindings-sign.xjb</bindingIncludes>
+                            <generateDirectory>${xjc.build.directory}/sign</generateDirectory>
+                            <schemaIncludes>
+                                <include>direct-and-portal.xsd</include>
+                            </schemaIncludes>
+                            <args combine.children="append">
+                                <arg>-b</arg>
+                                <arg>${xjc.build.directory}/asice/META-INF/sun-jaxb.episode</arg>
+                                <arg>-b</arg>
+                                <arg>${xjc.build.directory}/xades/META-INF/sun-jaxb.episode</arg>
+                            </args>
+                        </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.glassfish.jaxb</groupId>
-                        <artifactId>jaxb-runtime</artifactId>
-                        <version>2.3.8</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <specVersion>2.2</specVersion>
-                    <schemaDirectory>${xsd.directory}</schemaDirectory>
-                    <schemaIncludes>
-                        <include>direct-and-portal.xsd</include>
-                        <include>thirdparty/*.xsd</include>
-                    </schemaIncludes>
-                    <catalog>${xsd.directory}/catalog.xml</catalog>
-                    <strict>false</strict>
-                    <extension>true</extension>
-                    <removeOldOutput>true</removeOldOutput>
-                    <bindingDirectory>${project.basedir}/src/main/jaxb</bindingDirectory>
-                    <args>
-                        <arg>-Xxew</arg>
-                        <arg>-Xxew:instantiate lazy</arg>
-                        <arg>-Xxew:control ${project.basedir}/src/main/jaxb/xew-control.properties</arg>
-                        <arg>-XtoString</arg>
-                        <arg>-XtoString-toStringStrategyClass=no.digipost.signature.jaxb.basics.LessFuzzToStringStrategy</arg>
-                        <arg>-Xjavadoc</arg>
-                        <arg>-Xvalue-constructor</arg>
-                        <arg>-Xfluent-api</arg>
-                        <arg>-Xinheritance</arg>
-                        <arg>-Xannotate</arg>
-                    </args>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics</artifactId>
-                            <version>0.12.0</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics-annotate</artifactId>
-                            <version>1.1.0</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-fluent-api</artifactId>
-                            <version>3.0</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-value-constructor</artifactId>
-                            <version>3.0</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.cxf.xjcplugins</groupId>
-                            <artifactId>cxf-xjc-javadoc</artifactId>
-                            <version>3.3.1</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>com.github.jaxb-xew-plugin</groupId>
-                            <artifactId>jaxb-xew-plugin</artifactId>
-                            <version>1.10</version>
-                        </plugin>
-                    </plugins>
-                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- This is a hack to remove excess ObjectFactory classes generated by xjc,
+                                     even though the use of episodes are supposed to prevent that from happening.
+                                     Seems like DigestValue, mapped to a Java byte[], is not included in the
+                                     episode file generated from the compilation of xmldsig-core-schema, and are therefore
+                                     regenerated in the compilation of xades.xsd and ts_102918v010201.xsd, resulting in a
+                                     duplicate class error when compiling the generated Java code.
+                                     See https://stackoverflow.com/a/32649545 -->
+                                <delete dir="${xjc.build.directory}/asice/no/digipost/signature/api/xml/thirdparty/xmldsig"/>
+                                <delete dir="${xjc.build.directory}/xades/no/digipost/signature/api/xml/thirdparty/xmldsig"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
