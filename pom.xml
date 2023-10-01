@@ -23,7 +23,7 @@
     <parent>
         <groupId>no.digipost</groupId>
         <artifactId>digipost-open-super-pom</artifactId>
-        <version>12</version>
+        <version>13</version>
     </parent>
 
     <name>Posten signering - API Specification</name>
