@@ -7,5 +7,5 @@ Det finnes klientbiblioteker som forenkler integrasjonsprosessen for C# og Java.
 
 ## Egen API-integrasjon
 
-I dette repoet finner du API-spesifikasjonen for API-et til [Posten Signering](http://www.signering.posten.no). Hvordan denne skal brukes og implementeres finner du i [Dokumentasjon for Posten signering](https://signering-docs.rtfd.io).
+I dette repoet finner du API-spesifikasjonen for API-et til [Posten Signering](https://signering.posten.no). Hvordan denne skal brukes og implementeres finner du i [Dokumentasjon for Posten signering](https://signering-docs.rtfd.io).
 
