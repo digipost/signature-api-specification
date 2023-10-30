@@ -18,6 +18,7 @@ package no.digipost.signature.jaxb;
 import no.digipost.signature.xsd.SignatureApiSchemas;
 import no.digipost.xml.bind.MarshallingCustomization;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -187,13 +188,16 @@ public class JaxbMarshaller {
         }
     }
 
-
     public <T> T unmarshal(InputStream inputStream, Class<T> type) {
         return unmarshal(unmarshaller -> unmarshaller.unmarshal(inputStream), type);
     }
 
     public <T> T unmarshal(byte[] bytes, Class<T> type) {
         return unmarshal(new ByteArrayInputStream(bytes), type);
+    }
+
+    public <T> T unmarshal(Node node, Class<T> type) {
+        return unmarshal(unmarshaller -> unmarshaller.unmarshal(node), type);
     }
 
     private <T> T unmarshal(ThrowingFunction<? super Unmarshaller, ?> operation, Class<T> type) {
