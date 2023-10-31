@@ -19,11 +19,14 @@ import no.digipost.signature.xsd.SignatureApiSchemas;
 import no.digipost.xml.bind.MarshallingCustomization;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.sax.SAXSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -110,10 +113,12 @@ public class JaxbMarshaller {
 
     private final JAXBContext jaxbContext;
     private final MarshallingCustomization marshallingCustomization;
+    private final SaxParserProvider saxParserProvider;
 
     public JaxbMarshaller(MarshallingCustomization marshallingCustomization, Class<?> ... classesToBeBound) {
         this.jaxbContext = JaxbUtils.initContext(classesToBeBound);
         this.marshallingCustomization = marshallingCustomization;
+        this.saxParserProvider = SaxParserProvider.createSecuredParserFactory();
     }
 
     public JaxbMarshaller(MarshallingCustomization marshallingCustomization, Set<Class<?>> classesToBeBound) {
@@ -189,7 +194,8 @@ public class JaxbMarshaller {
     }
 
     public <T> T unmarshal(InputStream inputStream, Class<T> type) {
-        return unmarshal(unmarshaller -> unmarshaller.unmarshal(inputStream), type);
+        Source xmlSource = new SAXSource(saxParserProvider.createXMLReader(), new InputSource(inputStream));
+        return unmarshal(unmarshaller -> unmarshaller.unmarshal(xmlSource), type);
     }
 
     public <T> T unmarshal(byte[] bytes, Class<T> type) {

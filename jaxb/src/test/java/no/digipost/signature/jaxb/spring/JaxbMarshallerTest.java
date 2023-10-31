@@ -34,6 +34,7 @@ import no.digipost.signature.api.xml.XMLPortalSigner;
 import no.digipost.signature.api.xml.XMLSender;
 import no.digipost.signature.api.xml.XMLSignerStatus;
 import no.digipost.signature.jaxb.JaxbMarshaller;
+import no.digipost.signature.jaxb.SignatureMarshalException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -45,8 +46,11 @@ import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Stream.generate;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.FOUR;
 import static no.digipost.signature.api.xml.XMLAuthenticationLevel.THREE;
 import static no.digipost.signature.api.xml.XMLDirectSignerStatusValue.SIGNED;
@@ -103,6 +107,22 @@ class JaxbMarshallerTest {
 
             assertThat(legacyManifest, marshalling.marshallsToXmlAndUnmarshallsBackToJava());
         }
+
+        @Test
+        void unmarshalling_invalid_job_fails_validation() {
+            XMLExitUrls exitUrls = new XMLExitUrls()
+                    .withCompletionUrl(URI.create("http://localhost/signed"))
+                    .withRejectionUrl(URI.create("http://localhost/rejected"))
+                    .withErrorUrl(URI.create("http://localhost/failed"));
+            XMLDirectSignatureJobRequest directJob = new XMLDirectSignatureJobRequest("123abc", exitUrls, null, null);
+
+            String invalidXml = marshaller.marshalToString(directJob).replace("123abc", generate(() -> "x").limit(51).collect(joining()));
+
+            SignatureMarshalException thrown = assertThrows(SignatureMarshalException.class,
+                    () -> marshaller.unmarshal(invalidXml.getBytes(UTF_8), XMLDirectSignatureJobRequest.class));
+            assertThat(thrown, where(Throwable::getMessage, containsString("maxLength '50' for type 'signature-job-reference'")));
+        }
+
 
         @Test
         void invalid_manifest_causes_exceptions() {
