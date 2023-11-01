@@ -18,9 +18,9 @@ package no.digipost.signature.jaxb;
 import no.digipost.signature.xsd.SignatureApiSchemas;
 import no.digipost.xml.bind.MarshallingCustomization;
 import no.digipost.xml.parsers.SaxParserProvider;
+import no.digipost.xml.transform.sax.SaxInputSources;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -194,7 +194,7 @@ public class JaxbMarshaller {
     }
 
     public <T> T unmarshal(InputStream inputStream, Class<T> type) {
-        Source xmlSource = saxParserProvider.createSource(new InputSource(inputStream));
+        Source xmlSource = saxParserProvider.createSource(SaxInputSources.fromInputStreamPreventClose(inputStream));
         return unmarshal(unmarshaller -> unmarshaller.unmarshal(xmlSource), type);
     }
 

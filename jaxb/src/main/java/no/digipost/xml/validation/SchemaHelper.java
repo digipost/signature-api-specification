@@ -16,7 +16,7 @@
 package no.digipost.xml.validation;
 
 import no.digipost.xml.parsers.SaxParserProvider;
-import no.digipost.xml.transform.sax.UrlInputSource;
+import no.digipost.xml.transform.sax.SaxInputSources;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -24,8 +24,6 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import java.util.Collection;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class SchemaHelper {
 
@@ -35,7 +33,7 @@ public final class SchemaHelper {
         }
         try {
             Source[] schemaSources = schemaResourceNames.stream()
-                    .map(resourceName -> UrlInputSource.fromClasspath(resourceName, UTF_8))
+                    .map(SaxInputSources::fromClasspath)
                     .map(SaxParserProvider.createSecuredProvider()::createSource)
                     .toArray(Source[]::new);
 

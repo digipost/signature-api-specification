@@ -17,39 +17,35 @@ package no.digipost.xml.transform.sax;
 
 import org.xml.sax.InputSource;
 
-import java.io.IOException;
+import java.io.FilterInputStream;
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.UncheckedIOException;
-import java.net.URL;
 import java.nio.charset.Charset;
 
-import static java.util.Objects.requireNonNull;
 
-class UrlInputSource extends InputSource {
+class ClosePreventingInputSource extends InputSource {
 
-    private final URL location;
     private boolean initialized;
 
-    public UrlInputSource(URL location, Charset encoding) {
-        this.location = requireNonNull(location, "location URL");
-        this.setSystemId(location.toString());
+    public ClosePreventingInputSource(InputStream inputStream, Charset encoding) {
+        super(new ClosePreventingInputStream(inputStream));
         if (encoding != null) {
             this.setEncoding(encoding.name());
         }
         this.initialized = true;
     }
 
-    @Override
-    public final InputStream getByteStream() {
-        try {
-            return location.openStream();
-        } catch (IOException e) {
-            throw new UncheckedIOException(
-                    "Unable to obtain InputStream for " + location +
-                    " because " + e.getClass().getSimpleName() + ": " + e.getMessage(), e);
+    private static final class ClosePreventingInputStream extends FilterInputStream {
+        public ClosePreventingInputStream(InputStream in) {
+            super(in);
+        }
+        @Override
+        public void close() {
+            // prevent closing
         }
     }
+
+
 
     @Override
     public final Reader getCharacterStream() {
