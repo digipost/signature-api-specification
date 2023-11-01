@@ -15,6 +15,8 @@
  */
 package no.digipost.xml.bind;
 
+import no.digipost.xml.validation.SchemaHelper;
+
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 
@@ -29,7 +31,7 @@ public interface UnmarshallerCustomizer {
     public static UnmarshallerCustomizer validateUsingSchemaResources(Set<String> schemaResources) {
         return Optional.ofNullable(schemaResources)
                 .filter(s -> !s.isEmpty())
-                .map(XmlUtils::createSchema)
+                .map(SchemaHelper::createW3cXmlSchema)
                 .map(UnmarshallerCustomizer::validateUsingSchema)
                 .orElse(NO_CUSTOMIZATION);
     }
