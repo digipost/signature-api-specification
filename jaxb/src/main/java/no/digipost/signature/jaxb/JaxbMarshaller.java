@@ -16,38 +16,26 @@
 package no.digipost.signature.jaxb;
 
 import no.digipost.signature.xsd.SignatureApiSchemas;
+import no.digipost.xml.bind.MarshallingCustomization;
+import no.digipost.xml.parsers.SaxParserProvider;
+import no.digipost.xml.transform.sax.SaxInputSources;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+import org.w3c.dom.Node;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UncheckedIOException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
+import static no.digipost.xml.bind.MarshallingCustomization.validateUsingSchemaResources;
 
 /**
  * @see JaxbMarshaller.ForResponsesOfAllApis
@@ -71,7 +59,7 @@ public class JaxbMarshaller {
         }
 
         public ForRequestsOfAllApis() {
-            super(SignatureMarshalling.allApiRequestClasses(), SignatureApiSchemas.DIRECT_AND_PORTAL_API);
+            super(validateUsingSchemaResources(SignatureApiSchemas.DIRECT_AND_PORTAL_API), SignatureMarshalling.allApiRequestClasses());
         }
     }
 
@@ -91,7 +79,7 @@ public class JaxbMarshaller {
         }
 
         public ForResponsesOfAllApis() {
-            super(SignatureMarshalling.allApiResponseClasses());
+            super(MarshallingCustomization.NO_CUSTOMIZATION, SignatureMarshalling.allApiResponseClasses());
         }
     }
 
@@ -119,71 +107,41 @@ public class JaxbMarshaller {
         }
 
         public ForAllApis() {
-            super(SignatureMarshalling.allApiClasses(), SignatureApiSchemas.DIRECT_AND_PORTAL_API);
-        }
-    }
-
-    private static InputSource createInputSource(String resource) {
-        URL resourceUrl = requireNonNull(JaxbMarshaller.class.getResource(resource), resource);
-        try (InputStream inputStream = resourceUrl.openStream()) {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-            final int bufLen = 1024;
-            byte[] buf = new byte[bufLen];
-            int readLen;
-            while ((readLen = inputStream.read(buf, 0, bufLen)) != -1)
-                outputStream.write(buf, 0, readLen);
-
-            InputSource source = new InputSource(new ByteArrayInputStream(outputStream.toByteArray()));
-            source.setSystemId(resourceUrl.toString());
-            return source;
-        } catch (IOException e) {
-            throw new UncheckedIOException(
-                    "Unable to resolve " + resource + " from " + resourceUrl + ", " +
-                    "because " + e.getClass().getSimpleName() + " '" + e.getMessage() + "'", e);
-        }
-    }
-
-    private static Schema createSchema(Collection<String> resources) {
-        try {
-            SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-            parserFactory.setNamespaceAware(true);
-            parserFactory.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-
-            SAXParser saxParser = parserFactory.newSAXParser();
-            XMLReader xmlReader = saxParser.getXMLReader();
-            Source[] schemaSources = resources.stream()
-                .map(resource -> new SAXSource(xmlReader, createInputSource(resource)))
-                .toArray(Source[]::new);
-
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = schemaFactory.newSchema(schemaSources);
-            return schema;
-        } catch (Exception e) {
-            throw new RuntimeException("Could not create schema from resources [" + String.join(", ", resources) + "]", e);
-        }
-    }
-
-    private static JAXBContext initContext(Collection<Class<?>> classes) {
-        Class<?>[] classesToBeBound = classes.toArray(new Class[classes.size()]);
-        try {
-            return JAXBContext.newInstance(classesToBeBound);
-        } catch (JAXBException e) {
-            throw new RuntimeException("Could not create JAXBContext for classes [" + Stream.of(classesToBeBound).map(Class::getSimpleName).collect(joining(",")) + "]" , e);
+            super(validateUsingSchemaResources(SignatureApiSchemas.DIRECT_AND_PORTAL_API), SignatureMarshalling.allApiClasses());
         }
     }
 
     private final JAXBContext jaxbContext;
-    private final Optional<Schema> schema;
+    private final MarshallingCustomization marshallingCustomization;
+    private final SaxParserProvider saxParserProvider;
 
-    public JaxbMarshaller(Set<Class<?>> classes, Set<String> schemaResources) {
-        this.jaxbContext = initContext(classes);
-        this.schema = Optional.ofNullable(schemaResources).filter(s -> !s.isEmpty()).map(JaxbMarshaller::createSchema);
+    public JaxbMarshaller(MarshallingCustomization marshallingCustomization, Class<?> ... classesToBeBound) {
+        this.jaxbContext = JaxbUtils.initContext(classesToBeBound);
+        this.marshallingCustomization = marshallingCustomization;
+        this.saxParserProvider = SaxParserProvider.createSecuredProvider();
     }
 
-    public JaxbMarshaller(Set<Class<?>> classes) {
-        this(classes, null);
+    public JaxbMarshaller(MarshallingCustomization marshallingCustomization, Set<Class<?>> classesToBeBound) {
+        this(marshallingCustomization, classesToBeBound.toArray(new Class[classesToBeBound.size()]));
     }
+
+    public JaxbMarshaller(Class<?> ... classesToBeBound) {
+        this(MarshallingCustomization.NO_CUSTOMIZATION, classesToBeBound);
+    }
+
+    public JaxbMarshaller(Set<Class<?>> classesToBeBound) {
+        this(MarshallingCustomization.NO_CUSTOMIZATION, classesToBeBound);
+    }
+
+    /**
+     * @deprecated Use {@link #JaxbMarshaller(MarshallingCustomization, Set)} with
+     *             {@link MarshallingCustomization#validateUsingSchemaResources(Set)}
+     */
+    @Deprecated
+    public JaxbMarshaller(Set<Class<?>> classesToBeBound, Set<String> schemaResources) {
+        this(MarshallingCustomization.validateUsingSchemaResources(schemaResources), classesToBeBound);
+    }
+
 
     public String marshalToString(Object object) {
         return marshalToResult(object, xml -> xml.toString(UTF_8.name()));
@@ -228,26 +186,30 @@ public class JaxbMarshaller {
     private <T> void doWithMarshaller(T object, ThrowingBiConsumer<? super T, ? super Marshaller> operation) {
         try {
             Marshaller marshaller = jaxbContext.createMarshaller();
-            schema.ifPresent(marshaller::setSchema);
+            marshallingCustomization.customize(marshaller);
             operation.accept(object, marshaller);
         } catch (Exception e) {
             throw SignatureMarshalException.failedMarshal(object, e);
         }
     }
 
-
     public <T> T unmarshal(InputStream inputStream, Class<T> type) {
-        return unmarshal(unmarshaller -> unmarshaller.unmarshal(inputStream), type);
+        Source xmlSource = saxParserProvider.createSource(SaxInputSources.fromInputStreamPreventClose(inputStream));
+        return unmarshal(unmarshaller -> unmarshaller.unmarshal(xmlSource), type);
     }
 
     public <T> T unmarshal(byte[] bytes, Class<T> type) {
         return unmarshal(new ByteArrayInputStream(bytes), type);
     }
 
+    public <T> T unmarshal(Node node, Class<T> type) {
+        return unmarshal(unmarshaller -> unmarshaller.unmarshal(node), type);
+    }
+
     private <T> T unmarshal(ThrowingFunction<? super Unmarshaller, ?> operation, Class<T> type) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            schema.ifPresent(unmarshaller::setSchema);
+            marshallingCustomization.customize(unmarshaller);
             return type.cast(operation.apply(unmarshaller));
         } catch (Exception e) {
             throw SignatureMarshalException.failedUnmarshal(type, e);
