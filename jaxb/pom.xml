@@ -147,7 +147,7 @@
                 <plugin>
                     <groupId>org.jvnet.jaxb</groupId>
                     <artifactId>jaxb-maven-plugin</artifactId>
-                    <version>2.0.9</version>
+                    <version>3.0.1</version>
                     <configuration>
                         <specVersion>2.3</specVersion>
                         <schemaDirectory>${xsd.directory}</schemaDirectory>
@@ -171,12 +171,12 @@
                             <plugin>
                                 <groupId>org.jvnet.jaxb</groupId>
                                 <artifactId>jaxb2-basics</artifactId>
-                                <version>2.0.9</version>
+                                <version>3.0.1</version>
                             </plugin>
                             <plugin>
                                 <groupId>org.jvnet.jaxb</groupId>
                                 <artifactId>jaxb-basics-annotate</artifactId>
-                                <version>2.0.9</version>
+                                <version>3.0.1</version>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.cxf.xjcplugins</groupId>
